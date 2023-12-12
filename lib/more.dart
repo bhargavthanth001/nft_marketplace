@@ -12,6 +12,7 @@ class MorePage extends StatelessWidget {
           "More",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),

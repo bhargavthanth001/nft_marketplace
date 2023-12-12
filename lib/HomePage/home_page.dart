@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
           "NFT MarketPlace",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),

@@ -60,9 +60,9 @@ class PromotionWidget extends StatelessWidget {
                         fontSize: 25,
                       ),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
                     Text(
                       "\$ ${prices[index]}",
                       style: const TextStyle(
@@ -72,7 +72,7 @@ class PromotionWidget extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                   ],
                 ),

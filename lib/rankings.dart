@@ -12,6 +12,7 @@ class RankingPage extends StatelessWidget {
           "Rankings",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),

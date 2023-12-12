@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor: Colors.blue,
               ),
-              centerTitle: true)),
+              backgroundColor: Colors.blue,
+              centerTitle: true),),
       home: const NavBar(),
     );
   }
