@@ -15,6 +15,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool trend = true;
+
+  final List<String> ranks = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,47 +44,7 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ButtonBar(
-              alignment: MainAxisAlignment.start,
-              children: [
-                MaterialButton(
-                  height: 30,
-                  padding: const EdgeInsets.all(10),
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {},
-                  child: const Text("All"),
-                ),
-                MaterialButton(
-                  height: 30,
-                  padding: const EdgeInsets.all(10),
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {},
-                  child: const Text("Art"),
-                ),
-                MaterialButton(
-                  height: 30,
-                  padding: const EdgeInsets.all(10),
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {},
-                  child: const Text("Gaming"),
-                ),
-                MaterialButton(
-                  height: 30,
-                  padding: const EdgeInsets.all(10),
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {},
-                  child: const Text("Music"),
-                ),
-              ],
-            ),
+            const Gap(10),
             PromotionWidget(),
             const Gap(10),
             Align(

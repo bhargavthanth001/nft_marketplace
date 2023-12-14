@@ -27,15 +27,16 @@ class PromotionWidget extends StatelessWidget {
     "2.0",
     "6.54",
   ];
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 250,
       child: Swiper(
         itemCount: 5,
         itemBuilder: (context, index) {
           return Container(
-            margin: const EdgeInsets.only(left: 20, right: 20),
+            margin: const EdgeInsets.only(left: 10, right: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
