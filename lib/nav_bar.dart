@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nft_marketplace/HomePage/home_page.dart';
 import 'package:nft_marketplace/more.dart';
 import 'package:nft_marketplace/profile.dart';
-import 'package:nft_marketplace/rankings.dart';
+import 'package:nft_marketplace/search.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -14,11 +14,12 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   int selectedIndex = 0;
   List<Widget> widgets = [
-    HomePage(),
-    const RankingPage(),
+    const HomePage(),
+    const SearchPage(),
     const ProfilePage(),
     const MorePage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +38,9 @@ class _NavBarState extends State<NavBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.bar_chart,
+              Icons.search,
             ),
-            label: "Rankings",
+            label: "Search",
           ),
           BottomNavigationBarItem(
             icon: Icon(

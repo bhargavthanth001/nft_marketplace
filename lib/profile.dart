@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+// ignore: depend_on_referenced_packages
+import 'package:gap/gap.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -16,8 +18,25 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      body: const Column(
-        children: [],
+      body: Column(
+        children: [
+          const Gap(70),
+          Container(
+            margin: const EdgeInsets.only(left: 15),
+            child: const CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.blue,
+            ),
+          ),
+          const Gap(15),
+          const Text(
+            "UserName",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          )
+        ],
       ),
     );
   }
