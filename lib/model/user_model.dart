@@ -9,48 +9,28 @@ String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
   String? id;
-  String? username;
-  String? fullName;
+  String? name;
   String? email;
-  String? password;
-  bool? isSeller;
-  String? city;
-  String? state;
-  String? country;
+  String? imageUrl;
 
   UserModel({
     this.id,
-    this.username,
-    this.fullName,
+    this.name,
     this.email,
-    this.password,
-    this.isSeller,
-    this.city,
-    this.state,
-    this.country,
+    this.imageUrl,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
-        username: json["username"],
-        fullName: json["fullName"],
+        name: json["name"],
         email: json["email"],
-        password: json["password"],
-        isSeller: json["isSeller"],
-        city: json["city"],
-        state: json["state"],
-        country: json["country"],
+        imageUrl: json["imageUrl"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "username": username,
-        "fullName": fullName,
+        "name": name,
         "email": email,
-        "password": password,
-        "isSeller": isSeller,
-        "city": city,
-        "state": state,
-        "country": country,
+        "imageUrl": imageUrl,
       };
 }

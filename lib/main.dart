@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nft_marketplace/authentication%20pages/intro_page.dart';
+import 'package:nft_marketplace/provider/internet_provider.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
 import 'package:nft_marketplace/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
-import 'package:nft_marketplace/authentication%20pages/registration_page.dart';
-import 'package:nft_marketplace/on_boarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +29,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SignInProvider())
+        ChangeNotifierProvider(create: (context) => SignInProvider()),
+        ChangeNotifierProvider(create: (context) => InternetProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

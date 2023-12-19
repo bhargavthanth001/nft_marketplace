@@ -5,6 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/HomePage/promotions.dart';
 import 'package:nft_marketplace/HomePage/top.dart';
 import 'package:nft_marketplace/HomePage/trending.dart';
+import 'package:nft_marketplace/authentication%20pages/login_page.dart';
+import 'package:nft_marketplace/data%20manager/local_data_manager.dart';
+import 'package:nft_marketplace/provider/sign_in_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,10 +20,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool trend = true;
 
+  Future getData() async {
+    final sp = context.read<SignInProvider>();
+    LocalDataManager.callSession();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           "NFT MarketPlace",
           style: TextStyle(

@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nft_marketplace/HomePage/home_page.dart';
-import 'package:nft_marketplace/on_boarding_screen.dart';
+import 'package:nft_marketplace/authentication%20pages/login_page.dart';
+import 'package:nft_marketplace/data%20manager/local_data_manager.dart';
+import 'package:nft_marketplace/model/user_model.dart';
+import 'package:nft_marketplace/provider/internet_provider.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:gap/gap.dart';
+
+import 'nav_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,17 +19,24 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool? _isSignIn;
+
+  Future<void> getSignInData() async {
+    _isSignIn = await LocalDataManager.checkSignInUser();
+    debugPrint("Sign in called => $_isSignIn");
+  }
+
   @override
   void initState() {
     final sp = context.read<SignInProvider>();
     super.initState();
+    getSignInData();
     Timer(const Duration(seconds: 2), () {
-      debugPrint(sp.isSignIn.toString());
-      sp.isSignIn
+      _isSignIn!
           ? Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const HomePage()))
-          : Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const OnBoardingScreen()));
+              .push(MaterialPageRoute(builder: (context) => const NavBar()))
+          : Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const LoginPageWidget()));
     });
   }
 
