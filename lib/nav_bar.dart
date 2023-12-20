@@ -66,7 +66,6 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
             selectedIndex = value;
           });
         },
-
         // bottomNavigationBar: BottomNavigationBar(
         //   selectedItemColor: Colors.blue,
         //   unselectedItemColor: Colors.grey,

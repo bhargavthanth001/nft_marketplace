@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
+import 'package:nft_marketplace/data%20manager/session_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:gap/gap.dart';
 import 'authentication pages/login_page.dart';
 import 'provider/sign_in_provider.dart';
 
-class MorePage extends StatelessWidget {
+class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
 
+  @override
+  State<MorePage> createState() => _MorePageState();
+}
+
+class _MorePageState extends State<MorePage> {
   @override
   Widget build(BuildContext context) {
     final sp = context.read<SignInProvider>();
@@ -26,9 +32,9 @@ class MorePage extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              sp.userSignOut();
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const LoginPageWidget()));
+              handelSignOut().then((value) => Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(
+                      builder: (context) => const LoginPageWidget())));
             },
             child: ListTile(
               title: Text(
@@ -45,7 +51,9 @@ class MorePage extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              // DataBase.becomeSeller();
+            },
             child: ListTile(
               title: Text(
                 "Become a seller",
@@ -59,9 +67,14 @@ class MorePage extends StatelessWidget {
                 color: Colors.green.shade800,
               ),
             ),
-          )
+          ),
         ],
       ),
     );
+  }
+
+  Future<void> handelSignOut() async {
+    final sp = context.read<SignInProvider>();
+    sp.signOutGoogle().then((value) => SessionManager.logOutSession());
   }
 }

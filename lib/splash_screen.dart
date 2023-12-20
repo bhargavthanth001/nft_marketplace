@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nft_marketplace/HomePage/home_page.dart';
 import 'package:nft_marketplace/authentication%20pages/login_page.dart';
-import 'package:nft_marketplace/data%20manager/local_data_manager.dart';
+import 'package:nft_marketplace/data%20manager/database_handler.dart';
+import 'package:nft_marketplace/data%20manager/session_manager.dart';
 import 'package:nft_marketplace/model/user_model.dart';
 import 'package:nft_marketplace/provider/internet_provider.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
@@ -21,16 +22,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   bool? _isSignIn;
 
-  Future<void> getSignInData() async {
-    _isSignIn = await LocalDataManager.checkSignInUser();
-    debugPrint("Sign in called => $_isSignIn");
+  Future<void> getSignInInfo() async {
+    _isSignIn = await SessionManager.getSession();
+    debugPrint("CURRENT USER IS => $_isSignIn");
   }
 
   @override
   void initState() {
-    final sp = context.read<SignInProvider>();
     super.initState();
-    getSignInData();
+    getSignInInfo();
+    debugPrint("CURRENT USER => ${DataBase.auth.currentUser}");
     Timer(const Duration(seconds: 2), () {
       _isSignIn!
           ? Navigator.of(context)

@@ -12,19 +12,17 @@ class UserModel {
   String? name;
   String? email;
   String? imageUrl;
+  bool isSeller;
 
-  UserModel({
-    this.id,
-    this.name,
-    this.email,
-    this.imageUrl,
-  });
+  UserModel(
+      {this.id, this.name, this.email, this.imageUrl, required this.isSeller});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
         name: json["name"],
         email: json["email"],
         imageUrl: json["imageUrl"],
+        isSeller: json["isSeller"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -32,5 +30,6 @@ class UserModel {
         "name": name,
         "email": email,
         "imageUrl": imageUrl,
+        "isSeller": isSeller,
       };
 }
