@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nft_marketplace/authentication%20pages/become_seller_page.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/data%20manager/session_manager.dart';
+import 'package:nft_marketplace/wallet/wallet_page.dart';
 import 'package:provider/provider.dart';
 import 'package:gap/gap.dart';
 import 'authentication pages/login_page.dart';
@@ -52,7 +54,10 @@ class _MorePageState extends State<MorePage> {
           ),
           GestureDetector(
             onTap: () {
-              // DataBase.becomeSeller();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BecomeSellerPageWidget()));
             },
             child: ListTile(
               title: Text(
@@ -65,6 +70,27 @@ class _MorePageState extends State<MorePage> {
               leading: Icon(
                 Icons.person,
                 color: Colors.green.shade800,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const WalletPageWidget()));
+            },
+            child: const ListTile(
+              title: Text(
+                "Wallet",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              leading: Icon(
+                Icons.wallet,
+                color: Colors.black,
               ),
             ),
           ),

@@ -64,6 +64,11 @@ dev_dependencies:
   country_code_picker: ^3.0.0
   cached_network_image: ^3.3.0
   motion_tab_bar_v2: ^0.3.0
+  uuid: ^4.2.2
+  intl_phone_field: ^3.2.0
+  flutter_typeahead: ^5.0.1
+  datepicker_cupertino: ^0.0.4
+  url_launcher: ^6.2.2
 
 
 # For information on the generic Dart part of this file, see the

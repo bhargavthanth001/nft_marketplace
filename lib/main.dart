@@ -1,12 +1,11 @@
+// ignore: depend_on_referenced_packages
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nft_marketplace/provider/internet_provider.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
 import 'package:nft_marketplace/splash_screen.dart';
 import 'package:provider/provider.dart';
-
-// ignore: depend_on_referenced_packages
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,18 +32,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => InternetProvider()),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.blue,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+              ),
+              backgroundColor: Colors.blue,
+              centerTitle: true,
             ),
-            backgroundColor: Colors.blue,
-            centerTitle: true,
           ),
-        ),
-        home: const SplashScreen(),
-      ),
+          home: const SplashScreen()),
     );
   }
 }

@@ -1,21 +1,18 @@
+// ignore: depend_on_referenced_packages
+import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// ignore: depend_on_referenced_packages
+import 'package:gap/gap.dart';
 import 'package:nft_marketplace/data%20manager/session_manager.dart';
 import 'package:nft_marketplace/nav_bar.dart';
 import 'package:nft_marketplace/provider/internet_provider.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
-
+// ignore: depend_on_referenced_packages
+import 'package:provider/provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-// ignore: depend_on_referenced_packages
-import 'package:awesome_icons/awesome_icons.dart';
-
-// ignore: depend_on_referenced_packages
-import 'package:gap/gap.dart';
-
-// ignore: depend_on_referenced_packages
-import 'package:provider/provider.dart';
 import '../snack_bar.dart';
 
 class LoginPageWidget extends StatefulWidget {
@@ -86,12 +83,45 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     if (ip.isInternet == false) {
       // ignore: use_build_context_synchronously
       openSnackbar(context, "Check your internet", Colors.red);
+      googleController.reset();
     } else {
       sp.signInWithGoogle().then((value) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const NavBar()));
-        SessionManager.setSession();
+        SessionManager.setSession().then((value) {
+          googleController.success();
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const NavBar()));
+        });
       });
     }
+  }
+}
+
+class BehindWidget extends StatelessWidget {
+  const BehindWidget({super.key});
+
+  container(Color color) {
+    return Container(
+      width: 72,
+      color: color,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 5,
+      children: <Widget>[
+        container(Colors.red),
+        container(Colors.green),
+        container(Colors.yellow),
+        container(Colors.purpleAccent),
+        container(Colors.greenAccent),
+        container(Colors.cyan),
+        container(Colors.blue),
+        container(Colors.red),
+        container(Colors.red),
+        container(Colors.red),
+      ],
+    );
   }
 }
