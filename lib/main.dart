@@ -1,9 +1,10 @@
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:nft_marketplace/provider/internet_provider.dart';
-import 'package:nft_marketplace/provider/sign_in_provider.dart';
+import 'package:nft_marketplace/buyer_module/provider/internet_provider.dart';
+import 'package:nft_marketplace/buyer_module/provider/more_page_provider.dart';
+import 'package:nft_marketplace/buyer_module/provider/sign_in_provider.dart';
+import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -30,16 +31,17 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => SignInProvider()),
         ChangeNotifierProvider(create: (context) => InternetProvider()),
+        ChangeNotifierProvider(create: (context) => MorePageProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: const AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-              ),
               backgroundColor: Colors.blue,
               centerTitle: true,
+            ),
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              backgroundColor: ColorsData.selectiveYellow,
             ),
           ),
           home: const SplashScreen()),

@@ -1,12 +1,7 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:nft_marketplace/data%20manager/session_manager.dart';
-import 'package:nft_marketplace/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:uuid/uuid.dart';
+
+import '../model/user_model.dart';
 
 class DataBase {
   static final auth = FirebaseAuth.instance;
@@ -19,6 +14,7 @@ class DataBase {
   }
 
   static Future<void> createUser() async {
+    final date = DateTime.now().toString();
     final userModel = UserModel(
       id: user.uid,
       name: user.displayName.toString(),
@@ -26,6 +22,7 @@ class DataBase {
       imageUrl: user.photoURL,
       isSeller: false,
       sellerId: null,
+      createdAt: date,
     );
 
     return await firestore

@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:nft_marketplace/data%20manager/database_handler.dart';
-import 'package:nft_marketplace/model/user_model.dart';
-import 'package:nft_marketplace/nav_bar.dart';
+import 'package:nft_marketplace/buyer_module/buyer_module.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import '../data manager/database_handler.dart';
+import '../model/user_model.dart';
 
 class BecomeSellerPageWidget extends StatefulWidget {
   const BecomeSellerPageWidget({super.key});
@@ -163,17 +164,20 @@ class _BecomeSellerPageWidgetState extends State<BecomeSellerPageWidget> {
                           phNo = "+$countryCode ${phoneController.text}";
 
                           final user = UserModel(
-                              id: result.id,
-                              name: result.name,
-                              email: result.email,
-                              imageUrl: result.imageUrl,
-                              isSeller: true,
-                              sellerId: sellerId,
-                              dob: dob,
-                              phNo: phNo,
-                              bank: bankController.text,
-                              accountNo: accountController.text,
-                              ifsc: ifscController.text);
+                            id: result.id,
+                            name: result.name,
+                            email: result.email,
+                            imageUrl: result.imageUrl,
+                            isSeller: true,
+                            sellerId: sellerId,
+                            dob: dob,
+                            phNo: phNo,
+                            bank: bankController.text,
+                            accountNo: accountController.text,
+                            ifsc: ifscController.text,
+                            createdAt: result.createdAt,
+                            updatedAt: DateTime.now().toString(),
+                          );
                           verification(user);
                         },
                         child: const Text(
@@ -256,7 +260,7 @@ class _BecomeSellerPageWidgetState extends State<BecomeSellerPageWidget> {
                             (value) => Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const NavBar()),
+                                    builder: (context) => const BuyerModule()),
                                 (route) => false),
                           );
                         },

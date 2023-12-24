@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:nft_marketplace/HomePage/home_page.dart';
-import 'package:nft_marketplace/more.dart';
-import 'package:nft_marketplace/profile.dart';
-import 'package:nft_marketplace/search.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
-import 'package:motion_tab_bar_v2/motion-badge.widget.dart';
-import 'package:motion_tab_bar_v2/motion-tab-item.dart';
+import 'package:nft_marketplace/buyer_module/create_page.dart';
+import 'package:nft_marketplace/buyer_module/profile.dart';
+import 'package:nft_marketplace/buyer_module/search.dart';
+import 'package:nft_marketplace/colors.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
+import 'HomePage/home_page.dart';
+import 'more.dart';
+
+class BuyerModule extends StatefulWidget {
+  const BuyerModule({Key? key}) : super(key: key);
 
   @override
-  State<NavBar> createState() => _NavBarState();
+  State<BuyerModule> createState() => _BuyerModuleState();
 }
 
-class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
+class _BuyerModuleState extends State<BuyerModule>
+    with TickerProviderStateMixin {
   int selectedIndex = 0;
   List<Widget> widgets = [
     const HomePage(),
     const SearchPage(),
+    const CreatePageWidget(),
     const ProfilePage(),
     const MorePage(),
   ];
@@ -32,7 +35,7 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
 
     _motionTabBarController = MotionTabBarController(
       initialIndex: 1,
-      length: 4,
+      length: 5,
       vsync: this,
     );
   }
@@ -54,13 +57,22 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
         initialSelectedTab: "Home",
         useSafeArea: true,
         // default: true, apply safe area wrapper
-        labels: const ["Home", "Search", "Profile", "More"],
-        icons: const [Icons.home, Icons.search, Icons.person, Icons.settings],
-        tabIconColor: Colors.blue[600],
-        tabIconSize: 28.0,
-        tabIconSelectedSize: 26.0,
-        tabSelectedColor: Colors.blue,
-        tabIconSelectedColor: Colors.white,
+        labels: const ["Home", "Search", "Create", "Profile", "More"],
+        textStyle: const TextStyle(fontWeight: FontWeight.bold),
+        icons: const [
+          Icons.home,
+          Icons.search,
+          Icons.add,
+          Icons.person,
+          Icons.settings
+        ],
+        // tabIconColor: Colors.blue[600],
+        tabIconSize: 25,
+        tabIconSelectedSize: 20,
+        tabSize: 35,
+        tabBarHeight: 50,
+        tabSelectedColor: ColorsData.selectiveYellow,
+        tabIconSelectedColor: ColorsData.black,
         onTabItemSelected: (int value) {
           setState(() {
             selectedIndex = value;

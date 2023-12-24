@@ -69,6 +69,7 @@ dev_dependencies:
   flutter_typeahead: ^5.0.1
   datepicker_cupertino: ^0.0.4
   url_launcher: ^6.2.2
+  dotted_border: ^2.1.0
 
 
 # For information on the generic Dart part of this file, see the

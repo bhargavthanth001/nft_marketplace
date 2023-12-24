@@ -1,16 +1,11 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:nft_marketplace/HomePage/home_page.dart';
-import 'package:nft_marketplace/authentication%20pages/login_page.dart';
-import 'package:nft_marketplace/data%20manager/database_handler.dart';
-import 'package:nft_marketplace/data%20manager/session_manager.dart';
-import 'package:nft_marketplace/model/user_model.dart';
-import 'package:nft_marketplace/provider/internet_provider.dart';
-import 'package:nft_marketplace/provider/sign_in_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:gap/gap.dart';
 
-import 'nav_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:nft_marketplace/buyer_module/authentication%20pages/login_page.dart';
+import 'package:nft_marketplace/buyer_module/buyer_module.dart';
+import 'package:nft_marketplace/buyer_module/data%20manager/database_handler.dart';
+import 'package:nft_marketplace/buyer_module/data%20manager/session_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,8 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
     debugPrint("CURRENT USER => ${DataBase.auth.currentUser}");
     Timer(const Duration(seconds: 2), () {
       _isSignIn!
-          ? Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const NavBar()))
+          ? Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const BuyerModule()))
           : Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const LoginPageWidget()));
     });

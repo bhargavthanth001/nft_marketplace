@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 
 class SearchPage extends StatelessWidget {
@@ -66,27 +65,24 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Search",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+        appBar: AppBar(
+          title: const Text(
+            "Search",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextWidget("Top Collection"),
-            ContainerWidget(),
-            TextWidget("Notable Collection"),
-          ],
-        ),
-      ),
-    );
+        body: SafeArea(
+          child: ListView.builder(itemBuilder: (context, index) {
+            return Container(
+              margin: const EdgeInsets.all(5),
+              height: 100,
+              width: 360,
+              color: Colors.red,
+            );
+          }),
+        ));
   }
 }

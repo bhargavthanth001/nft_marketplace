@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/data%20manager/database_handler.dart';
-import 'package:nft_marketplace/model/user_model.dart';
+
+import 'data manager/database_handler.dart';
+import 'model/user_model.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -67,6 +67,10 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         const Gap(20),
+                        resultData.isSeller!
+                            ? ElevatedButton(
+                                onPressed: () {}, child: const Text("Create"))
+                            : const SizedBox(),
                       ],
                     );
                   }

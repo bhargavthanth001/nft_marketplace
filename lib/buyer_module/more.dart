@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:nft_marketplace/authentication%20pages/become_seller_page.dart';
-import 'package:nft_marketplace/data%20manager/database_handler.dart';
-import 'package:nft_marketplace/data%20manager/session_manager.dart';
+import 'package:nft_marketplace/buyer_module/provider/more_page_provider.dart';
+import 'package:nft_marketplace/buyer_module/provider/sign_in_provider.dart';
 import 'package:nft_marketplace/wallet/wallet_page.dart';
+// ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-import 'package:gap/gap.dart';
+
+import 'authentication pages/become_seller_page.dart';
 import 'authentication pages/login_page.dart';
-import 'provider/sign_in_provider.dart';
+import 'data manager/session_manager.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -17,9 +17,20 @@ class MorePage extends StatefulWidget {
 }
 
 class _MorePageState extends State<MorePage> {
+  Future<void> getProvider() async {
+    final mp = context.read<MorePageProvider>();
+    await mp.getData();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getProvider();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final sp = context.read<SignInProvider>();
+    final mp = context.read<MorePageProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -34,9 +45,13 @@ class _MorePageState extends State<MorePage> {
         children: [
           GestureDetector(
             onTap: () {
-              handelSignOut().then((value) => Navigator.of(context)
-                  .pushReplacement(MaterialPageRoute(
-                      builder: (context) => const LoginPageWidget())));
+              handelSignOut().then(
+                (value) => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPageWidget(),
+                  ),
+                ),
+              );
             },
             child: ListTile(
               title: Text(
@@ -52,27 +67,31 @@ class _MorePageState extends State<MorePage> {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const BecomeSellerPageWidget()));
-            },
-            child: ListTile(
-              title: Text(
-                "Become a seller",
-                style: TextStyle(
-                  color: Colors.green.shade800,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              leading: Icon(
-                Icons.person,
-                color: Colors.green.shade800,
-              ),
-            ),
-          ),
+          mp.userModel.isSeller! == false
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BecomeSellerPageWidget(),
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(
+                      "Become a seller",
+                      style: TextStyle(
+                        color: Colors.green.shade800,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.person,
+                      color: Colors.green.shade800,
+                    ),
+                  ),
+                )
+              : const SizedBox(),
           GestureDetector(
             onTap: () {
               Navigator.push(

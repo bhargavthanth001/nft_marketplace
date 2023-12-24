@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:nft_marketplace/data%20manager/session_manager.dart';
+
+import '../data manager/database_handler.dart';
 
 class SignInProvider extends ChangeNotifier {
   Future<void> signInWithGoogle() async {
@@ -16,8 +16,9 @@ class SignInProvider extends ChangeNotifier {
 
     final UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-
-    DataBase.createUser();
+    if (await DataBase.userExist() == false) {
+      DataBase.createUser();
+    }
     notifyListeners();
   }
 
