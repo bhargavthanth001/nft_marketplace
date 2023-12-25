@@ -106,7 +106,7 @@ class _UploadNftPageWidgetState extends State<UploadNftPageWidget> {
                                       ),
                                     ],
                                   )
-                                : Padding(
+                                : const Padding(
                                     padding: EdgeInsets.all(5),
                                     // child: Image.file(),
                                   )),
