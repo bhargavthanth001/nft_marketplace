@@ -2,71 +2,98 @@ import 'package:awesome_icons/awesome_icons.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:nft_marketplace/buyer_module/upload_nft/upload_nfts.dart';
 import 'package:nft_marketplace/colors.dart';
 
-class CreatePageWidget extends StatelessWidget {
+class CreatePageWidget extends StatefulWidget {
   const CreatePageWidget({super.key});
 
   @override
+  State<CreatePageWidget> createState() => _CreatePageWidgetState();
+}
+
+class _CreatePageWidgetState extends State<CreatePageWidget> {
+  _widget(IconData icon, String text) {
+    return SizedBox(
+      height: 100,
+      width: 100,
+      child: DottedBorder(
+        color: ColorsData.selectiveYellow,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 25,
+              ),
+              const Gap(8),
+              Text(
+                text,
+                style: const TextStyle(fontSize: 18),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // final provider = context.read<PickerProvider>();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          "Create your NFT",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Upload your own ",
+              style: TextStyle(),
+            ),
+            Gap(1),
+            Text(
+              "NFTs",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            )
+          ],
         ),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              "Create your NFTs",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const UploadNftPageWidget(type: "video")));
+              },
+              child: _widget(FontAwesomeIcons.video, "Video"),
             ),
-            SizedBox(
-              height: 200,
-              width: 200,
-              child: DottedBorder(
-                strokeWidth: 1.5,
-                color: ColorsData.selectiveYellow,
-                child: const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(FontAwesomeIcons.image),
-                      Gap(5),
-                      Text("Create Single"),
-                    ],
-                  ),
-                ),
-              ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const UploadNftPageWidget(type: "image")));
+              },
+              child: _widget(FontAwesomeIcons.image, "Image"),
             ),
-            SizedBox(
-              height: 200,
-              width: 200,
-              child: DottedBorder(
-                strokeWidth: 1.5,
-                color: ColorsData.selectiveYellow,
-                child: const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(FontAwesomeIcons.images),
-                      Gap(5),
-                      Text("Create Multiple"),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const UploadNftPageWidget(type: "audio")));
+              },
+              child: _widget(FontAwesomeIcons.music, "Audio"),
+            )
           ],
         ),
       ),

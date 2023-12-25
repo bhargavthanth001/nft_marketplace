@@ -5,7 +5,6 @@ import 'package:nft_marketplace/wallet/wallet_page.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
-import 'authentication pages/become_seller_page.dart';
 import 'authentication pages/login_page.dart';
 import 'data manager/session_manager.dart';
 
@@ -35,10 +34,6 @@ class _MorePageState extends State<MorePage> {
       appBar: AppBar(
         title: const Text(
           "More",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
         ),
       ),
       body: Column(
@@ -67,31 +62,6 @@ class _MorePageState extends State<MorePage> {
               ),
             ),
           ),
-          mp.userModel.isSeller! == false
-              ? GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BecomeSellerPageWidget(),
-                      ),
-                    );
-                  },
-                  child: ListTile(
-                    title: Text(
-                      "Become a seller",
-                      style: TextStyle(
-                        color: Colors.green.shade800,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    leading: Icon(
-                      Icons.person,
-                      color: Colors.green.shade800,
-                    ),
-                  ),
-                )
-              : const SizedBox(),
           GestureDetector(
             onTap: () {
               Navigator.push(

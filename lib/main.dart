@@ -37,12 +37,14 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.blue,
-              centerTitle: true,
-            ),
-            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-              backgroundColor: ColorsData.selectiveYellow,
-            ),
+                backgroundColor: ColorsData.selectiveYellow,
+
+                centerTitle: true,
+                titleTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                )),
           ),
           home: const SplashScreen()),
     );

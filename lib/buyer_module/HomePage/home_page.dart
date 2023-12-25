@@ -1,6 +1,5 @@
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/buyer_module/HomePage/promotions.dart';
 import 'package:nft_marketplace/buyer_module/HomePage/top.dart';
@@ -35,14 +34,10 @@ class _HomePageState extends State<HomePage> {
         title: const Text(
           "NFT MarketPlace",
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.blue,
-        ),
       ),
       body: SafeArea(
         child: Padding(

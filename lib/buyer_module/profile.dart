@@ -14,10 +14,6 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Profile",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
         ),
       ),
       body: Center(
@@ -66,11 +62,6 @@ class ProfilePage extends StatelessWidget {
                             fontSize: 10,
                           ),
                         ),
-                        const Gap(20),
-                        resultData.isSeller!
-                            ? ElevatedButton(
-                                onPressed: () {}, child: const Text("Create"))
-                            : const SizedBox(),
                       ],
                     );
                   }

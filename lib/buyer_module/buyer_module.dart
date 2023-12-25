@@ -78,44 +78,6 @@ class _BuyerModuleState extends State<BuyerModule>
             selectedIndex = value;
           });
         },
-        // bottomNavigationBar: BottomNavigationBar(
-        //   selectedItemColor: Colors.blue,
-        //   unselectedItemColor: Colors.grey,
-        //   showUnselectedLabels: true,
-        //   selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        //   items: const <BottomNavigationBarItem>[
-        //     BottomNavigationBarItem(
-        //       icon: Icon(
-        //         Icons.home,
-        //       ),
-        //       label: "Home",
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(
-        //         Icons.search,
-        //       ),
-        //       label: "Search",
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(
-        //         Icons.person_outline_sharp,
-        //       ),
-        //       label: "Profile",
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(
-        //         Icons.more_horiz_outlined,
-        //       ),
-        //       label: "More",
-        //     ),
-        //   ],
-        //   onTap: (int index) {
-        //     setState(() {
-        //       selectedIndex = index;
-        //     });
-        //   },
-        //   currentIndex: selectedIndex,
-        // ),
       ),
     );
   }

@@ -20,9 +20,8 @@ class DataBase {
       name: user.displayName.toString(),
       email: user.email.toString(),
       imageUrl: user.photoURL,
-      isSeller: false,
-      sellerId: null,
       createdAt: date,
+      updatedAt: date,
     );
 
     return await firestore

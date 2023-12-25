@@ -68,10 +68,6 @@ class SearchPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text(
             "Search",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
           ),
         ),
         body: SafeArea(
