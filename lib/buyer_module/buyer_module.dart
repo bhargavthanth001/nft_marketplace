@@ -43,7 +43,6 @@ class _BuyerModuleState extends State<BuyerModule>
   @override
   void dispose() {
     super.dispose();
-
     _motionTabBarController!.dispose();
   }
 

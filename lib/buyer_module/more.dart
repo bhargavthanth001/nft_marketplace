@@ -17,7 +17,7 @@ class MorePage extends StatefulWidget {
 
 class _MorePageState extends State<MorePage> {
   Future<void> getProvider() async {
-    final mp = context.read<MorePageProvider>();
+    final mp = Provider.of<MorePageProvider>(context);
     await mp.getData();
   }
 

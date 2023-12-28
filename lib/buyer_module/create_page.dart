@@ -2,7 +2,7 @@ import 'package:awesome_icons/awesome_icons.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/buyer_module/upload_nft/upload_nfts.dart';
+import 'package:nft_marketplace/buyer_module/upload_nft/add_collection.dart';
 import 'package:nft_marketplace/colors.dart';
 
 class CreatePageWidget extends StatefulWidget {
@@ -67,33 +67,14 @@ class _CreatePageWidgetState extends State<CreatePageWidget> {
             GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const UploadNftPageWidget(type: "video")));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddCollectionPageWidget(),
+                  ),
+                );
               },
-              child: _widget(FontAwesomeIcons.video, "Video"),
+              child: _widget(FontAwesomeIcons.plus, "Collection"),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const UploadNftPageWidget(type: "image")));
-              },
-              child: _widget(FontAwesomeIcons.image, "Image"),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const UploadNftPageWidget(type: "audio")));
-              },
-              child: _widget(FontAwesomeIcons.music, "Audio"),
-            )
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../model/user_model.dart';
 
@@ -41,26 +42,19 @@ class DataBase {
     }
   }
 
-  static Future<void> becomeSeller(UserModel userModel) async {
-    firestore.collection("users").doc(userModel.id).update(userModel.toJson());
-  }
-
-  static void verifyNumber(String mobile) async {
-    await auth.verifyPhoneNumber(
-      phoneNumber: mobile,
-      verificationCompleted: (PhoneAuthCredential credential) {},
-      verificationFailed: (FirebaseAuthException e) {},
-      codeSent: (String verificationId, int? resendToken) {},
-      timeout: const Duration(seconds: 60),
-      codeAutoRetrievalTimeout: (String verificationId) {},
+  static Future<void> createCollection(String collection) async {
+    debugPrint("id => ${user.uid}");
+    final result = firestore
+        .collection("users")
+        .doc(user.uid)
+        .collection(collection)
+        .doc();
+    final id = result.id;
+    result.set(
+      {
+        "id": id,
+        "name": collection,
+      },
     );
-  }
-
-  static onVerify(
-      String verificationId, String smsCode, UserModel userModel) async {
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId, smsCode: smsCode);
-    // Sign the user in (or link) with the credential
-    await auth.signInWithCredential(credential);
   }
 }

@@ -8,6 +8,8 @@ import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/splash_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'buyer_module/provider/pick_provider.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -32,13 +34,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SignInProvider()),
         ChangeNotifierProvider(create: (context) => InternetProvider()),
         ChangeNotifierProvider(create: (context) => MorePageProvider()),
+        ChangeNotifierProvider(create: (context) => PickerProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: const AppBarTheme(
                 backgroundColor: ColorsData.selectiveYellow,
-
                 centerTitle: true,
                 titleTextStyle: TextStyle(
                   color: Colors.black,
