@@ -8,7 +8,7 @@ import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/splash_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'buyer_module/provider/pick_provider.dart';
+import 'buyer_module/provider/collection_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +34,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SignInProvider()),
         ChangeNotifierProvider(create: (context) => InternetProvider()),
         ChangeNotifierProvider(create: (context) => MorePageProvider()),
-        ChangeNotifierProvider(create: (context) => PickerProvider()),
+        ChangeNotifierProvider(create: (context) => CollectionProvider()),
+        ChangeNotifierProvider(create: (context) => ChangeNotifier()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

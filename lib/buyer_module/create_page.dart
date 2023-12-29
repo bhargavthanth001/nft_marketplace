@@ -1,8 +1,9 @@
-import 'package:awesome_icons/awesome_icons.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/buyer_module/upload_nft/add_collection.dart';
+import 'package:nft_marketplace/buyer_module/tabs/add_collection.dart';
+import 'package:nft_marketplace/buyer_module/tabs/collaction_page_tab.dart';
+import 'package:nft_marketplace/buyer_module/tabs/single_page_tab.dart';
 import 'package:nft_marketplace/colors.dart';
 
 class CreatePageWidget extends StatefulWidget {
@@ -12,36 +13,29 @@ class CreatePageWidget extends StatefulWidget {
   State<CreatePageWidget> createState() => _CreatePageWidgetState();
 }
 
-class _CreatePageWidgetState extends State<CreatePageWidget> {
-  _widget(IconData icon, String text) {
-    return SizedBox(
-      height: 100,
-      width: 100,
-      child: DottedBorder(
-        color: ColorsData.selectiveYellow,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 25,
-              ),
-              const Gap(8),
-              Text(
-                text,
-                style: const TextStyle(fontSize: 18),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+class _CreatePageWidgetState extends State<CreatePageWidget>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+  bool isCollection = true;
+  List<Widget> myTabs = [
+    const CollectionTab(),
+    const SingleNftTab(),
+  ];
+
+  @override
+  void initState() {
+    tabController = TabController(vsync: this, length: myTabs.length);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final provider = context.read<PickerProvider>();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -49,34 +43,47 @@ class _CreatePageWidgetState extends State<CreatePageWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Upload your own ",
-              style: TextStyle(),
-            ),
-            Gap(1),
-            Text(
               "NFTs",
               style: TextStyle(fontWeight: FontWeight.bold),
-            )
+            ),
+            Gap(3),
+            Text(
+              "collections",
+            ),
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AddCollectionPageWidget(),
-                  ),
-                );
-              },
-              child: _widget(FontAwesomeIcons.plus, "Collection"),
-            ),
-          ],
+      body: ContainedTabBarView(
+        tabBarProperties: const TabBarProperties(
+          height: 40,
+          indicatorColor: ColorsData.black,
+          labelColor: ColorsData.black,
+          indicatorSize: TabBarIndicatorSize.tab,
+          padding: EdgeInsets.zero,
         ),
+        tabs: const [
+          Text('Collections'),
+          Text('Single NFTs'),
+        ],
+        views: myTabs,
+        onChange: (index) => {
+          isCollection = !isCollection,
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (isCollection) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AddCollectionPageWidget(),
+              ),
+            );
+          } else {
+            debugPrint("single NFTs");
+          }
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
