@@ -15,6 +15,7 @@ class ProfilePage extends StatelessWidget {
         title: const Text(
           "Profile",
         ),
+        forceMaterialTransparency: true,
       ),
       body: Center(
         child: FutureBuilder<UserModel>(

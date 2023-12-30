@@ -35,6 +35,7 @@ class _MorePageState extends State<MorePage> {
         title: const Text(
           "More",
         ),
+        forceMaterialTransparency: true,
       ),
       body: Column(
         children: [

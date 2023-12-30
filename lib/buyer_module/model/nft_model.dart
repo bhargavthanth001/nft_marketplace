@@ -9,9 +9,8 @@ class NftModel {
   String? title;
   String? description;
   String? rate;
-  String? collectionId;
-  String? collectionName;
   String? createdBy;
+  String? currentOwner;
   List<String>? owners;
   String? createdAt;
   String? updatedAt;
@@ -21,9 +20,8 @@ class NftModel {
     this.title,
     this.description,
     this.rate,
-    this.collectionId,
-    this.collectionName,
     this.createdBy,
+    this.currentOwner,
     this.owners,
     this.createdAt,
     this.updatedAt,
@@ -34,9 +32,8 @@ class NftModel {
         title: json["title"],
         description: json["description"],
         rate: json["rate"],
-        collectionId: json["collectionId"],
-        collectionName: json["collectionName"],
         createdBy: json["createdBy"],
+        currentOwner: json["currentOwner"],
         owners: List<String>.from(json["owners"].map((x) => x)),
         createdAt: json["createdAt"],
         updatedAt: json["updatedAt"],
@@ -47,9 +44,8 @@ class NftModel {
         "title": title,
         "description": description,
         "rate": rate,
-        "collectionId": collectionId,
-        "collectionName": collectionName,
         "createdBy": createdBy,
+        "currentOwner": currentOwner,
         "owners": List<String>.from(owners!.map((x) => x)),
         "createdAt": createdAt,
         "updatedAt": updatedAt,

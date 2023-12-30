@@ -2,6 +2,7 @@ import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/buyer_module/tabs/add_collection.dart';
+import 'package:nft_marketplace/buyer_module/tabs/add_nft_page.dart';
 import 'package:nft_marketplace/buyer_module/tabs/collaction_page_tab.dart';
 import 'package:nft_marketplace/buyer_module/tabs/single_page_tab.dart';
 import 'package:nft_marketplace/colors.dart';
@@ -52,6 +53,7 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
             ),
           ],
         ),
+        forceMaterialTransparency: true,
       ),
       body: ContainedTabBarView(
         tabBarProperties: const TabBarProperties(
@@ -80,7 +82,10 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
               ),
             );
           } else {
-            debugPrint("single NFTs");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddNftPageWidget()));
           }
         },
         child: const Icon(Icons.add),

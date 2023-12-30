@@ -32,7 +32,7 @@ class SingleNftTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-          stream: DataBase.getCollections(),
+          stream: DataBase.getNft(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final result = snapshot.data;

@@ -85,4 +85,14 @@ class DataBase {
     return firestore.collection("collections").snapshots().map((event) =>
         event.docs.map((doc) => CollectionModel.fromJson(doc.data())).toList());
   }
+
+  static Stream<List<CollectionModel>> getNft() {
+    return firestore
+        .collection("single_nft")
+        .where("createdBy", isEqualTo: user.uid)
+        .snapshots()
+        .map((event) => event.docs
+            .map((doc) => CollectionModel.fromJson(doc.data()))
+            .toList());
+  }
 }

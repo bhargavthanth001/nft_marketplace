@@ -25,11 +25,18 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
     final provider = Provider.of<CollectionProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+            provider.removeImage();
+          },
+          icon: const Icon(Icons.arrow_back_sharp),
+        ),
         title: const Text(
           "Make Collection",
           style: TextStyle(),
         ),
+        forceMaterialTransparency: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),

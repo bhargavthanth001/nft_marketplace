@@ -24,11 +24,11 @@ class _AddNftPageWidgetState extends State<AddNftPageWidget> {
     final provider = Provider.of<CollectionProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text(
-          "Make Collection",
+          "Add NFT",
           style: TextStyle(),
         ),
+        forceMaterialTransparency: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),

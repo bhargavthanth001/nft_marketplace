@@ -69,6 +69,7 @@ class SearchPage extends StatelessWidget {
           title: const Text(
             "Search",
           ),
+          forceMaterialTransparency: true,
         ),
         body: SafeArea(
           child: ListView.builder(itemBuilder: (context, index) {
