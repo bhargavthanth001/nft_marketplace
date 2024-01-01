@@ -7,7 +7,7 @@ import 'package:nft_marketplace/buyer_module/HomePage/trending.dart';
 import 'package:nft_marketplace/colors.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                trend ? TrendingWidget() : TopWidget(),
+                trend ? const TrendingWidget() : const TopWidget(),
               ],
             ),
           ),

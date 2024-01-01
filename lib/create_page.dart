@@ -1,11 +1,11 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/buyer_module/tabs/add_collection.dart';
-import 'package:nft_marketplace/buyer_module/tabs/add_nft_page.dart';
-import 'package:nft_marketplace/buyer_module/tabs/collaction_page_tab.dart';
-import 'package:nft_marketplace/buyer_module/tabs/single_page_tab.dart';
 import 'package:nft_marketplace/colors.dart';
+
+import '../Createpage/collection_pages/add_collection.dart';
+import '../Createpage/tabs/collaction_page_tab.dart';
+import '../Createpage/tabs/single_page_tab.dart';
 
 class CreatePageWidget extends StatefulWidget {
   const CreatePageWidget({super.key});
@@ -78,14 +78,17 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const AddCollectionPageWidget(),
+                builder: (context) => const AddCollectionPageWidget(
+                  isSingleNft: false,
+                ),
               ),
             );
           } else {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const AddNftPageWidget()));
+                    builder: (context) =>
+                        const AddCollectionPageWidget(isSingleNft: true)));
           }
         },
         child: const Icon(Icons.add),

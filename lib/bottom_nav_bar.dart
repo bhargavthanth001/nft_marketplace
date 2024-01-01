@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
-import 'package:nft_marketplace/buyer_module/create_page.dart';
-import 'package:nft_marketplace/buyer_module/profile.dart';
-import 'package:nft_marketplace/buyer_module/search.dart';
 import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/create_page.dart';
+import 'package:nft_marketplace/profile.dart';
+import 'package:nft_marketplace/search.dart';
 
 import 'HomePage/home_page.dart';
 import 'more.dart';
 
-class BuyerModule extends StatefulWidget {
-  const BuyerModule({Key? key}) : super(key: key);
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({Key? key}) : super(key: key);
 
   @override
-  State<BuyerModule> createState() => _BuyerModuleState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BuyerModuleState extends State<BuyerModule>
+class _BottomNavBarState extends State<BottomNavBar>
     with TickerProviderStateMixin {
   int selectedIndex = 0;
   List<Widget> widgets = [
-    const HomePage(),
+    HomePage(),
     const SearchPage(),
     const CreatePageWidget(),
     const ProfilePage(),
