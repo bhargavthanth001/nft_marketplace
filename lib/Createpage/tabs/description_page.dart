@@ -1,9 +1,20 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/data%20manager/database_handler.dart';
+import 'package:nft_marketplace/model/nft_model.dart';
+import 'package:nft_marketplace/provider/collection_provider.dart';
+import 'package:provider/provider.dart';
 
 class NftDescriptionPageWidget extends StatelessWidget {
-  NftDescriptionPageWidget({super.key});
+  final String imageUrl;
+
+  NftDescriptionPageWidget({
+    super.key,
+    required this.imageUrl,
+  });
 
   final title = TextEditingController();
   final description = TextEditingController();
@@ -13,6 +24,7 @@ class NftDescriptionPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CollectionProvider>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -100,11 +112,26 @@ class NftDescriptionPageWidget extends StatelessWidget {
                     child: MaterialButton(
                       color: ColorsData.selectiveYellow,
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    NftDescriptionPageWidget()));
+                        for (var image in provider.images) {
+                          Random random = Random();
+                          String id = random.nextInt(1000).toString();
+                          final nftModel = NftModel(
+                            id: id,
+                            title: title.text,
+                            description: description.text,
+                            currentOwner: DataBase.user.uid,
+                            owners: [
+                              DataBase.user.uid,
+                            ],
+                            imageUrl: image,
+                            createdBy: DataBase.user.uid,
+                            createdAt: DateTime.now().toString(),
+                            updatedAt: DateTime.now().toString(),
+                          );
+
+                          DataBase.addNft(nftModel);
+                        }
+                        Navigator.pop(context);
                       },
                       child: const Text("Next"),
                     ),

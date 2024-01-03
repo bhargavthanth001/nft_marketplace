@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/colors.dart';
 
-import '../data manager/database_handler.dart';
+import '../../data manager/database_handler.dart';
 
 class SingleNftTab extends StatelessWidget {
   const SingleNftTab({super.key});
@@ -58,7 +58,7 @@ class SingleNftTab extends StatelessWidget {
                               fit: StackFit.expand,
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: result[index].thumbnail!,
+                                  imageUrl: result[index].imageUrl!,
                                   fit: BoxFit.cover,
                                   placeholder: (context, text) =>
                                       Image.asset("assets/images/logo.jpg"),
@@ -73,16 +73,16 @@ class SingleNftTab extends StatelessWidget {
                                 ),
                                 Positioned(
                                   left: 5,
-                                  bottom: 15,
+                                  bottom: 10,
                                   child: Text(
-                                    result[index].name!,
+                                    result[index].title!,
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),

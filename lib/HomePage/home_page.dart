@@ -1,9 +1,9 @@
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/buyer_module/HomePage/promotions.dart';
-import 'package:nft_marketplace/buyer_module/HomePage/top.dart';
-import 'package:nft_marketplace/buyer_module/HomePage/trending.dart';
+import 'package:nft_marketplace/HomePage/promotions.dart';
+import 'package:nft_marketplace/HomePage/top.dart';
+import 'package:nft_marketplace/HomePage/trending.dart';
 import 'package:nft_marketplace/colors.dart';
 
 class HomePage extends StatefulWidget {

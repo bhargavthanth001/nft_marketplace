@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/user_model.dart';
 
 class SessionManager {
   static SharedPreferences? sharedPreferences;

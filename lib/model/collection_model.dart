@@ -1,39 +1,40 @@
-import 'nft_model.dart';
-
 class CollectionModel {
   String? id;
-  String? name;
-  String? thumbnail;
-  String? createdBy;
-  List<NftModel>? items;
+  String name;
+  String description;
+  String thumbnail;
+  String category;
+  String createdBy;
+  List<String> items;
 
   CollectionModel({
     this.id,
-    this.name,
-    this.thumbnail,
-    this.createdBy,
-    this.items,
+    required this.name,
+    required this.description,
+    required this.thumbnail,
+    required this.category,
+    required this.createdBy,
+    required this.items,
   });
 
   factory CollectionModel.fromJson(Map<String, dynamic> json) =>
       CollectionModel(
         id: json["id"],
         name: json["name"],
+        description: json["description"],
         thumbnail: json["thumbnail"],
+        category: json["category"],
         createdBy: json["createdBy"],
-        items: json["items"] == null
-            ? []
-            : List<NftModel>.from(
-                json["items"]!.map((x) => NftModel.fromJson(x))),
+        items: List<String>.from(json["items"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "description": description,
         "thumbnail": thumbnail,
+        "category": category,
         "createdBy": createdBy,
-        "items": items == null
-            ? []
-            : List<NftModel>.from(items!.map((e) => e.toJson())),
+        "items": List<dynamic>.from(items.map((x) => x)),
       };
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nft_marketplace/buyer_module/provider/more_page_provider.dart';
-import 'package:nft_marketplace/buyer_module/provider/sign_in_provider.dart';
+import 'package:nft_marketplace/provider/more_page_provider.dart';
+import 'package:nft_marketplace/provider/sign_in_provider.dart';
 import 'package:nft_marketplace/wallet/wallet_page.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';

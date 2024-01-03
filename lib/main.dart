@@ -1,14 +1,13 @@
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:nft_marketplace/buyer_module/provider/internet_provider.dart';
-import 'package:nft_marketplace/buyer_module/provider/more_page_provider.dart';
-import 'package:nft_marketplace/buyer_module/provider/sign_in_provider.dart';
-import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/provider/collection_provider.dart';
+import 'package:nft_marketplace/provider/dropdown_provider.dart';
+import 'package:nft_marketplace/provider/internet_provider.dart';
+import 'package:nft_marketplace/provider/more_page_provider.dart';
+import 'package:nft_marketplace/provider/sign_in_provider.dart';
 import 'package:nft_marketplace/splash_screen.dart';
 import 'package:provider/provider.dart';
-
-import 'buyer_module/provider/collection_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,14 +34,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => InternetProvider()),
         ChangeNotifierProvider(create: (context) => MorePageProvider()),
         ChangeNotifierProvider(create: (context) => CollectionProvider()),
-        ChangeNotifierProvider(create: (context) => ChangeNotifier()),
+        ChangeNotifierProvider(create: (context) => DropDownProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(
-                backgroundColor: ColorsData.selectiveYellow,
-
                 centerTitle: true,
                 titleTextStyle: TextStyle(
                   color: Colors.black,

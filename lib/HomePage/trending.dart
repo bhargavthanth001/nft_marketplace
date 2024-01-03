@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/buyer_module/data%20manager/database_handler.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
+import '../data manager/database_handler.dart';
 
 class TrendingWidget extends StatelessWidget {
   const TrendingWidget({Key? key}) : super(key: key);

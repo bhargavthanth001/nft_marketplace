@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/colors.dart';
 
-import '../Createpage/collection_pages/add_collection.dart';
-import '../Createpage/tabs/collaction_page_tab.dart';
-import '../Createpage/tabs/single_page_tab.dart';
+import 'Createpage/collection_pages/add_collection.dart';
+import 'Createpage/tabs/collaction_page_tab.dart';
+import 'Createpage/tabs/single_page_tab.dart';
 
 class CreatePageWidget extends StatefulWidget {
   const CreatePageWidget({super.key});
@@ -73,6 +73,7 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorsData.selectiveYellow,
         onPressed: () {
           if (isCollection) {
             Navigator.push(

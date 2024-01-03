@@ -1,10 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/buyer_module/authentication%20pages/login_page.dart';
-import 'package:nft_marketplace/buyer_module/buyer_module.dart';
-import 'package:nft_marketplace/buyer_module/data%20manager/database_handler.dart';
-import 'package:nft_marketplace/buyer_module/data%20manager/session_manager.dart';
+import 'package:nft_marketplace/bottom_nav_bar.dart';
+
+import 'authentication pages/login_page.dart';
+import 'data manager/database_handler.dart';
+import 'data manager/session_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -29,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 2), () {
       _isSignIn!
           ? Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const BuyerModule()))
+              MaterialPageRoute(builder: (context) => const BottomNavBar()))
           : Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const LoginPageWidget()));
     });
