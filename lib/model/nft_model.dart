@@ -29,13 +29,11 @@ class NftModel {
     this.createdBy,
     this.currentOwner,
     this.owners,
-
     this.createdAt,
     this.updatedAt,
   });
 
-  factory NftModel.fromJson(Map<String, dynamic> json) =>
-      NftModel(
+  factory NftModel.fromJson(Map<String, dynamic> json) => NftModel(
         id: json["id"],
         title: json["title"],
         description: json["description"],
@@ -50,8 +48,7 @@ class NftModel {
         updatedAt: json["updatedAt"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "description": description,

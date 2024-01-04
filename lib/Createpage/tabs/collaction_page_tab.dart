@@ -56,12 +56,14 @@ class CollectionTab extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CollectionDetailsPageWidget(
-                                            collectionModel: result[index],
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      CollectionDetailsPageWidget(
+                                    collectionModel: result[index],
+                                  ),
+                                ),
+                              );
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(15),
@@ -69,7 +71,7 @@ class CollectionTab extends StatelessWidget {
                                 fit: StackFit.expand,
                                 children: [
                                   CachedNetworkImage(
-                                    imageUrl: result[index].thumbnail!,
+                                    imageUrl: result[index].thumbnail,
                                     fit: BoxFit.cover,
                                     placeholder: (context, text) =>
                                         Image.asset("assets/images/logo.jpg"),

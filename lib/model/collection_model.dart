@@ -3,6 +3,7 @@ class CollectionModel {
   String name;
   String description;
   String thumbnail;
+  String? bgImage;
   String category;
   String createdBy;
   List<String> items;
@@ -12,6 +13,7 @@ class CollectionModel {
     required this.name,
     required this.description,
     required this.thumbnail,
+    this.bgImage,
     required this.category,
     required this.createdBy,
     required this.items,
@@ -23,6 +25,7 @@ class CollectionModel {
         name: json["name"],
         description: json["description"],
         thumbnail: json["thumbnail"],
+        bgImage: json["bgImage"],
         category: json["category"],
         createdBy: json["createdBy"],
         items: List<String>.from(json["items"].map((x) => x)),
@@ -33,6 +36,7 @@ class CollectionModel {
         "name": name,
         "description": description,
         "thumbnail": thumbnail,
+        "bgImage": bgImage,
         "category": category,
         "createdBy": createdBy,
         "items": List<dynamic>.from(items.map((x) => x)),

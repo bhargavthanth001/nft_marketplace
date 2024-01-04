@@ -138,11 +138,14 @@ class DataBase {
   static Stream<List<NftModel>> getNftInCollections(String collectionId) {
     return firestore
         .collection("single_nft")
-        .where("createdBy", isEqualTo: user.uid)
         .where("collectionId", isEqualTo: collectionId)
         .snapshots()
         .map((event) =>
             event.docs.map((doc) => NftModel.fromJson(doc.data())).toList());
+  }
+
+  static getName(String id) {
+    return firestore.collection("users").doc(id).snapshots();
   }
 }
 

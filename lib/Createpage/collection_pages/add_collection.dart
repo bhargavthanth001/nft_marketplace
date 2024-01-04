@@ -219,7 +219,6 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                                     createdBy: DataBase.user.uid,
                                   );
                                   DataBase.createCollection(model);
-                                  Navigator.pop(context);
                                   title.text = "";
                                   provider.removeImage();
                                 } else {
