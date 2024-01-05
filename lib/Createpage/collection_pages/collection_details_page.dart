@@ -41,19 +41,26 @@ class _CollectionDetailsPageWidgetState
               ? const SizedBox()
               : Stack(
                   children: [
-                    SizedBox(
-                      height: 250,
-                      width: double.infinity,
-                      child: Image.asset(
-                        "assets/images/shadow.png",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    widget.collectionModel.bgImage == null
+                        ? Container(
+                            height: 250,
+                            width: double.infinity,
+                            color: Colors.white,
+                          )
+                        : SizedBox(
+                            height: 250,
+                            width: double.infinity,
+                            child: Image.network(
+                              widget.collectionModel.bgImage!,
+                              fit: BoxFit.values[0],
+                            ),
+                          ),
                     Positioned(
                       bottom: -2,
                       child: Image.asset(
                         "assets/images/shadow.png",
                         color: Colors.white,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     Positioned(
@@ -80,15 +87,41 @@ class _CollectionDetailsPageWidgetState
                     ),
                   ],
                 ),
-          checkUser
-              ? const SizedBox()
-              : Column(
+          if (checkUser)
+            const SizedBox()
+          else
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.collectionModel.name),
-                    Text(widget.collectionModel.description),
+                    const Gap(20),
+                    Text(
+                      widget.collectionModel.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 22,
+                      ),
+                    ),
+                    Text(
+                      widget.collectionModel.description,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      '''• created by ${DataBase.user.displayName}   • items ${widget.collectionModel.items.length}
+• category ${widget.collectionModel.category}
+                    ''',
+                      textAlign: TextAlign.justify,
+                    )
                   ],
                 ),
+              ),
+            ),
           Expanded(
             child: StreamBuilder(
               stream: DataBase.getNftInCollections(widget.collectionModel.id!),
@@ -160,7 +193,7 @@ class _CollectionDetailsPageWidgetState
           widget.collectionModel.createdBy == DataBase.user.uid
               ? FloatingActionButton.extended(
                   onPressed: () {
-                    provider.pickImages(true).then(
+                    provider.pickImages(true, false).then(
                       (value) {
                         for (int index = 0;
                             index < provider.images.length;

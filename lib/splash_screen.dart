@@ -31,9 +31,15 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 2), () {
       _isSignIn!
           ? Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const BottomNavBar()))
+              MaterialPageRoute(
+                builder: (context) => const BottomNavBar(),
+              ),
+            )
           : Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const LoginPageWidget()));
+              MaterialPageRoute(
+                builder: (context) => const LoginPageWidget(),
+              ),
+            );
     });
   }
 

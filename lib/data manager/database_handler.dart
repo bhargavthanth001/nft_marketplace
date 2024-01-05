@@ -34,6 +34,9 @@ class DataBase {
     } else if (type == ImageType.NFTs) {
       ref = storage.ref().child(
           "NFTs/${user.uid}/${nftModel!.title}/${DateTime.now().toString()}.$ext'");
+    } else if (type == ImageType.BACKGROUND_IMAGE) {
+      ref = storage.ref().child(
+          'background_image/${collectionModel!.name}/${DateTime.now().toString()}.$ext');
     } else {
       ref = storage
           .ref()
@@ -80,10 +83,14 @@ class DataBase {
   static Future<void> createCollection(CollectionModel collectionModel) async {
     String imageUrl = await addImageToFirebaseStorage(
         collectionModel.thumbnail, ImageType.THUMBNAIL, collectionModel, null);
+    String bg_url = await addImageToFirebaseStorage(collectionModel.bgImage!,
+        ImageType.BACKGROUND_IMAGE, collectionModel, null);
+
     debugPrint("URL of thumbnail is => $imageUrl");
     final result = firestore.collection("collections").doc();
     collectionModel.id = result.id;
     collectionModel.thumbnail = imageUrl;
+    collectionModel.bgImage = bg_url;
     result.set(
       collectionModel.toJson(),
     );
@@ -152,4 +159,5 @@ class DataBase {
 enum ImageType {
   NFTs,
   THUMBNAIL,
+  BACKGROUND_IMAGE,
 }

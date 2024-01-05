@@ -9,10 +9,13 @@ import 'package:path_provider/path_provider.dart';
 
 class CollectionProvider extends ChangeNotifier {
   List<String> _images = [];
+  String _bgImage = "";
 
   List<String> get images => _images;
 
-  Future pickImages(bool isMultiple) async {
+  String get bgImage => _bgImage;
+
+  Future pickImages(bool isMultiple, bool isBgImage) async {
     List<Asset> resultList = [];
     List<File> files = [];
     resultList = await MultiImagePicker.pickImages(
@@ -34,7 +37,10 @@ class CollectionProvider extends ChangeNotifier {
       debugPrint(file.toString());
       files.add(file);
     }
-    _images = files.map((file) => file.path).toList();
+    isBgImage
+        ? _bgImage = files.map((file) => file.path).toList().first
+        : _images = files.map((file) => file.path).toList();
+    ;
 
     notifyListeners();
   }

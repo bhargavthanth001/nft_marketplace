@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_icons/awesome_icons.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                     width: 300,
                     child: GestureDetector(
                       onTap: () {
-                        provider.pickImages(false);
+                        provider.pickImages(false, false);
                       },
                       child: DottedBorder(
                         color: ColorsData.black,
@@ -77,7 +78,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 onPressed: () {
-                                  provider.pickImages(false);
+                                  provider.pickImages(false, false);
                                 },
                                 child: Text(
                                   widget.isSingleNft
@@ -97,6 +98,53 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                     width: 300,
                     fit: BoxFit.cover,
                   ),
+            const SizedBox(
+              height: 15,
+            ),
+            widget.isSingleNft
+                ? const SizedBox()
+                : provider.bgImage.isEmpty
+                    ? SizedBox(
+                        height: 50,
+                        width: 300,
+                        child: TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                side: const BorderSide(
+                                  color: ColorsData.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            provider.pickImages(false, true);
+                          },
+                          child: const Row(
+                            children: [
+                              Gap(8),
+                              Icon(
+                                FontAwesomeIcons.image,
+                                color: Colors.black54,
+                              ),
+                              Gap(5),
+                              Text(
+                                "Choose a background image",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    : Image.file(
+                        File(provider.bgImage),
+                        height: 300,
+                        width: 300,
+                        fit: BoxFit.cover,
+                      ),
             const SizedBox(
               height: 10,
             ),
@@ -214,13 +262,17 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                                     name: title.text,
                                     description: description.text,
                                     thumbnail: provider.images.first,
+                                    bgImage: provider.bgImage,
                                     category: dropDownProvider.selectedCategory,
                                     items: [],
                                     createdBy: DataBase.user.uid,
                                   );
                                   DataBase.createCollection(model);
                                   title.text = "";
+                                  description.text = "";
+                                  category.text = "";
                                   provider.removeImage();
+                                  Navigator.pop(context);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
