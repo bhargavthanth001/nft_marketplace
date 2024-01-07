@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:nft_marketplace/provider/meta_mask_provider.dart';
+import 'package:nft_marketplace/wallet/ui/home_view.dart';
 import 'package:provider/provider.dart';
 
 class WalletPageWidget extends StatefulWidget {
@@ -12,6 +14,7 @@ class WalletPageWidget extends StatefulWidget {
 class _WalletPageWidgetState extends State<WalletPageWidget> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<MetaMaskProvider>(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
@@ -85,6 +88,12 @@ class _WalletPageWidgetState extends State<WalletPageWidget> {
               ),
             ),
             const Gap(10),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeView()));
+                },
+                child: const Text("Make Wallet"))
           ],
         ),
       ),

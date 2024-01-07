@@ -9,6 +9,7 @@ import 'package:nft_marketplace/model/collection_model.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../data manager/data_variables.dart';
 import '../../provider/collection_provider.dart';
 
 class CollectionDetailsPageWidget extends StatefulWidget {
@@ -26,7 +27,7 @@ class _CollectionDetailsPageWidgetState
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CollectionProvider>(context);
-    final checkUser = widget.collectionModel.createdBy == DataBase.user.uid;
+    final checkUser = widget.collectionModel.createdBy == user.uid;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -113,7 +114,7 @@ class _CollectionDetailsPageWidgetState
                       ),
                     ),
                     Text(
-                      '''• created by ${DataBase.user.displayName}   • items ${widget.collectionModel.items.length}
+                      '''• created by ${user.displayName}   • items ${widget.collectionModel.items.length}
 • category ${widget.collectionModel.category}
                     ''',
                       textAlign: TextAlign.justify,
@@ -189,43 +190,42 @@ class _CollectionDetailsPageWidgetState
           const Gap(20),
         ],
       ),
-      floatingActionButton:
-          widget.collectionModel.createdBy == DataBase.user.uid
-              ? FloatingActionButton.extended(
-                  onPressed: () {
-                    provider.pickImages(true, false).then(
-                      (value) {
-                        for (int index = 0;
-                            index < provider.images.length;
-                            index++) {
-                          debugPrint(
-                              "This is the image => ${provider.images[index]}");
-                          Random random = Random();
-                          String title = random.nextInt(1000).toString();
-                          final nftModel = NftModel(
-                            title: title,
-                            description: widget.collectionModel.description,
-                            collectionName: widget.collectionModel.name,
-                            collectionId: widget.collectionModel.id,
-                            imageUrl: provider.images[index],
-                            currentOwner: DataBase.user.uid,
-                            owners: [
-                              DataBase.user.uid,
-                            ],
-                            createdBy: DataBase.user.uid,
-                            createdAt: DateTime.now().toString(),
-                            updatedAt: DateTime.now().toString(),
-                          );
-                          DataBase.addNft(nftModel);
-                        }
-                      },
-                    );
+      floatingActionButton: widget.collectionModel.createdBy == user.uid
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                provider.pickImages(true, false).then(
+                  (value) {
+                    for (int index = 0;
+                        index < provider.images.length;
+                        index++) {
+                      debugPrint(
+                          "This is the image => ${provider.images[index]}");
+                      Random random = Random();
+                      String title = random.nextInt(1000).toString();
+                      final nftModel = NftModel(
+                        title: title,
+                        description: widget.collectionModel.description,
+                        collectionName: widget.collectionModel.name,
+                        collectionId: widget.collectionModel.id,
+                        imageUrl: provider.images[index],
+                        currentOwner: user.uid,
+                        owners: [
+                          user.uid,
+                        ],
+                        createdBy: user.uid,
+                        createdAt: DateTime.now().toString(),
+                        updatedAt: DateTime.now().toString(),
+                      );
+                      DataBase.addNft(nftModel);
+                    }
                   },
-                  backgroundColor: ColorsData.selectiveYellow,
-                  icon: const Icon(Icons.add),
-                  label: const Text("NFTs"),
-                )
-              : Container(),
+                );
+              },
+              backgroundColor: ColorsData.selectiveYellow,
+              icon: const Icon(Icons.add),
+              label: const Text("NFTs"),
+            )
+          : Container(),
     );
   }
 }

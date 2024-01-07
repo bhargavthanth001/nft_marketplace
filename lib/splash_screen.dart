@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/bottom_nav_bar.dart';
 
 import 'authentication pages/login_page.dart';
-import 'data manager/database_handler.dart';
+import 'data manager/data_variables.dart';
 import 'data manager/session_manager.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     getSignInInfo();
-    debugPrint("CURRENT USER => ${DataBase.auth.currentUser}");
+    debugPrint("CURRENT USER => ${auth.currentUser}");
     Timer(const Duration(seconds: 2), () {
       _isSignIn!
           ? Navigator.of(context).push(

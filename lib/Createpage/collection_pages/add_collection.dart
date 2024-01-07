@@ -10,6 +10,7 @@ import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/provider/dropdown_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../data manager/data_variables.dart';
 import '../../data manager/database_handler.dart';
 import '../../model/collection_model.dart';
 import '../../provider/collection_provider.dart';
@@ -265,7 +266,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                                     bgImage: provider.bgImage,
                                     category: dropDownProvider.selectedCategory,
                                     items: [],
-                                    createdBy: DataBase.user.uid,
+                                    createdBy: user.uid,
                                   );
                                   DataBase.createCollection(model);
                                   title.text = "";

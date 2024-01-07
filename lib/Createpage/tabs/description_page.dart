@@ -8,6 +8,8 @@ import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/provider/collection_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../data manager/data_variables.dart';
+
 class NftDescriptionPageWidget extends StatelessWidget {
   final String imageUrl;
 
@@ -119,12 +121,12 @@ class NftDescriptionPageWidget extends StatelessWidget {
                             id: id,
                             title: title.text,
                             description: description.text,
-                            currentOwner: DataBase.user.uid,
+                            currentOwner: user.uid,
                             owners: [
-                              DataBase.user.uid,
+                              user.uid,
                             ],
                             imageUrl: image,
-                            createdBy: DataBase.user.uid,
+                            createdBy: user.uid,
                             createdAt: DateTime.now().toString(),
                             updatedAt: DateTime.now().toString(),
                           );

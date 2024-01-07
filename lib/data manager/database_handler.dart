@@ -1,21 +1,15 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 
 import '../model/collection_model.dart';
 import '../model/user_model.dart';
+import 'data_variables.dart';
 
 class DataBase {
-  static final auth = FirebaseAuth.instance;
-  static final firestore = FirebaseFirestore.instance;
-  static final storage = FirebaseStorage.instance;
-
-  static User get user => auth.currentUser!;
-
   static Future<bool> userExist() async {
     return (await firestore.collection("users").doc(user.uid).get()).exists;
   }
