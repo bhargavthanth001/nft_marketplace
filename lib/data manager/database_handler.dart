@@ -5,9 +5,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 
+import '../data_variables.dart';
 import '../model/collection_model.dart';
 import '../model/user_model.dart';
-import 'data_variables.dart';
 
 class DataBase {
   static Future<bool> userExist() async {
@@ -63,7 +63,7 @@ class DataBase {
         .set(userModel.toJson());
   }
 
-  static Future<UserModel> getUser() async {
+  static Future<UserModel> currentUser() async {
     DocumentSnapshot data =
         await firestore.collection('users').doc(user.uid).get();
 

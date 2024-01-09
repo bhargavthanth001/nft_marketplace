@@ -8,7 +8,7 @@ import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/provider/collection_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../data manager/data_variables.dart';
+import '../../data_variables.dart';
 
 class NftDescriptionPageWidget extends StatelessWidget {
   final String imageUrl;

@@ -21,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   int selectedIndex = 0;
   List<Widget> widgets = [
     HomePage(),
-    const SearchPage(),
+    SearchPage(),
     const CreatePageWidget(),
     const ProfilePage(),
     const MorePage(),

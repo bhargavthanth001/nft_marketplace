@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nft_marketplace/provider/more_page_provider.dart';
+import 'package:nft_marketplace/privecy_policy/about_us_page.dart';
+import 'package:nft_marketplace/privecy_policy/privecy_policy_page.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
-import 'package:nft_marketplace/wallet/wallet_page.dart';
+import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
+import 'package:nft_marketplace/wallet/ui/authentication.dart';
+import 'package:nft_marketplace/wallet/ui/wallet_home_page.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
@@ -16,20 +19,8 @@ class MorePage extends StatefulWidget {
 }
 
 class _MorePageState extends State<MorePage> {
-  Future<void> getProvider() async {
-    final mp = Provider.of<MorePageProvider>(context);
-    await mp.getData();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getProvider();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final mp = context.read<MorePageProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -64,11 +55,16 @@ class _MorePageState extends State<MorePage> {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const WalletPageWidget()));
+            onTap: () async {
+              final bool isWallet = await WalletDataManager.existWallet();
+              debugPrint("is wallet created => $isWallet");
+              if (isWallet) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WalletHomePage()));
+              } else {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Authentication()));
+              }
             },
             child: const ListTile(
               title: Text(
@@ -83,6 +79,51 @@ class _MorePageState extends State<MorePage> {
                 color: Colors.black,
               ),
             ),
+          ),
+          GestureDetector(
+            onTap: () {
+              handelSignOut().then(
+                (value) => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PrivacyPolicyPageWidget(),
+                  ),
+                ),
+              );
+            },
+            child: const ListTile(
+              title: Text(
+                "Privacy Policy",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              leading: Icon(
+                Icons.privacy_tip_outlined,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              handelSignOut().then(
+                (value) => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AboutUsPageWidget(),
+                  ),
+                ),
+              );
+            },
+            child: ListTile(
+                title: const Text(
+                  "About Us",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                leading: Image.asset(
+                  "assets/images/information-button.png",
+                  height: 25,
+                  width: 25,
+                )),
           ),
         ],
       ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../data manager/wallet_data_manager.dart';
-
 class AddView extends StatefulWidget {
   AddView({Key? key}) : super(key: key);
 
@@ -43,7 +41,7 @@ class _AddViewState extends State<AddView> {
             width: MediaQuery.of(context).size.width / 1.3,
             child: TextFormField(
               controller: _amountController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Coin Amount",
               ),
             ),
@@ -57,11 +55,27 @@ class _AddViewState extends State<AddView> {
             ),
             child: MaterialButton(
               onPressed: () async {
-                await WalletDataManager.addCoin(
-                    dropdownValue, _amountController.text);
-                Navigator.of(context).pop();
+                // var model = Coin();
+                // switch (dropdownValue) {
+                //   case "bitcoin":
+                //     model = Coin(bitcoin: double.parse(_amountController.text));
+                //     break;
+                //
+                //   case "ethereum":
+                //     model =
+                //         Coin(ethereum: double.parse(_amountController.text));
+                //     break;
+                //   case "tether":
+                //     model = Coin(tether: double.parse(_amountController.text));
+                //     break;
+                //   default:
+                //     break;
+                // }
+                // final walletModel = WalletModel(coin: model);
+                // await WalletDataManager.addCoin(walletModel);
+                // Navigator.of(context).pop();
               },
-              child: Text("Add"),
+              child: const Text("Add"),
             ),
           ),
         ],

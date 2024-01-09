@@ -5,8 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/bottom_nav_bar.dart';
 
 import 'authentication pages/login_page.dart';
-import 'data manager/data_variables.dart';
 import 'data manager/session_manager.dart';
+import 'data_variables.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,12 +30,12 @@ class _SplashScreenState extends State<SplashScreen> {
     debugPrint("CURRENT USER => ${auth.currentUser}");
     Timer(const Duration(seconds: 2), () {
       _isSignIn!
-          ? Navigator.of(context).push(
+          ? Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => const BottomNavBar(),
               ),
             )
-          : Navigator.of(context).push(
+          : Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => const LoginPageWidget(),
               ),

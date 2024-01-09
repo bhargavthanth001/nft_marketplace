@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
 
@@ -19,7 +20,7 @@ class ProfilePage extends StatelessWidget {
       ),
       body: Center(
         child: FutureBuilder<UserModel>(
-            future: DataBase.getUser(),
+            future: DataBase.currentUser(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Center(

@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   wallet_sdk:
     path: ../wallet_sdk
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -54,7 +55,7 @@ dev_dependencies:
   firebase_auth: ^4.15.3
   firebase_core: ^2.24.2
   cloud_firestore: ^4.13.6
-  http: ^1.1.2
+  http: ^0.13.4
   flutter_onboarding_slider: ^1.0.11
   provider: ^6.1.1
   shared_preferences: ^2.2.2
@@ -76,6 +77,11 @@ dev_dependencies:
   dropdown_button2: ^2.3.9
   walletconnect_dart: ^0.0.11
   url_launcher: ^6.2.2
+  email_otp: ^2.0.1
+  otp_pin_field: ^1.2.2
+  crypto_market: ^0.0.3
+
+
 
 
 

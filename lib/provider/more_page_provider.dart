@@ -9,7 +9,7 @@ class MorePageProvider extends ChangeNotifier {
   UserModel get userModel => _userModel;
 
   Future getData() async {
-    _userModel = await DataBase.getUser();
+    _userModel = await DataBase.currentUser();
     notifyListeners();
   }
 }
