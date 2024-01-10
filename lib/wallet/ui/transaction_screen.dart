@@ -28,12 +28,13 @@ class TransactionScreenWidget extends StatelessWidget {
         backgroundColor: ColorsData.selectiveYellow,
         strokeWidth: 2,
         child: FutureBuilder(
-          future: WalletDataManager.getWallet(),
+          future: WalletDataManager.getWallet(user.uid),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final resultData = snapshot.data!.transactions;
               return ListView.builder(
                 itemCount: resultData!.length,
+                reverse: true,
                 itemBuilder: (context, index) {
                   return Container(
                     height: 60,

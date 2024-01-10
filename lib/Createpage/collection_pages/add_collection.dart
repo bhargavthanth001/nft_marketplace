@@ -5,7 +5,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/Createpage/tabs/description_page.dart';
+import 'package:nft_marketplace/Createpage/collection_pages/description_page.dart';
 import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/provider/dropdown_provider.dart';
 import 'package:provider/provider.dart';

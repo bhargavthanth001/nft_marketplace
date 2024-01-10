@@ -8,7 +8,7 @@ String walletModelToJson(WalletModel data) => json.encode(data.toJson());
 class WalletModel {
   String? walletId;
   CoinList? coin;
-  List<Transaction>? transactions;
+  List<TransactionList>? transactions;
   String? createdAt;
 
   WalletModel({
@@ -21,8 +21,8 @@ class WalletModel {
   factory WalletModel.fromJson(Map<String, dynamic> json) => WalletModel(
         walletId: json["walletId"],
         coin: CoinList.fromJson(json["coin"]),
-        transactions: List<Transaction>.from(
-            json["transactions"].map((x) => Transaction.fromJson(x))),
+        transactions: List<TransactionList>.from(
+            json["transactions"].map((x) => TransactionList.fromJson(x))),
         createdAt: json["createdAt"],
       );
 
@@ -55,14 +55,14 @@ class CoinList {
       };
 }
 
-class Transaction {
+class TransactionList {
   String? from;
   String? to;
   double? amount;
   String coinType;
   String? transactedAt;
 
-  Transaction({
+  TransactionList({
     this.from,
     this.to,
     this.amount,
@@ -70,7 +70,8 @@ class Transaction {
     this.transactedAt,
   });
 
-  factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
+  factory TransactionList.fromJson(Map<String, dynamic> json) =>
+      TransactionList(
         from: json["from"],
         to: json["to"],
         amount: json["amount"],

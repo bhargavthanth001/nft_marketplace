@@ -48,9 +48,11 @@ class DataBase {
 
   static Future<void> createUser() async {
     final date = DateTime.now().toString();
+    final username = user.displayName!.split(" ");
     final userModel = UserModel(
       id: user.uid,
       name: user.displayName.toString(),
+      username: username[0].toLowerCase(),
       email: user.email.toString(),
       imageUrl: user.photoURL,
       createdAt: date,
@@ -145,8 +147,26 @@ class DataBase {
             event.docs.map((doc) => NftModel.fromJson(doc.data())).toList());
   }
 
+  static Stream<List<NftModel>> getOthersInCollection(
+      String collectionId, String id) {
+    return firestore
+        .collection("single_nft")
+        .where("collectionId", isEqualTo: collectionId)
+        .where("id", isNotEqualTo: id)
+        .snapshots()
+        .map((event) =>
+            event.docs.map((doc) => NftModel.fromJson(doc.data())).toList());
+  }
+
   static getName(String id) {
     return firestore.collection("users").doc(id).snapshots();
+  }
+
+  static Future<void> buyNft(NftModel nftModel) async {
+    firestore.collection("collectionPath").doc().update({
+      "currentOwner": nftModel.id,
+      "owners": FieldValue.arrayUnion([nftModel.id]),
+    });
   }
 }
 

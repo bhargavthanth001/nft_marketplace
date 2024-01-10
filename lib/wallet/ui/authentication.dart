@@ -52,14 +52,14 @@ class _AuthenticationState extends State<Authentication> {
                           walletId: user.uid,
                           coin: CoinList(ethereum: 100.0, bitcoin: 10.0),
                           transactions: [
-                            Transaction(
+                            TransactionList(
                               from: "nft_marketplace",
                               to: user.uid,
                               amount: 100.0,
                               coinType: "Ethereum",
                               transactedAt: DateTime.now().toLocal().toString(),
                             ),
-                            Transaction(
+                            TransactionList(
                               from: "nft_marketplace",
                               to: user.uid,
                               amount: 10.0,
@@ -136,7 +136,7 @@ class _AuthenticationState extends State<Authentication> {
                           "OTP => ${auth.verifyOTP(otp: _otpController.text)}");
                       if (auth.verifyOTP(otp: _otpController.text) == true) {
                         Navigator.pop(context);
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (BuildContext context) => WalletHomePage(),

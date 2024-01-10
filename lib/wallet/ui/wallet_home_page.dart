@@ -3,6 +3,8 @@ import 'package:crypto_market/crypto_market.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/data_variables.dart';
+import 'package:nft_marketplace/model/wallet_model.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:nft_marketplace/wallet/ui/transaction_screen.dart';
@@ -122,6 +124,11 @@ class _WalletHomePageState extends State<WalletHomePage> {
     final total = double.parse(price) * amount;
     String formattedNumber = total.toStringAsFixed(2);
     return formattedNumber;
+  }
+
+  double formatAmount(double amount) {
+    String formattedNumber = amount.toStringAsFixed(2);
+    return double.parse(formattedNumber);
   }
 
   _container(String coin, double amount, String imageUrl, String totalAmountINR,
@@ -246,7 +253,7 @@ class _WalletHomePageState extends State<WalletHomePage> {
           backgroundColor: ColorsData.selectiveYellow,
           strokeWidth: 2,
           child: FutureBuilder(
-            future: WalletDataManager.getWallet(),
+            future: WalletDataManager.getWallet(user.uid),
             builder: (BuildContext context, snapshot) {
               if (snapshot.hasData) {
                 final resultData = snapshot.data;
@@ -254,7 +261,7 @@ class _WalletHomePageState extends State<WalletHomePage> {
                   children: [
                     _container(
                       list[0].name,
-                      resultData!.coin!.bitcoin!,
+                      formatAmount(resultData!.coin!.bitcoin!),
                       list[0].image,
                       formatNumber(list[0].price, resultData.coin!.bitcoin!),
                       formatNumber(
@@ -263,7 +270,7 @@ class _WalletHomePageState extends State<WalletHomePage> {
                     const Gap(10),
                     _container(
                       list[2].name,
-                      resultData.coin!.ethereum!,
+                      formatAmount(resultData.coin!.ethereum!),
                       list[2].image,
                       formatNumber(list[2].price, resultData.coin!.ethereum!),
                       formatNumber(
@@ -293,10 +300,24 @@ class _WalletHomePageState extends State<WalletHomePage> {
                         ),
                         onCoinTap: (ctx, coin) {},
                       ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        final model = TransactionList(
+                          from: resultData.walletId,
+                          to: "EpoqLm9MYzagMj0xv03SzUKflEl1",
+                          coinType: "Bitcoin",
+                          amount: 0.3,
+                          transactedAt: DateTime.now().toLocal().toString(),
+                        );
+                        WalletDataManager.makeTransaction(model);
+                      },
+                      child: const Text("Send"),
                     )
                   ],
                 );
               } else {
+                debugPrint(snapshot.error.toString());
                 return const Center(
                   child: CircularProgressIndicator(
                     color: ColorsData.selectiveYellow,

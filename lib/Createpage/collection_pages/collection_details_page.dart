@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:nft_marketplace/Createpage/collection_pages/view_nft.dart';
 import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/model/collection_model.dart';
@@ -147,11 +148,24 @@ class _CollectionDetailsPageWidgetState
                             (index) {
                               return Padding(
                                 padding: const EdgeInsets.only(left: 8, top: 8),
-                                child: CachedNetworkImage(
-                                  imageUrl: resultData[index].imageUrl!,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, text) =>
-                                      Image.asset("assets/images/logo.jpg"),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ViewNftPageWidget(
+                                            nftModel: resultData[index],
+                                            collectionModel:
+                                                widget.collectionModel),
+                                      ),
+                                    );
+                                  },
+                                  child: CachedNetworkImage(
+                                    imageUrl: resultData[index].imageUrl!,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, text) =>
+                                        Image.asset("assets/images/logo.jpg"),
+                                  ),
                                 ),
                               );
                             },

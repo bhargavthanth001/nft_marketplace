@@ -23,7 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar>
     HomePage(),
     SearchPage(),
     const CreatePageWidget(),
-    const ProfilePage(),
+    ProfilePage(),
     const MorePage(),
   ];
 
