@@ -75,11 +75,11 @@ dev_dependencies:
   multi_image_picker_plus: ^0.0.3
   lecle_flutter_absolute_path: ^0.0.2+1
   dropdown_button2: ^2.3.9
-  walletconnect_dart: ^0.0.11
   url_launcher: ^6.2.2
   email_otp: ^2.0.1
   otp_pin_field: ^1.2.2
   crypto_market: ^0.0.3
+  quickalert: ^1.0.2
 
 
 

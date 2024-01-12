@@ -28,6 +28,7 @@ class ProfilePage extends StatelessWidget {
         future: DataBase.currentUser(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
+            debugPrint(snapshot.error.toString());
             return Center(
               child: Text(
                 "No Data Found",
@@ -43,7 +44,6 @@ class ProfilePage extends StatelessWidget {
               final resultData = snapshot.data;
               if (resultData == null) {
                 debugPrint("No Data Found");
-                debugPrint(snapshot.error.toString());
                 return const SizedBox();
               } else {
                 return Column(

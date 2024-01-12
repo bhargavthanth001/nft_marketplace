@@ -13,10 +13,10 @@ import 'package:provider/provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../snack_bar.dart';
 import '../data manager/session_manager.dart';
 import '../provider/internet_provider.dart';
 import '../provider/sign_in_provider.dart';
+import '../snack_bar.dart';
 
 class LoginPageWidget extends StatefulWidget {
   const LoginPageWidget({super.key});
@@ -85,7 +85,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
     if (ip.isInternet == false) {
       // ignore: use_build_context_synchronously
-      openSnackbar(context, "Check your internet", Colors.red);
+      openSnackBar(context, "Check your internet", Colors.red);
       googleController.reset();
     } else {
       sp.signInWithGoogle().then((value) {

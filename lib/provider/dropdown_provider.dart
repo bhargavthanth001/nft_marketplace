@@ -9,13 +9,26 @@ List<String> categoryList = [
   "Entertainment",
 ];
 
+List<String> chain = [
+  "Ethereum",
+  "Bitcoin",
+];
+
 class DropDownProvider extends ChangeNotifier {
   String _selectedCategory = categoryList.first;
+  String _selectedChain = chain.first;
 
   String get selectedCategory => _selectedCategory;
 
-  void onSaved(value) {
+  String get selectedChain => _selectedChain;
+
+  void selectCatagory(value) {
     _selectedCategory = value;
+    notifyListeners();
+  }
+
+  void selectChain(value) {
+    _selectedChain = value;
     notifyListeners();
   }
 }

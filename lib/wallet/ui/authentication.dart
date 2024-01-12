@@ -39,6 +39,7 @@ class _AuthenticationState extends State<Authentication> {
                     backgroundColor: ColorsData.selectiveYellow,
                   ),
                   onPressed: () async {
+                    debugPrint(data!.email);
                     EmailOTP myAuth = EmailOTP();
                     myAuth.setConfig(
                       appEmail: "nft_marketplace@gmail.com",
@@ -47,6 +48,7 @@ class _AuthenticationState extends State<Authentication> {
                       otpLength: 6,
                       otpType: OTPType.digitsOnly,
                     );
+                    debugPrint(myAuth.sendOTP().toString());
                     if (await myAuth.sendOTP() == true) {
                       final model = WalletModel(
                           walletId: user.uid,

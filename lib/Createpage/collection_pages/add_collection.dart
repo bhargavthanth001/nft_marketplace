@@ -28,7 +28,6 @@ class AddCollectionPageWidget extends StatefulWidget {
 class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
   final title = TextEditingController();
   final description = TextEditingController();
-  final category = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -41,6 +40,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
           onPressed: () {
             Navigator.pop(context);
             provider.removeImage();
+            provider.removeBGImage();
           },
           icon: const Icon(Icons.arrow_back_sharp),
         ),
@@ -55,6 +55,26 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            widget.isSingleNft
+                ? const SizedBox()
+                : Container(
+                    height: 50,
+                    width: 300,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.yellow.shade100,
+                    ),
+                    child: const Text(
+                      "Warning : You can not delete or edit this collection after it created you can only add NFTs inside collection",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+            const Gap(15),
             provider.images.isEmpty
                 ? SizedBox(
                     height: 300,
@@ -125,6 +145,11 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                           child: const Row(
                             children: [
                               Gap(8),
+                              Text(
+                                "*",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Gap(3),
                               Icon(
                                 FontAwesomeIcons.image,
                                 color: Colors.black54,
@@ -133,8 +158,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                               Text(
                                 "Choose a background image",
                                 style: TextStyle(
-                                  color: Colors.black54,
-                                ),
+                                    color: Colors.black54, fontSize: 13),
                               ),
                             ],
                           ),
@@ -215,24 +239,27 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                               style: TextStyle(fontSize: 14),
                             ),
                             items: categoryList
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(
-                                        item,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                        ),
+                                .map(
+                                  (item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                        fontSize: 14,
                                       ),
-                                    ))
+                                    ),
+                                  ),
+                                )
                                 .toList(),
                             validator: (value) {
                               if (value == null) {
-                                return 'Please select gender.';
+                                return 'Please select category.';
                               }
                               return null;
                             },
                             onChanged: (value) {},
-                            onSaved: (value) => dropDownProvider.onSaved(value),
+                            onSaved: (value) =>
+                                dropDownProvider.selectCatagory(value),
                             buttonStyleData: const ButtonStyleData(
                               padding: EdgeInsets.only(right: 8),
                             ),
@@ -253,6 +280,59 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                             ),
                           ),
                           const Gap(10),
+                          DropdownButtonFormField2<String>(
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  const EdgeInsets.symmetric(vertical: 16),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            hint: const Text(
+                              'Select Your Chain',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            items: chain
+                                .map((item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please select category.';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {},
+                            onSaved: (value) =>
+                                dropDownProvider.selectChain(value),
+                            buttonStyleData: const ButtonStyleData(
+                              padding: EdgeInsets.only(right: 8),
+                            ),
+                            iconStyleData: const IconStyleData(
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black45,
+                              ),
+                              iconSize: 24,
+                            ),
+                            dropdownStyleData: DropdownStyleData(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                            ),
+                          ),
+                          Gap(10),
                           MaterialButton(
                             color: ColorsData.selectiveYellow,
                             onPressed: () async {
@@ -263,6 +343,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                                     name: title.text,
                                     description: description.text,
                                     thumbnail: provider.images.first,
+                                    chain: dropDownProvider.selectedChain,
                                     bgImage: provider.bgImage,
                                     category: dropDownProvider.selectedCategory,
                                     items: [],
@@ -271,8 +352,8 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                                   DataBase.createCollection(model);
                                   title.text = "";
                                   description.text = "";
-                                  category.text = "";
                                   provider.removeImage();
+                                  provider.removeBGImage();
                                   Navigator.pop(context);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(

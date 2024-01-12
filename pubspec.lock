@@ -816,6 +816,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.1"
+  quickalert:
+    dependency: "direct dev"
+    description:
+      name: quickalert
+      sha256: "0c21c9be68b9ae76082e1ad56db9f51202a38e617e08376f05375238277cfb5a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   recase:
     dependency: transitive
     description:
@@ -1068,14 +1076,6 @@ packages:
       relative: true
     source: path
     version: "0.0.6"
-  walletconnect_dart:
-    dependency: "direct dev"
-    description:
-      name: walletconnect_dart
-      sha256: "6d69d3f7ed43b4a111458da0ba078f4ea291ff11328068c9cbf5cab3bd86593f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.11"
   web:
     dependency: transitive
     description:

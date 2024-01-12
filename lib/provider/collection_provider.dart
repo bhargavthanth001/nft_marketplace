@@ -49,4 +49,9 @@ class CollectionProvider extends ChangeNotifier {
     _images = [];
     notifyListeners();
   }
+
+  Future removeBGImage() async {
+    _bgImage = "";
+    notifyListeners();
+  }
 }

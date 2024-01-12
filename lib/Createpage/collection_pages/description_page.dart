@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/colors.dart';
@@ -9,6 +10,7 @@ import 'package:nft_marketplace/provider/collection_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../data_variables.dart';
+import '../../provider/dropdown_provider.dart';
 
 class NftDescriptionPageWidget extends StatelessWidget {
   final String imageUrl;
@@ -20,13 +22,12 @@ class NftDescriptionPageWidget extends StatelessWidget {
 
   final title = TextEditingController();
   final description = TextEditingController();
-  final category = TextEditingController();
   final price = TextEditingController();
-  final email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CollectionProvider>(context);
+    final dropDownProvider = Provider.of<DropDownProvider>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -46,7 +47,12 @@ class NftDescriptionPageWidget extends StatelessWidget {
                   maxLines: 1,
                   decoration: const InputDecoration(
                     hintText: "Enter the title",
-                    focusedBorder: UnderlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorsData.black,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: ColorsData.black,
                       ),
@@ -56,10 +62,15 @@ class NftDescriptionPageWidget extends StatelessWidget {
                 const Gap(15),
                 TextFormField(
                   controller: description,
-                  maxLines: 1,
+                  maxLines: 2,
                   decoration: const InputDecoration(
                     hintText: "Enter the description",
-                    focusedBorder: UnderlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorsData.black,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: ColorsData.black,
                       ),
@@ -67,43 +78,105 @@ class NftDescriptionPageWidget extends StatelessWidget {
                   ),
                 ),
                 const Gap(15),
-                TextFormField(
-                  controller: category,
-                  maxLines: 1,
-                  decoration: const InputDecoration(
-                    hintText: "Enter the category",
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: ColorsData.black,
-                      ),
+                DropdownButtonFormField2<String>(
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
+                  ),
+                  hint: const Text(
+                    'Select Your Category',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  items: categoryList
+                      .map((item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select category.';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                  onSaved: (value) => dropDownProvider.selectCatagory(value),
+                  buttonStyleData: const ButtonStyleData(
+                    padding: EdgeInsets.only(right: 8),
+                  ),
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black45,
+                    ),
+                    iconSize: 24,
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                   ),
                 ),
                 const Gap(15),
-                TextFormField(
-                  controller: price,
-                  maxLines: 1,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: "Enter the price in USD",
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: ColorsData.black,
-                      ),
+                DropdownButtonFormField2<String>(
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                ),
-                const Gap(15),
-                TextFormField(
-                  controller: email,
-                  maxLines: 1,
-                  decoration: const InputDecoration(
-                    hintText: "Enter the email for receipt",
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: ColorsData.black,
-                      ),
+                  hint: const Text(
+                    'Select Your Chain',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  items: chain
+                      .map((item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select category.';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                  onSaved: (value) => dropDownProvider.selectChain(value),
+                  buttonStyleData: const ButtonStyleData(
+                    padding: EdgeInsets.only(right: 8),
+                  ),
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black45,
                     ),
+                    iconSize: 24,
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                   ),
                 ),
                 const Spacer(),
@@ -122,6 +195,8 @@ class NftDescriptionPageWidget extends StatelessWidget {
                             title: title.text,
                             description: description.text,
                             currentOwner: user.uid,
+                            category: dropDownProvider.selectedCategory,
+                            chain: dropDownProvider.selectedChain,
                             owners: [
                               user.uid,
                             ],

@@ -3,6 +3,7 @@ class CollectionModel {
   String name;
   String description;
   String thumbnail;
+  String chain;
   String? bgImage;
   String category;
   String createdBy;
@@ -13,6 +14,7 @@ class CollectionModel {
     required this.name,
     required this.description,
     required this.thumbnail,
+    required this.chain,
     this.bgImage,
     required this.category,
     required this.createdBy,
@@ -25,6 +27,7 @@ class CollectionModel {
         name: json["name"],
         description: json["description"],
         thumbnail: json["thumbnail"],
+        chain: json["chain"],
         bgImage: json["bgImage"],
         category: json["category"],
         createdBy: json["createdBy"],
@@ -36,6 +39,7 @@ class CollectionModel {
         "name": name,
         "description": description,
         "thumbnail": thumbnail,
+        "chain": chain,
         "bgImage": bgImage,
         "category": category,
         "createdBy": createdBy,

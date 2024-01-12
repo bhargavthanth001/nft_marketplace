@@ -87,3 +87,8 @@ class TransactionList {
         "transactedAt": transactedAt,
       };
 }
+
+enum Chain {
+  Ethereum,
+  Bitcoin,
+}

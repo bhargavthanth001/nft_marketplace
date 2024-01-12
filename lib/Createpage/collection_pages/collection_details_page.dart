@@ -9,6 +9,7 @@ import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/model/collection_model.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:provider/provider.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../data_variables.dart';
 import '../../provider/collection_provider.dart';
@@ -67,7 +68,7 @@ class _CollectionDetailsPageWidgetState
                     ),
                     Positioned(
                       left: 25,
-                      bottom: 0,
+                      bottom: 20,
                       child: Container(
                         height: 120,
                         width: 120,
@@ -100,7 +101,6 @@ class _CollectionDetailsPageWidgetState
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Gap(20),
                     Text(
                       widget.collectionModel.name,
                       style: const TextStyle(
@@ -116,7 +116,7 @@ class _CollectionDetailsPageWidgetState
                     ),
                     Text(
                       '''• created by ${user.displayName}   • items ${widget.collectionModel.items.length}
-• category ${widget.collectionModel.category}
+      • category ${widget.collectionModel.category}  • chain ${widget.collectionModel.chain}   
                     ''',
                       textAlign: TextAlign.justify,
                     )
@@ -140,7 +140,7 @@ class _CollectionDetailsPageWidgetState
                     case ConnectionState.active:
                       if (resultData != null && resultData.isNotEmpty) {
                         return GridView.count(
-                          crossAxisCount: 3,
+                          crossAxisCount: 2,
                           padding: const EdgeInsets.only(top: 10, right: 8),
                           childAspectRatio: 1,
                           children: List.generate(
@@ -154,17 +154,63 @@ class _CollectionDetailsPageWidgetState
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ViewNftPageWidget(
-                                            nftModel: resultData[index],
-                                            collectionModel:
-                                                widget.collectionModel),
+                                          nftModel: resultData[index],
+                                        ),
                                       ),
                                     );
                                   },
-                                  child: CachedNetworkImage(
-                                    imageUrl: resultData[index].imageUrl!,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, text) =>
-                                        Image.asset("assets/images/logo.jpg"),
+                                  child: Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: CachedNetworkImage(
+                                          imageUrl: resultData[index].imageUrl!,
+                                          height: 200,
+                                          width: 200,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, text) =>
+                                              Image.asset(
+                                            "assets/images/logo.jpg",
+                                          ),
+                                        ),
+                                      ),
+                                      resultData[index].rate != null
+                                          ? Positioned(
+                                              top: 5,
+                                              right: 5,
+                                              child: Image.asset(
+                                                "assets/images/on_sell.gif",
+                                                height: 15,
+                                                width: 15,
+                                              ))
+                                          : resultData[index].currentOwner ==
+                                                  user.uid
+                                              ? Positioned(
+                                                  top: 4,
+                                                  right: 4,
+                                                  child: Container(
+                                                    height: 28,
+                                                    width: 28,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                        100,
+                                                      ),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: IconButton(
+                                                      onPressed: () {
+                                                        _showBottomSheet(
+                                                            resultData[index]);
+                                                      },
+                                                      icon: Image.asset(
+                                                        "assets/images/auction.png",
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                    ],
                                   ),
                                 ),
                               );
@@ -221,6 +267,8 @@ class _CollectionDetailsPageWidgetState
                         description: widget.collectionModel.description,
                         collectionName: widget.collectionModel.name,
                         collectionId: widget.collectionModel.id,
+                        category: widget.collectionModel.category,
+                        chain: widget.collectionModel.chain,
                         imageUrl: provider.images[index],
                         currentOwner: user.uid,
                         owners: [
@@ -232,6 +280,7 @@ class _CollectionDetailsPageWidgetState
                       );
                       DataBase.addNft(nftModel);
                     }
+                    provider.removeImage();
                   },
                 );
               },
@@ -240,6 +289,121 @@ class _CollectionDetailsPageWidgetState
               label: const Text("NFTs"),
             )
           : Container(),
+    );
+  }
+
+  _showBottomSheet(NftModel nftModel) {
+    final rate = TextEditingController();
+    final buttonController = RoundedLoadingButtonController();
+    var formKey = GlobalKey<FormState>();
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (builder) {
+        return SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: SizedBox(
+              height: 250,
+              width: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Gap(10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/auction.png",
+                        height: 35,
+                        width: 35,
+                      ),
+                      const Gap(8),
+                      const Text(
+                        "Ready to sell",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(20),
+                  Row(
+                    children: [
+                      const Gap(20),
+                      Image.asset(
+                        nftModel.chain == "Ethereum"
+                            ? "assets/images/ethereum.png"
+                            : "assets/images/bitcoin.png",
+                        height: 50,
+                        width: 50,
+                      ),
+                      const Gap(10),
+                      SizedBox(
+                        width: 260,
+                        child: Form(
+                          key: formKey,
+                          child: TextFormField(
+                            controller: rate,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "amount must be needed";
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: const InputDecoration(
+                                enabledBorder: OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(),
+                                border: OutlineInputBorder(),
+                                hintText: "Enter the amount",
+                                contentPadding: EdgeInsets.all(10)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(20),
+                  RoundedLoadingButton(
+                    width: 320,
+                    controller: buttonController,
+                    color: ColorsData.selectiveYellow,
+                    successColor: ColorsData.selectiveYellow,
+                    onPressed: () {
+                      final valid = formKey.currentState!.validate();
+                      if (valid) {
+                        Future.delayed(const Duration(seconds: 3))
+                            .then((value) {
+                          buttonController.success();
+                        }).then((value) {
+                          nftModel.rate = rate.text;
+                          DataBase.setToSell(nftModel);
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        buttonController.reset();
+                        formKey.currentState!.validate();
+                      }
+                    },
+                    child: const Text(
+                      "Mint Now",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

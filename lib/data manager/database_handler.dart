@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
+import 'package:nft_marketplace/model/wallet_model.dart';
+import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 
 import '../data_variables.dart';
 import '../model/collection_model.dart';
@@ -54,7 +56,7 @@ class DataBase {
       name: user.displayName.toString(),
       username: username[0].toLowerCase(),
       email: user.email.toString(),
-      imageUrl: user.photoURL,
+      imageUrl: user.photoURL!,
       createdAt: date,
       updatedAt: date,
     );
@@ -122,15 +124,22 @@ class DataBase {
   static Future<void> addNft(NftModel nftModel) async {
     final imageUrl = await addImageToFirebaseStorage(
         nftModel.imageUrl!, ImageType.NFTs, null, nftModel);
-    final collection = firestore.collection("single_nft").doc();
+    final collection = firestore.collection("NFTs").doc();
     nftModel.id = collection.id;
     nftModel.imageUrl = imageUrl;
     collection.set(nftModel.toJson());
+    if (nftModel.collectionId != null) {
+      firestore.collection("collections").doc(nftModel.collectionId).update({
+        "items": FieldValue.arrayUnion(
+          [nftModel.id],
+        )
+      });
+    }
   }
 
   static Stream<List<NftModel>> getNft() {
     return firestore
-        .collection("single_nft")
+        .collection("NFTs")
         .where("createdBy", isEqualTo: user.uid)
         .where("collectionId", isEqualTo: null)
         .snapshots()
@@ -138,35 +147,49 @@ class DataBase {
             event.docs.map((doc) => NftModel.fromJson(doc.data())).toList());
   }
 
+  static Future<void> deleteNft(NftModel nftModel) async {
+    firestore.collection("NFTs").doc(nftModel.id).delete();
+  }
+
   static Stream<List<NftModel>> getNftInCollections(String collectionId) {
     return firestore
-        .collection("single_nft")
+        .collection("NFTs")
         .where("collectionId", isEqualTo: collectionId)
         .snapshots()
         .map((event) =>
             event.docs.map((doc) => NftModel.fromJson(doc.data())).toList());
-  }
-
-  static Stream<List<NftModel>> getOthersInCollection(
-      String collectionId, String id) {
-    return firestore
-        .collection("single_nft")
-        .where("collectionId", isEqualTo: collectionId)
-        .where("id", isNotEqualTo: id)
-        .snapshots()
-        .map((event) =>
-            event.docs.map((doc) => NftModel.fromJson(doc.data())).toList());
-  }
-
-  static getName(String id) {
-    return firestore.collection("users").doc(id).snapshots();
   }
 
   static Future<void> buyNft(NftModel nftModel) async {
-    firestore.collection("collectionPath").doc().update({
-      "currentOwner": nftModel.id,
+    firestore.collection("NFTs").doc(nftModel.id).update({
+      "currentOwner": user.uid,
       "owners": FieldValue.arrayUnion([nftModel.id]),
     });
+    final transaction = TransactionList(
+      coinType: nftModel.chain!,
+      amount: double.parse(nftModel.rate!),
+      from: nftModel.currentOwner,
+      to: user.uid,
+      transactedAt: DateTime.now().toLocal().toString(),
+    );
+    WalletDataManager.makeTransaction(transaction);
+
+    firestore
+        .collection("users")
+        .doc(user.uid)
+        .collection("collected")
+        .doc(nftModel.id)
+        .set({
+      "NftId": nftModel.id,
+    });
+  }
+
+  static Future<void> setToSell(NftModel nftModel) async {
+    firestore.collection("NFTs").doc(nftModel.id).update(
+      {
+        "rate": nftModel.rate,
+      },
+    );
   }
 }
 

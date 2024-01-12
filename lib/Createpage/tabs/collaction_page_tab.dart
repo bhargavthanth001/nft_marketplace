@@ -33,87 +33,88 @@ class CollectionTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-          stream: DataBase.getCollections(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final result = snapshot.data;
-              // ignore: unrelated_type_equality_checks
-              if (AsyncSnapshot.waiting == true) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                if (result != null) {
-                  return GridView.count(
-                    crossAxisCount: 2,
-                    padding: const EdgeInsets.only(top: 10, right: 8),
-                    childAspectRatio: 1,
-                    children: List.generate(
-                      result.length,
-                      (index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 8, top: 8),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      CollectionDetailsPageWidget(
-                                    collectionModel: result[index],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl: result[index].thumbnail,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, text) =>
-                                        Image.asset("assets/images/logo.jpg"),
-                                  ),
-                                  Positioned(
-                                    bottom: -50,
-                                    child: Image.asset(
-                                      "assets/images/shadow.png",
-                                      width: 170,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 5,
-                                    bottom: 15,
-                                    child: Text(
-                                      result[index].name!,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                } else {
-                  return _widget();
-                }
-              }
-            } else {
+        stream: DataBase.getCollections(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final result = snapshot.data;
+            // ignore: unrelated_type_equality_checks
+            if (AsyncSnapshot.waiting == true) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
+            } else {
+              if (result != null) {
+                return GridView.count(
+                  crossAxisCount: 2,
+                  padding: const EdgeInsets.only(top: 10, right: 8),
+                  childAspectRatio: 1,
+                  children: List.generate(
+                    result.length,
+                    (index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 8, top: 8),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CollectionDetailsPageWidget(
+                                  collectionModel: result[index],
+                                ),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: result[index].thumbnail,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, text) =>
+                                      Image.asset("assets/images/logo.jpg"),
+                                ),
+                                Positioned(
+                                  bottom: -50,
+                                  child: Image.asset(
+                                    "assets/images/shadow.png",
+                                    width: 170,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 5,
+                                  bottom: 15,
+                                  child: Text(
+                                    result[index].name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return _widget();
+              }
             }
-          }),
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 }
