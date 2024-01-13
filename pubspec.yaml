@@ -80,7 +80,7 @@ dev_dependencies:
   otp_pin_field: ^1.2.2
   crypto_market: ^0.0.3
   quickalert: ^1.0.2
-
+  google_fonts: ^4.0.4
 
 
 

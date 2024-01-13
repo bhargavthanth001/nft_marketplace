@@ -182,7 +182,8 @@ class _CollectionDetailsPageWidgetState
                                                 "assets/images/on_sell.gif",
                                                 height: 15,
                                                 width: 15,
-                                              ))
+                                              ),
+                                            )
                                           : resultData[index].currentOwner ==
                                                   user.uid
                                               ? Positioned(

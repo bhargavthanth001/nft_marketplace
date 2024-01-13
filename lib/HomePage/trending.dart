@@ -28,6 +28,12 @@ class TrendingWidget extends StatelessWidget {
                           ),
                         ),
                       );
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => ScrollViewWidget(
+                      //               collectionModel: result[index],
+                      //             )));
                     },
                     child: Container(
                       height: 60,
