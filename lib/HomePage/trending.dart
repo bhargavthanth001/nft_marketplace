@@ -11,13 +11,15 @@ class TrendingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: DataBase.getAllCollections(),
-        builder: (context, snapShot) {
-          if (snapShot.hasData) {
-            final result = snapShot.data;
-            if (result != null) {
-              return Wrap(
-                children: List.generate(result.length, (index) {
+      stream: DataBase.getAllCollections(),
+      builder: (context, snapShot) {
+        if (snapShot.hasData) {
+          final result = snapShot.data;
+          if (result!.isNotEmpty) {
+            return Wrap(
+              children: List.generate(
+                result.length,
+                (index) {
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -28,12 +30,6 @@ class TrendingWidget extends StatelessWidget {
                           ),
                         ),
                       );
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => ScrollViewWidget(
-                      //               collectionModel: result[index],
-                      //             )));
                     },
                     child: Container(
                       height: 60,
@@ -75,9 +71,10 @@ class TrendingWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             softWrap: false,
                             style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           const Spacer(),
                           IconButton(
@@ -88,18 +85,21 @@ class TrendingWidget extends StatelessWidget {
                       ),
                     ),
                   );
-                }),
-              );
-            } else {
-              return const Center(
-                child: Text("No Data Found"),
-              );
-            }
+                },
+              ),
+            );
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Align(
+              alignment: Alignment.topCenter,
+              child: Text("No Data Found"),
             );
           }
-        });
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 }

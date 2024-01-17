@@ -67,9 +67,8 @@ class DataBase {
         .set(userModel.toJson());
   }
 
-  static Future<UserModel> currentUser() async {
-    DocumentSnapshot data =
-        await firestore.collection('users').doc(user.uid).get();
+  static Future<UserModel> getUser(String id) async {
+    DocumentSnapshot data = await firestore.collection('users').doc(id).get();
 
     if (data.exists) {
       return UserModel.fromJson(data.data() as Map<String, dynamic>);
@@ -168,8 +167,8 @@ class DataBase {
     final transaction = TransactionList(
       coinType: nftModel.chain!,
       amount: double.parse(nftModel.rate!),
-      from: nftModel.currentOwner,
-      to: user.uid,
+      from: user.uid,
+      to: nftModel.currentOwner,
       transactedAt: DateTime.now().toLocal().toString(),
     );
     WalletDataManager.makeTransaction(transaction);

@@ -40,7 +40,6 @@ class CollectionProvider extends ChangeNotifier {
     isBgImage
         ? _bgImage = files.map((file) => file.path).toList().first
         : _images = files.map((file) => file.path).toList();
-    ;
 
     notifyListeners();
   }

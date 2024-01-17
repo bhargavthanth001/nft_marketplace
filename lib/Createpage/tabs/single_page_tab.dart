@@ -18,6 +18,7 @@ class _SingleNftTabState extends State<SingleNftTab> {
   _widget() {
     return const Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
             Icons.collections_sharp,
@@ -25,7 +26,7 @@ class _SingleNftTabState extends State<SingleNftTab> {
           ),
           Gap(5),
           Text(
-            "No collection found",
+            "No nft found",
             style: TextStyle(
               color: ColorsData.cardinal,
             ),
@@ -49,7 +50,7 @@ class _SingleNftTabState extends State<SingleNftTab> {
                 child: CircularProgressIndicator(),
               );
             } else {
-              if (result != null) {
+              if (result!.isNotEmpty) {
                 return GridView.count(
                   crossAxisCount: 2,
                   padding: const EdgeInsets.only(top: 10, left: 8, right: 8),

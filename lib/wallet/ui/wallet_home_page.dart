@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/data_variables.dart';
-import 'package:nft_marketplace/model/wallet_model.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:nft_marketplace/wallet/ui/transaction_screen.dart';
@@ -301,19 +300,6 @@ class _WalletHomePageState extends State<WalletHomePage> {
                         onCoinTap: (ctx, coin) {},
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        final model = TransactionList(
-                          from: resultData.walletId,
-                          to: "EpoqLm9MYzagMj0xv03SzUKflEl1",
-                          coinType: "Bitcoin",
-                          amount: 0.3,
-                          transactedAt: DateTime.now().toLocal().toString(),
-                        );
-                        WalletDataManager.makeTransaction(model);
-                      },
-                      child: const Text("Send"),
-                    )
                   ],
                 );
               } else {

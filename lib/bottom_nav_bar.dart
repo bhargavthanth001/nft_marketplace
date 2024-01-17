@@ -3,6 +3,7 @@ import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
 import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/create_page.dart';
+import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/profile.dart';
 import 'package:nft_marketplace/search.dart';
 
@@ -21,9 +22,11 @@ class _BottomNavBarState extends State<BottomNavBar>
   int selectedIndex = 0;
   List<Widget> widgets = [
     HomePage(),
-    SearchPage(),
+    const SearchPage(),
     const CreatePageWidget(),
-    ProfilePage(),
+    ProfilePage(
+      userId: user.uid,
+    ),
     const MorePage(),
   ];
 

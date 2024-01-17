@@ -8,6 +8,8 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/description_page.dart';
 import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/provider/dropdown_provider.dart';
+import 'package:nft_marketplace/snack_bar.dart';
+import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../../data manager/database_handler.dart';
@@ -173,208 +175,212 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
             const SizedBox(
               height: 10,
             ),
-            widget.isSingleNft
-                ? const SizedBox()
-                : Form(
-                    key: formKey,
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
+            if (widget.isSingleNft)
+              const SizedBox()
+            else
+              Form(
+                key: formKey,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: title,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "title must needed";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(),
+                          focusedBorder:
+                              OutlineInputBorder(borderSide: BorderSide()),
+                          hintText: "Enter the title",
+                        ),
                       ),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: title,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "title must needed";
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(),
-                              focusedBorder:
-                                  OutlineInputBorder(borderSide: BorderSide()),
-                              hintText: "Enter the title",
-                            ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        controller: description,
+                        minLines: 2,
+                        maxLines: null,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "description must needed";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(),
+                          focusedBorder:
+                              OutlineInputBorder(borderSide: BorderSide()),
+                          hintText: "Enter the description",
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      DropdownButtonFormField2<String>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: description,
-                            minLines: 2,
-                            maxLines: null,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "description must needed";
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(),
-                              focusedBorder:
-                                  OutlineInputBorder(borderSide: BorderSide()),
-                              hintText: "Enter the description",
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          DropdownButtonFormField2<String>(
-                            isExpanded: true,
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 16),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
+                        ),
+                        hint: const Text(
+                          'Select Your Category',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        items: categoryList
+                            .map(
+                              (item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
                               ),
-                            ),
-                            hint: const Text(
-                              'Select Your Category',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            items: categoryList
-                                .map(
-                                  (item) => DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
+                            )
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select category.';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {},
+                        onSaved: (value) =>
+                            dropDownProvider.selectCatagory(value),
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black45,
+                          ),
+                          iconSize: 24,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        ),
+                      ),
+                      const Gap(10),
+                      DropdownButtonFormField2<String>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        hint: const Text(
+                          'Select Your Chain',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        items: chain
+                            .map((item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(
+                                      fontSize: 14,
                                     ),
                                   ),
-                                )
-                                .toList(),
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Please select category.';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {},
-                            onSaved: (value) =>
-                                dropDownProvider.selectCatagory(value),
-                            buttonStyleData: const ButtonStyleData(
-                              padding: EdgeInsets.only(right: 8),
-                            ),
-                            iconStyleData: const IconStyleData(
-                              icon: Icon(
-                                Icons.arrow_drop_down,
-                                color: Colors.black45,
-                              ),
-                              iconSize: 24,
-                            ),
-                            dropdownStyleData: DropdownStyleData(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                            ),
+                                ))
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select category.';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {},
+                        onSaved: (value) => dropDownProvider.selectChain(value),
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black45,
                           ),
-                          const Gap(10),
-                          DropdownButtonFormField2<String>(
-                            isExpanded: true,
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 16),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            hint: const Text(
-                              'Select Your Chain',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            items: chain
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(
-                                        item,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Please select category.';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {},
-                            onSaved: (value) =>
-                                dropDownProvider.selectChain(value),
-                            buttonStyleData: const ButtonStyleData(
-                              padding: EdgeInsets.only(right: 8),
-                            ),
-                            iconStyleData: const IconStyleData(
-                              icon: Icon(
-                                Icons.arrow_drop_down,
-                                color: Colors.black45,
-                              ),
-                              iconSize: 24,
-                            ),
-                            dropdownStyleData: DropdownStyleData(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                            ),
+                          iconSize: 24,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          Gap(10),
-                          MaterialButton(
-                            color: ColorsData.selectiveYellow,
-                            onPressed: () async {
-                              bool valid = formKey.currentState!.validate();
-                              if (valid) {
-                                if (provider.images.isNotEmpty) {
-                                  final model = CollectionModel(
-                                    name: title.text,
-                                    description: description.text,
-                                    thumbnail: provider.images.first,
-                                    chain: dropDownProvider.selectedChain,
-                                    bgImage: provider.bgImage,
-                                    category: dropDownProvider.selectedCategory,
-                                    items: [],
-                                    createdBy: user.uid,
-                                  );
-                                  DataBase.createCollection(model);
-                                  title.text = "";
-                                  description.text = "";
-                                  provider.removeImage();
-                                  provider.removeBGImage();
-                                  Navigator.pop(context);
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text("Please choose a Thumbnail"),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                }
-                              } else {
-                                debugPrint("Hello");
-                                formKey.currentState!.validate();
-                              }
-                            },
-                            child: const Text("Add"),
-                          ),
-                        ],
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        ),
                       ),
-                    ),
+                      Gap(10),
+                      MaterialButton(
+                        color: ColorsData.selectiveYellow,
+                        onPressed: () async {
+                          bool valid = formKey.currentState!.validate();
+                          if (valid) {
+                            if (provider.images.isNotEmpty) {
+                              if (await WalletDataManager.existWallet()) {
+                                final model = CollectionModel(
+                                  name: title.text,
+                                  description: description.text,
+                                  thumbnail: provider.images.first,
+                                  chain: dropDownProvider.selectedChain,
+                                  bgImage: provider.bgImage,
+                                  category: dropDownProvider.selectedCategory,
+                                  items: [],
+                                  createdBy: user.uid,
+                                );
+                                DataBase.createCollection(model);
+                                title.text = "";
+                                description.text = "";
+                                provider.removeImage();
+                                provider.removeBGImage();
+                                Navigator.pop(context);
+                              } else {
+                                openSnackBar(context, "create a wallet first",
+                                    Colors.red);
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Please choose a Thumbnail"),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          } else {
+                            debugPrint("Hello");
+                            formKey.currentState!.validate();
+                          }
+                        },
+                        child: const Text("Add"),
+                      ),
+                    ],
                   ),
+                ),
+              ),
             widget.isSingleNft
                 ? Align(
                     alignment: Alignment.center,

@@ -1,14 +1,18 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
+import 'package:nft_marketplace/data_variables.dart';
 
 import 'colors.dart';
 import 'data manager/database_handler.dart';
 import 'model/user_model.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  final String userId;
+
+  ProfilePage({Key? key, required this.userId}) : super(key: key);
 
   final myTabs = [
     const Center(child: Text("Collected tab")),
@@ -25,7 +29,7 @@ class ProfilePage extends StatelessWidget {
         forceMaterialTransparency: true,
       ),
       body: FutureBuilder<UserModel>(
-        future: DataBase.currentUser(),
+        future: DataBase.getUser(userId),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             debugPrint(snapshot.error.toString());

@@ -12,6 +12,7 @@ class CollectionTab extends StatelessWidget {
   _widget() {
     return const Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
             Icons.collections_sharp,
@@ -43,7 +44,7 @@ class CollectionTab extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else {
-              if (result != null) {
+              if (result!.isNotEmpty) {
                 return GridView.count(
                   crossAxisCount: 2,
                   padding: const EdgeInsets.only(top: 10, right: 8),

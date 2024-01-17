@@ -16,11 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool trend = true;
 
-  // Future getData() async {
-  //   final sp = context.read<SignInProvider>();
-  //   LocalDataManager.callSession();
-  // }
-
   @override
   void initState() {
     super.initState();

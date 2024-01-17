@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/model/wallet_model.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../snack_bar.dart';
 
@@ -58,22 +60,28 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
               ),
             ),
             const Spacer(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: MaterialButton(
-                minWidth: 300,
-                color: ColorsData.selectiveYellow,
-                onPressed: () async {
-                  final wallet = await WalletDataManager.existWallet();
-                  if (wallet) {
-                    _showPurchaseBottomSheet(widget.nftModel);
-                  } else {
-                    openSnackBar(context, "Create a Walllet", Colors.red);
-                  }
-                },
-                child: const Text("Buy now"),
-              ),
-            ),
+            widget.nftModel.rate == null
+                ? const SizedBox()
+                : widget.nftModel.currentOwner == user.uid
+                    ? const SizedBox()
+                    : Align(
+                        alignment: Alignment.bottomCenter,
+                        child: MaterialButton(
+                          minWidth: 300,
+                          color: ColorsData.selectiveYellow,
+                          onPressed: () async {
+                            final wallet =
+                                await WalletDataManager.existWallet();
+                            if (wallet) {
+                              _showPurchaseBottomSheet(widget.nftModel);
+                            } else {
+                              openSnackBar(
+                                  context, "Create a Walllet", Colors.red);
+                            }
+                          },
+                          child: const Text("Buy now"),
+                        ),
+                      ),
           ],
         ),
       ),
@@ -81,6 +89,7 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
   }
 
   _showPurchaseBottomSheet(NftModel nftModel) {
+    final controller = RoundedLoadingButtonController();
     return showModalBottomSheet(
       context: context,
       shape: const OutlineInputBorder(borderRadius: BorderRadius.zero),
@@ -117,8 +126,54 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
                   ),
                 ],
               ),
-              MaterialButton(
-                onPressed: () async {
+              RoundedLoadingButton(
+                controller: controller,
+                color: Colors.red,
+                successColor: Colors.red,
+                onPressed: () {
+                  Future.delayed(const Duration(seconds: 2), () async {
+                    controller.success();
+                  }).then(
+                    (value) async {
+                      final audio = AudioPlayer();
+                      await audio.setAsset("assets/audio/payment_success.mp3");
+                      await audio.play();
+                      WalletModel model =
+                          await WalletDataManager.getWallet(user.uid);
+                      if (nftModel.chain == "Ethereum") {
+                        if (model.coin!.ethereum! <
+                            double.parse(nftModel.rate!)) {
+                          debugPrint("Not Enough Balance");
+                        } else {
+                          DataBase.buyNft(nftModel);
+                        }
+                      } else {
+                        if (model.coin!.bitcoin! <
+                            double.parse(nftModel.rate!)) {
+                          debugPrint("Not Enough Balance");
+                        } else {
+                          DataBase.buyNft(nftModel);
+                        }
+                      }
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+                child: const Text(
+                  "Pay now",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w700),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+/*
+*                 onPressed: () async {
                   WalletModel model =
                       await WalletDataManager.getWallet(user.uid);
                   if (nftModel.chain == "Ethereum") {
@@ -135,12 +190,4 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
                     }
                   }
                 },
-                child: const Text("Pay now"),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
+*/
