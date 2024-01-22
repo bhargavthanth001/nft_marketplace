@@ -1,26 +1,34 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/data_variables.dart';
+import 'package:nft_marketplace/profile_page_details/collected_nfts_page.dart';
 
-import 'colors.dart';
 import 'data manager/database_handler.dart';
 import 'model/user_model.dart';
+import 'utils/colors.dart';
 
 class ProfilePage extends StatelessWidget {
   final String userId;
 
   ProfilePage({Key? key, required this.userId}) : super(key: key);
 
-  final myTabs = [
-    const Center(child: Text("Collected tab")),
-    const Center(child: Text("Favorite tab")),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    debugPrint("User id => $userId");
+    debugPrint("current user => ${user.uid}");
+    final myTabs = [
+      CollectedNFTsPageWidget(id: userId),
+      const Center(child: Text("Favorite tab")),
+    ];
+    if (userId != user.uid) {
+      myTabs.add(
+        const Center(
+          child: Text("Favorite tab"),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -83,12 +91,13 @@ class ProfilePage extends StatelessWidget {
                         child: ContainedTabBarView(
                           tabBarProperties: const TabBarProperties(
                             height: 40,
+                            width: double.infinity,
                             indicatorColor: ColorsData.black,
                             labelColor: ColorsData.black,
                             padding: EdgeInsets.zero,
                           ),
-                          tabs: const [
-                            Row(
+                          tabs: [
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.grid_view_outlined),
@@ -98,7 +107,7 @@ class ProfilePage extends StatelessWidget {
                                 Text('0'),
                               ],
                             ),
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.favorite_border),
@@ -108,6 +117,17 @@ class ProfilePage extends StatelessWidget {
                                 Text('0'),
                               ],
                             ),
+                            if (userId != user.uid)
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.format_paint),
+                                  Gap(12),
+                                  Text('Created'),
+                                  Gap(8),
+                                  Text('0'),
+                                ],
+                              ),
                           ],
                           views: myTabs,
                           onChange: (index) => {},

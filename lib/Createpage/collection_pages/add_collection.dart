@@ -6,9 +6,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/description_page.dart';
-import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/provider/dropdown_provider.dart';
-import 'package:nft_marketplace/snack_bar.dart';
+import 'package:nft_marketplace/utils/colors.dart';
+import 'package:nft_marketplace/utils/snack_bar.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:provider/provider.dart';
 

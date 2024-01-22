@@ -1,8 +1,8 @@
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/wallet/ui/wallet_home_page.dart';
 
 import '../../data manager/session_manager.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:provider/provider.dart';
 

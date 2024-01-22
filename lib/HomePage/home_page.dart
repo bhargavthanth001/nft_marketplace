@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/HomePage/promotions.dart';
 import 'package:nft_marketplace/HomePage/top.dart';
 import 'package:nft_marketplace/HomePage/trending.dart';
-import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);

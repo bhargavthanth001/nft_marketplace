@@ -4,17 +4,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/view_nft.dart';
-import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/model/collection_model.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/profile.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../data_variables.dart';
 import '../../provider/collection_provider.dart';
+import '../../utils/bottmsheet.dart';
 
 class CollectionDetailsPageWidget extends StatefulWidget {
   final CollectionModel collectionModel;
@@ -127,7 +127,8 @@ class _CollectionDetailsPageWidgetState
                               ),
                             ),
                             Text(
-                              '''• items ${widget.collectionModel.items.length} • category ${widget.collectionModel.category}  • chain ${widget.collectionModel.chain}   
+                              '''• items ${widget.collectionModel.items.length} • category ${widget.collectionModel.category}  • chain ${widget.collectionModel.chain} 
+               
                             ''',
                               textAlign: TextAlign.justify,
                             ),
@@ -135,12 +136,22 @@ class _CollectionDetailsPageWidgetState
                         ),
                       ),
                     ),
-                    const Divider(),
+                    const Divider(
+                      color: Colors.black54,
+                    ),
+                    const Gap(8),
                     Row(
                       children: [
-                        const Text("Created By "),
+                        const Gap(10),
+                        const Text(
+                          "Created By ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 15),
+                        ),
+                        const Gap(5),
                         FutureBuilder(
-                            future: DataBase.getUser(user.uid),
+                            future: DataBase.getUser(
+                                widget.collectionModel.createdBy),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 final result = snapshot.data;
@@ -159,7 +170,9 @@ class _CollectionDetailsPageWidgetState
                                     child: Text(
                                       snapshot.data!.username!,
                                       style: const TextStyle(
-                                          color: Colors.blueAccent),
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.blueAccent,
+                                      ),
                                     ),
                                   );
                                 } else {
@@ -171,7 +184,10 @@ class _CollectionDetailsPageWidgetState
                             })
                       ],
                     ),
-                    const Divider(),
+                    const Gap(8),
+                    const Divider(
+                      color: Colors.black54,
+                    ),
                   ],
                 ),
               StreamBuilder(
@@ -254,8 +270,8 @@ class _CollectionDetailsPageWidgetState
                                                     right: 5,
                                                     child: Image.asset(
                                                       "assets/images/on_sell.gif",
-                                                      height: 15,
-                                                      width: 15,
+                                                      height: 18,
+                                                      width: 18,
                                                     ),
                                                   )
                                                 : resultData[index]
@@ -278,7 +294,8 @@ class _CollectionDetailsPageWidgetState
                                                           ),
                                                           child: IconButton(
                                                             onPressed: () {
-                                                              _showBottomSheet(
+                                                              showBottomSheetMethod(
+                                                                  context,
                                                                   resultData[
                                                                       index]);
                                                             },
@@ -436,121 +453,6 @@ class _CollectionDetailsPageWidgetState
               label: const Text("NFTs"),
             )
           : Container(),
-    );
-  }
-
-  _showBottomSheet(NftModel nftModel) {
-    final rate = TextEditingController();
-    final buttonController = RoundedLoadingButtonController();
-    var formKey = GlobalKey<FormState>();
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (builder) {
-        return SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: SizedBox(
-              height: 250,
-              width: double.infinity,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Gap(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/auction.png",
-                        height: 35,
-                        width: 35,
-                      ),
-                      const Gap(8),
-                      const Text(
-                        "Ready to sell",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Gap(20),
-                  Row(
-                    children: [
-                      const Gap(20),
-                      Image.asset(
-                        nftModel.chain == "Ethereum"
-                            ? "assets/images/ethereum.png"
-                            : "assets/images/bitcoin.png",
-                        height: 50,
-                        width: 50,
-                      ),
-                      const Gap(10),
-                      SizedBox(
-                        width: 260,
-                        child: Form(
-                          key: formKey,
-                          child: TextFormField(
-                            controller: rate,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "amount must be needed";
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: const InputDecoration(
-                                enabledBorder: OutlineInputBorder(),
-                                focusedBorder: OutlineInputBorder(),
-                                border: OutlineInputBorder(),
-                                hintText: "Enter the amount",
-                                contentPadding: EdgeInsets.all(10)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Gap(20),
-                  RoundedLoadingButton(
-                    width: 320,
-                    controller: buttonController,
-                    color: ColorsData.selectiveYellow,
-                    successColor: ColorsData.selectiveYellow,
-                    onPressed: () {
-                      final valid = formKey.currentState!.validate();
-                      if (valid) {
-                        Future.delayed(const Duration(seconds: 3))
-                            .then((value) {
-                          buttonController.success();
-                        }).then((value) {
-                          nftModel.rate = rate.text;
-                          DataBase.setToSell(nftModel);
-                          Navigator.pop(context);
-                        });
-                      } else {
-                        buttonController.reset();
-                        formKey.currentState!.validate();
-                      }
-                    },
-                    child: const Text(
-                      "Mint Now",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

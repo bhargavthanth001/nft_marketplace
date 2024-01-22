@@ -2,7 +2,7 @@ import 'package:crypto_market/Crypto_Market/Model/coin_model.dart';
 import 'package:crypto_market/crypto_market.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';

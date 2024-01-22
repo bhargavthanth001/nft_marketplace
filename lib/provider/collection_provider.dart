@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multi_image_picker_plus/multi_image_picker_plus.dart';
-import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CollectionProvider extends ChangeNotifier {

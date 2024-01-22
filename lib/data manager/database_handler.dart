@@ -108,18 +108,6 @@ class DataBase {
         event.docs.map((doc) => CollectionModel.fromJson(doc.data())).toList());
   }
 
-  static Future<void> addItemsToTheCollection(
-      CollectionModel collectionModel, NftModel nftModel) async {
-    addImageToFirebaseStorage(
-        nftModel.imageUrl!, ImageType.NFTs, collectionModel, nftModel);
-    firestore
-        .collection("collections")
-        .doc(collectionModel.id)
-        .collection("items")
-        .doc()
-        .set(nftModel.toJson());
-  }
-
   static Future<void> addNft(NftModel nftModel) async {
     final imageUrl = await addImageToFirebaseStorage(
         nftModel.imageUrl!, ImageType.NFTs, null, nftModel);
@@ -162,7 +150,7 @@ class DataBase {
   static Future<void> buyNft(NftModel nftModel) async {
     firestore.collection("NFTs").doc(nftModel.id).update({
       "currentOwner": user.uid,
-      "owners": FieldValue.arrayUnion([nftModel.id]),
+      "owners": FieldValue.arrayUnion([user.uid]),
     });
     final transaction = TransactionList(
       coinType: nftModel.chain!,
@@ -189,6 +177,26 @@ class DataBase {
         "rate": nftModel.rate,
       },
     );
+  }
+
+  static Stream<List<NftModel>> getCollectedNft(String id) {
+    debugPrint("Id is => $id");
+    return firestore
+        .collection("NFTs")
+        .where("currentOwner", isEqualTo: id)
+        .limit(1000)
+        .where("createdBy", isNotEqualTo: id)
+        .limit(1000)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map(
+                (doc) => NftModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .toList(),
+        );
   }
 }
 

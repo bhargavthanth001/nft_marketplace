@@ -2,15 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/model/wallet_model.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../snack_bar.dart';
+import '../../utils/snack_bar.dart';
 
 class ViewNftPageWidget extends StatefulWidget {
   final NftModel nftModel;

@@ -1,7 +1,7 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 
 import 'Createpage/collection_pages/add_collection.dart';
 import 'Createpage/tabs/collaction_page_tab.dart';

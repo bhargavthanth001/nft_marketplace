@@ -2,21 +2,18 @@
 import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/bottom_nav_bar.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../data manager/session_manager.dart';
 import '../provider/internet_provider.dart';
 import '../provider/sign_in_provider.dart';
-import '../snack_bar.dart';
+import '../utils/snack_bar.dart';
 
 class LoginPageWidget extends StatefulWidget {
   const LoginPageWidget({super.key});

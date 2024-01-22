@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/provider/collection_provider.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../data_variables.dart';

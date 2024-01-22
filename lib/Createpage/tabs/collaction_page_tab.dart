@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/collection_details_page.dart';
-import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 
 import '../../data manager/database_handler.dart';
 

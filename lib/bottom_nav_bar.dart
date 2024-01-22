@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
-import 'package:nft_marketplace/colors.dart';
 import 'package:nft_marketplace/create_page.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/profile.dart';
 import 'package:nft_marketplace/search.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 
 import 'HomePage/home_page.dart';
 import 'more.dart';

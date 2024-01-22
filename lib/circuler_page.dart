@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:nft_marketplace/colors.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 
 class CircularPageIndicator extends StatefulWidget {
   const CircularPageIndicator({super.key});
