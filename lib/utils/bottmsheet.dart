@@ -12,12 +12,12 @@ showBottomSheetMethod(BuildContext context, NftModel nftModel) {
   var formKey = GlobalKey<FormState>();
   return showModalBottomSheet(
     isScrollControlled: true,
-    context: context,
+    context: context!,
     builder: (builder) {
       return SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
+            bottom: MediaQuery.of(context!).viewInsets.bottom,
           ),
           child: SizedBox(
             height: 250,
@@ -63,6 +63,7 @@ showBottomSheetMethod(BuildContext context, NftModel nftModel) {
                         key: formKey,
                         child: TextFormField(
                           controller: rate,
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "amount must be needed";
@@ -95,7 +96,7 @@ showBottomSheetMethod(BuildContext context, NftModel nftModel) {
                       }).then((value) {
                         nftModel.rate = rate.text;
                         DataBase.setToSell(nftModel);
-                        Navigator.pop(context);
+                        Navigator.pop(context!);
                       });
                     } else {
                       buttonController.reset();

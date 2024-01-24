@@ -103,8 +103,10 @@ class CollectedNFTsPageWidget extends StatelessWidget {
                                               ),
                                               child: IconButton(
                                                 onPressed: () {
-                                                  showBottomSheetMethod(context,
-                                                      resultData[index]);
+                                                  showBottomSheetMethod(
+                                                    context,
+                                                    resultData[index],
+                                                  );
                                                 },
                                                 icon: Image.asset(
                                                   "assets/images/auction.png",

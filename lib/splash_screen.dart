@@ -51,16 +51,16 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 80,
-              width: 80,
+              height: 100,
+              width: 100,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
                 image: const DecorationImage(
-                  image: AssetImage("assets/images/logo.jpg"),
+                  image: AssetImage("assets/images/app_logo.png"),
                 ),
               ),
             ),
-            const Gap(20),
+            const Gap(10),
             const Text(
               "NFT Marketplace",
               style: TextStyle(

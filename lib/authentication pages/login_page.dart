@@ -1,7 +1,8 @@
+import 'dart:math' as math;
+
 // ignore: depend_on_referenced_packages
 import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 // ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/bottom_nav_bar.dart';
@@ -28,49 +29,66 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
-        ),
-      ),
-      body: Column(
-        children: [
-          const Spacer(),
-          RoundedLoadingButton(
-            controller: googleController,
-            successColor: Colors.red,
-            color: Colors.red,
-            onPressed: () async {
-              handleGoogleSignIn();
-            },
-            child: const Wrap(
-              children: [
-                Icon(
-                  FontAwesomeIcons.google,
-                  size: 20,
-                  color: Colors.white,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "Sign in with google",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            gradient: SweepGradient(
+              stops: <double>[0.0, 0.25, 0.5, 0.75, 1.0],
+              tileMode: TileMode.clamp,
+              startAngle: math.pi * 0.2,
+              endAngle: math.pi * 1.7,
+              colors: [
+                Color(0xFFdf37fc),
+                Color(0xFFe167ff),
+                Color(0xFF0057ff),
+                Color(0xFF189fff),
+                Color(0xFF17ef97)
               ],
             ),
           ),
-          const Gap(30),
-        ],
-      ),
+        ),
+        Column(
+          children: [
+            const Gap(50),
+            Image.asset(
+              "assets/images/app_logo.png",
+              height: 100,
+              width: double.infinity,
+            ),
+            const Spacer(),
+            RoundedLoadingButton(
+              controller: googleController,
+              successColor: Colors.red,
+              color: Colors.red,
+              onPressed: () async {
+                handleGoogleSignIn();
+              },
+              child: const Wrap(
+                children: [
+                  Icon(
+                    FontAwesomeIcons.google,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Sign in with google",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Gap(30),
+          ],
+        ),
+      ],
     );
   }
 

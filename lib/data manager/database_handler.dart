@@ -148,10 +148,15 @@ class DataBase {
   }
 
   static Future<void> buyNft(NftModel nftModel) async {
-    firestore.collection("NFTs").doc(nftModel.id).update({
-      "currentOwner": user.uid,
-      "owners": FieldValue.arrayUnion([user.uid]),
-    });
+    firestore.collection("NFTs").doc(nftModel.id).update(
+      {
+        "currentOwner": user.uid,
+        "rate": null,
+        "owners": FieldValue.arrayUnion(
+          [user.uid],
+        ),
+      },
+    );
     final transaction = TransactionList(
       coinType: nftModel.chain!,
       amount: double.parse(nftModel.rate!),

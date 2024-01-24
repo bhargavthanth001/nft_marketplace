@@ -2,9 +2,9 @@ import 'package:crypto_market/Crypto_Market/Model/coin_model.dart';
 import 'package:crypto_market/crypto_market.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
+import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:nft_marketplace/wallet/ui/transaction_screen.dart';
 import 'package:provider/provider.dart';
@@ -219,6 +219,9 @@ class _WalletHomePageState extends State<WalletHomePage> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<RefreshScreenProvider>(context);
+    Future.delayed(const Duration(seconds: 2), () {
+      provider.onRefresh();
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Wallet"),
