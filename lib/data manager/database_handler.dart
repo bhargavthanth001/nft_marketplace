@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:nft_marketplace/model/blockchain_model.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/model/wallet_model.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
@@ -148,6 +149,13 @@ class DataBase {
   }
 
   static Future<void> buyNft(NftModel nftModel) async {
+    final blockchainModel = BlockchainModel(
+        id: "${user.uid}_${nftModel.currentOwner}",
+        from: user.uid,
+        to: nftModel.currentOwner!,
+        amount: nftModel.rate!,
+        nftId: nftModel.id!,
+        createdAt: DateTime.now().toLocal().toString());
     firestore.collection("NFTs").doc(nftModel.id).update(
       {
         "currentOwner": user.uid,
@@ -155,6 +163,9 @@ class DataBase {
         "owners": FieldValue.arrayUnion(
           [user.uid],
         ),
+        "blockchain": FieldValue.arrayUnion([
+          blockchainModel.toJson(),
+        ])
       },
     );
     final transaction = TransactionList(

@@ -313,10 +313,15 @@ class _CollectionDetailsPageWidgetState
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Text(
-                                                widget.collectionModel.name,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
+                                              SizedBox(
+                                                width: 110,
+                                                child: Text(
+                                                  widget.collectionModel.name,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
                                                 ),
                                               ),
                                               const Spacer(),
@@ -438,6 +443,7 @@ class _CollectionDetailsPageWidgetState
                         owners: [
                           user.uid,
                         ],
+                        blockchain: [],
                         createdBy: user.uid,
                         createdAt: DateTime.now().toString(),
                         updatedAt: DateTime.now().toString(),

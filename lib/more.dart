@@ -125,6 +125,31 @@ class _MorePageState extends State<MorePage> {
                   width: 25,
                 )),
           ),
+          GestureDetector(
+            onTap: () {
+              handelSignOut().then(
+                (value) => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AboutUsPageWidget(),
+                  ),
+                ),
+              );
+            },
+            child: ListTile(
+              title: const Text(
+                "Chat with Aral",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              leading: Image.asset(
+                "assets/images/aral.png",
+                height: 25,
+                width: 25,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
         ],
       ),
     );

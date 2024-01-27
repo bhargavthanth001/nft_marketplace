@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:nft_marketplace/model/blockchain_model.dart';
+
 NftModel nftModelFromJson(String str) => NftModel.fromJson(json.decode(str));
 
 String nftModelToJson(NftModel data) => json.encode(data.toJson());
@@ -17,6 +19,7 @@ class NftModel {
   String? createdBy;
   String? currentOwner;
   List<String>? owners;
+  List<BlockchainModel>? blockchain;
   String? createdAt;
   String? updatedAt;
 
@@ -33,6 +36,7 @@ class NftModel {
     this.createdBy,
     this.currentOwner,
     this.owners,
+    this.blockchain,
     this.createdAt,
     this.updatedAt,
   });
@@ -50,6 +54,8 @@ class NftModel {
         createdBy: json["createdBy"],
         currentOwner: json["currentOwner"],
         owners: List<String>.from(json["owners"].map((x) => x)),
+        blockchain: List<BlockchainModel>.from(
+            json["blockchain"].map((x) => BlockchainModel.fromJson(x))),
         createdAt: json["createdAt"],
         updatedAt: json["updatedAt"],
       );
@@ -67,6 +73,7 @@ class NftModel {
         "createdBy": createdBy,
         "currentOwner": currentOwner,
         "owners": List<String>.from(owners!.map((x) => x)),
+        "blockchain": List<dynamic>.from(blockchain!.map((x) => x.toJson())),
         "createdAt": createdAt,
         "updatedAt": updatedAt,
       };

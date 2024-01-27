@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 // ignore: depend_on_referenced_packages
 import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
@@ -29,70 +27,66 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            gradient: SweepGradient(
-              stops: <double>[0.0, 0.25, 0.5, 0.75, 1.0],
-              tileMode: TileMode.clamp,
-              startAngle: math.pi * 0.2,
-              endAngle: math.pi * 1.7,
-              colors: [
-                Color(0xFFdf37fc),
-                Color(0xFFe167ff),
-                Color(0xFF0057ff),
-                Color(0xFF189fff),
-                Color(0xFF17ef97)
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Spacer(),
+          Image.asset(
+            "assets/images/app_logo.png",
+            height: 100,
+            width: double.infinity,
+          ),
+          const Text(
+            "NFT Marketplace",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              shadows: [
+                BoxShadow(
+                  offset: Offset(1, 0),
+                  color: Colors.black26,
+                )
               ],
             ),
           ),
-        ),
-        Column(
-          children: [
-            const Gap(50),
-            Image.asset(
-              "assets/images/app_logo.png",
-              height: 100,
-              width: double.infinity,
-            ),
-            const Spacer(),
-            RoundedLoadingButton(
-              controller: googleController,
-              successColor: Colors.red,
-              color: Colors.red,
-              onPressed: () async {
-                handleGoogleSignIn();
-              },
-              child: const Wrap(
-                children: [
-                  Icon(
-                    FontAwesomeIcons.google,
-                    size: 20,
+          const Spacer(),
+          RoundedLoadingButton(
+            controller: googleController,
+            successColor: Colors.red,
+            color: Colors.red,
+            onPressed: () async {
+              handleGoogleSignIn();
+            },
+            child: const Wrap(
+              children: [
+                Icon(
+                  FontAwesomeIcons.google,
+                  size: 20,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Sign in with google",
+                  style: TextStyle(
                     color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Sign in with google",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const Gap(30),
-          ],
-        ),
-      ],
+          ),
+          const Gap(30),
+        ],
+      ),
     );
   }
 
-  // handling google sig in in
+  // handling google sing in
   Future<void> handleGoogleSignIn() async {
     final sp = context.read<SignInProvider>();
     final ip = context.read<InternetProvider>();
@@ -103,17 +97,21 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       openSnackBar(context, "Check your internet", Colors.red);
       googleController.reset();
     } else {
-      sp.signInWithGoogle().then((value) {
-        SessionManager.setSession().then((value) {
-          googleController.success();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const BottomNavBar(),
-            ),
+      sp.signInWithGoogle().then(
+        (value) {
+          SessionManager.setSession().then(
+            (value) {
+              googleController.success();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BottomNavBar(),
+                ),
+              );
+            },
           );
-        });
-      });
+        },
+      );
     }
   }
 }

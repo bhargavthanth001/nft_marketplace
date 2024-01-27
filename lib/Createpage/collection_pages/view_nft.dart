@@ -56,6 +56,25 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
                   ),
                   Text(widget.nftModel.description!),
                   Text(widget.nftModel.rate == null ? "" : "On Sell"),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: widget.nftModel.blockchain!.length,
+                    itemBuilder: (context, index) {
+                      final data = widget.nftModel.blockchain!;
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                              "--------------------------------------------"),
+                          Text("From : ${data[index].from}"),
+                          Text("Amount : ${data[index].amount}"),
+                          Text("To : ${data[index].to}"),
+                          const Text(
+                              "--------------------------------------------\n\n"),
+                        ],
+                      );
+                    },
+                  )
                 ],
               ),
             ),
