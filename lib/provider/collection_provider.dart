@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multi_image_picker_plus/multi_image_picker_plus.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CollectionProvider extends ChangeNotifier {
@@ -24,8 +23,8 @@ class CollectionProvider extends ChangeNotifier {
         enableCamera: true,
         allViewTitle: "All Photos",
         useDetailsView: false,
-        statusBarColor: ColorsData.selectiveYellow,
-        actionBarColor: ColorsData.selectiveYellow,
+        statusBarColor: Colors.blue,
+        actionBarColor: Colors.blue,
       ),
     );
     for (Asset asset in resultList) {

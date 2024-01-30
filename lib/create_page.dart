@@ -1,7 +1,6 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 
 import 'Createpage/collection_pages/add_collection.dart';
 import 'Createpage/tabs/collaction_page_tab.dart';
@@ -53,15 +52,18 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
             ),
           ],
         ),
-        forceMaterialTransparency: true,
       ),
       body: ContainedTabBarView(
-        tabBarProperties: const TabBarProperties(
+        tabBarProperties: TabBarProperties(
           height: 40,
-          indicatorColor: ColorsData.black,
-          labelColor: ColorsData.black,
+          background: Container(
+            color: Colors.blue,
+          ),
+          indicatorColor: Colors.white,
+          labelColor: Colors.white,
           indicatorSize: TabBarIndicatorSize.tab,
           padding: EdgeInsets.zero,
+          unselectedLabelColor: Colors.white.withOpacity(0.85),
         ),
         tabs: const [
           Text('Collections'),
@@ -73,7 +75,6 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorsData.selectiveYellow,
         onPressed: () {
           if (isCollection) {
             Navigator.push(
@@ -92,7 +93,10 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
                         const AddCollectionPageWidget(isSingleNft: true)));
           }
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }

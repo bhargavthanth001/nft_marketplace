@@ -8,7 +8,6 @@ class PrivacyPolicyPageWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Privacy Policy"),
-        forceMaterialTransparency: true,
       ),
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(12),

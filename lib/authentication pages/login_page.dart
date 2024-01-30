@@ -1,7 +1,5 @@
-// ignore: depend_on_referenced_packages
 import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/bottom_nav_bar.dart';
 // ignore: depend_on_referenced_packages
@@ -29,27 +27,17 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Spacer(),
           Image.asset(
             "assets/images/app_logo.png",
             height: 100,
-            width: double.infinity,
+            width: 100,
           ),
+          const Gap(15),
           const Text(
             "NFT Marketplace",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-              shadows: [
-                BoxShadow(
-                  offset: Offset(1, 0),
-                  color: Colors.black26,
-                )
-              ],
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
           ),
           const Spacer(),
           RoundedLoadingButton(
@@ -80,7 +68,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               ],
             ),
           ),
-          const Gap(30),
+          const Gap(50),
         ],
       ),
     );
@@ -115,3 +103,135 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     }
   }
 }
+/*Stack(
+        children: [
+          Container(
+            width: 1428.88,
+            height: 1085.62,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/login_bg.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 100,
+            left: 15,
+            right: 15,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Container(
+                height: 160.0,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.1),
+                ),
+                child: Stack(
+                  children: [
+                    //Blur Effect
+                    BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                      child: Container(),
+                    ),
+                    //Gradient Effect
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border:
+                            Border.all(color: Colors.white.withOpacity(0.20)),
+                        gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Colors.white.withOpacity(0.15),
+                              Colors.white.withOpacity(0.05),
+                            ]),
+                      ),
+                    ),
+                    Positioned(
+                      top: 25,
+                      left: 1,
+                      right: 1,
+                      bottom: 10,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Explore and Mint NFTs',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'SF Pro Display',
+                                  fontWeight: FontWeight.w700,
+                                  height: 0.06,
+                                  letterSpacing: 0.32,
+                                ),
+                              ),
+                              const SizedBox(height: 30),
+                              Text(
+                                'You can buy and sell the NFTs of the best artists in the world.',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.8),
+                                  fontSize: 11.5,
+                                  fontFamily: 'SF Pro Text',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.12,
+                                  letterSpacing: -0.07,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 27.03),
+                          Container(
+                            width: 200,
+                            height: 45.5,
+                            padding: const EdgeInsets.only(
+                              top: 13.5,
+                              left: 18,
+                              right: 19,
+                              bottom: 12,
+                            ),
+                            decoration: ShapeDecoration(
+                              color: const Color(0x7F97A9F6),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1.12,
+                                  color: Colors.white.withOpacity(0.5),
+                                ),
+                                borderRadius: BorderRadius.circular(33.54),
+                              ),
+                            ),
+                            child: TextButton(
+                              onPressed: () {
+                                handleGoogleSignIn();
+                              },
+                              child: const Text(
+                                'Get started now',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15.32,
+                                  fontFamily: 'SF Pro Text',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0.08,
+                                  letterSpacing: -0.37,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),*/

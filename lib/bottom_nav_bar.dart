@@ -5,7 +5,6 @@ import 'package:nft_marketplace/create_page.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/profile.dart';
 import 'package:nft_marketplace/search.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 
 import 'HomePage/home_page.dart';
 import 'more.dart';
@@ -22,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   int selectedIndex = 0;
   List<Widget> widgets = [
     HomePage(),
-    const SearchPage(),
+    SearchPage(),
     const CreatePageWidget(),
     ProfilePage(
       userId: user.uid,
@@ -55,10 +54,8 @@ class _BottomNavBarState extends State<BottomNavBar>
       body: widgets[selectedIndex],
       bottomNavigationBar: MotionTabBar(
         controller: _motionTabBarController,
-        // ADD THIS if you need to change your tab programmatically
         initialSelectedTab: "Home",
         useSafeArea: true,
-        // default: true, apply safe area wrapper
         labels: const ["Home", "Search", "Create", "Profile", "More"],
         textStyle: const TextStyle(fontWeight: FontWeight.bold),
         icons: const [
@@ -68,17 +65,18 @@ class _BottomNavBarState extends State<BottomNavBar>
           Icons.person,
           Icons.settings
         ],
-        // tabIconColor: Colors.blue[600],
         tabIconSize: 25,
         tabIconSelectedSize: 20,
         tabSize: 35,
         tabBarHeight: 50,
-        tabSelectedColor: ColorsData.selectiveYellow,
-        tabIconSelectedColor: ColorsData.black,
+        tabSelectedColor: Colors.blue,
+        tabIconSelectedColor: Colors.white,
         onTabItemSelected: (int value) {
-          setState(() {
-            selectedIndex = value;
-          });
+          setState(
+            () {
+              selectedIndex = value;
+            },
+          );
         },
       ),
     );

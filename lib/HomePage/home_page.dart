@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/HomePage/promotions.dart';
 import 'package:nft_marketplace/HomePage/top.dart';
 import 'package:nft_marketplace/HomePage/trending.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -29,13 +28,7 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         title: const Text(
           "NFT MarketPlace",
-          style: TextStyle(
-            color: Colors.black,
-          ),
         ),
-        centerTitle: true,
-        backgroundColor: ColorsData.selectiveYellow,
-        forceMaterialTransparency: true,
       ),
       body: SafeArea(
         child: Padding(

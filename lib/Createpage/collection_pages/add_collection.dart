@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/description_page.dart';
 import 'package:nft_marketplace/provider/dropdown_provider.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/utils/snack_bar.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:provider/provider.dart';
@@ -86,7 +85,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                         provider.pickImages(false, false);
                       },
                       child: DottedBorder(
-                        color: ColorsData.black,
+                        color: Colors.black,
                         child: Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -136,7 +135,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                                 side: const BorderSide(
-                                  color: ColorsData.black,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -336,7 +335,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                       ),
                       Gap(10),
                       MaterialButton(
-                        color: ColorsData.selectiveYellow,
+                        color: Colors.blue,
                         onPressed: () async {
                           bool valid = formKey.currentState!.validate();
                           if (valid) {
@@ -385,7 +384,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                 ? Align(
                     alignment: Alignment.center,
                     child: MaterialButton(
-                      color: ColorsData.selectiveYellow,
+                      color: Colors.blue,
                       onPressed: () async {
                         if (provider.images.first == "") {
                           ScaffoldMessenger.of(context).showSnackBar(

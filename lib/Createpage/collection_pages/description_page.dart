@@ -6,7 +6,6 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/provider/collection_provider.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../data_variables.dart';
@@ -49,12 +48,12 @@ class NftDescriptionPageWidget extends StatelessWidget {
                     hintText: "Enter the title",
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: ColorsData.black,
+                        color: Colors.black,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: ColorsData.black,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -67,12 +66,12 @@ class NftDescriptionPageWidget extends StatelessWidget {
                     hintText: "Enter the description",
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: ColorsData.black,
+                        color: Colors.black,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: ColorsData.black,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -185,7 +184,7 @@ class NftDescriptionPageWidget extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: MaterialButton(
-                      color: ColorsData.selectiveYellow,
+                      color: Colors.blue,
                       onPressed: () {
                         for (var image in provider.images) {
                           Random random = Random();

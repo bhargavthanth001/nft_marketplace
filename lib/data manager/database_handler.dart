@@ -214,6 +214,28 @@ class DataBase {
               .toList(),
         );
   }
+
+  static Future<List<String>> getSearchList() async {
+    // Reference to the collection
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    CollectionReference collections =
+        FirebaseFirestore.instance.collection('collections');
+
+    QuerySnapshot userQuerySnapshot = await users.get();
+    QuerySnapshot collectionQuerySnapshot = await collections.get();
+
+    List<String> names = [];
+    for (var doc in userQuerySnapshot.docs) {
+      String name = doc.get('name');
+      names.add(name);
+    }
+    for (var doc in collectionQuerySnapshot.docs) {
+      String name = doc.get('name');
+      names.add(name);
+    }
+
+    return names;
+  }
 }
 
 enum ImageType {

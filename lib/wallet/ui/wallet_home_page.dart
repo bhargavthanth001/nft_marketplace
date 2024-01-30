@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:nft_marketplace/wallet/ui/transaction_screen.dart';
 import 'package:provider/provider.dart';
@@ -218,14 +217,14 @@ class _WalletHomePageState extends State<WalletHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<RefreshScreenProvider>(context);
-    Future.delayed(const Duration(seconds: 2), () {
-      provider.onRefresh();
+    final provider = Provider.of<RefreshProvider>(context);
+    Future.delayed(const Duration(seconds: 1), () {
+      provider.refresh();
     });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Wallet"),
-        forceMaterialTransparency: true,
         actions: [
           SizedBox(
             width: 63,
@@ -249,72 +248,65 @@ class _WalletHomePageState extends State<WalletHomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
-        child: RefreshIndicator(
-          onRefresh: provider.onRefresh,
-          color: Colors.white,
-          backgroundColor: ColorsData.selectiveYellow,
-          strokeWidth: 2,
-          child: FutureBuilder(
-            future: WalletDataManager.getWallet(user.uid),
-            builder: (BuildContext context, snapshot) {
-              if (snapshot.hasData) {
-                final resultData = snapshot.data;
-                return Column(
-                  children: [
-                    _container(
-                      list[0].name,
-                      formatAmount(resultData!.coin!.bitcoin!),
-                      list[0].image,
-                      formatNumber(list[0].price, resultData.coin!.bitcoin!),
-                      formatNumber(
-                          list[1].price, resultData.coin!.bitcoin! * 77),
-                    ),
-                    const Gap(10),
-                    _container(
-                      list[2].name,
-                      formatAmount(resultData.coin!.ethereum!),
-                      list[2].image,
-                      formatNumber(list[2].price, resultData.coin!.ethereum!),
-                      formatNumber(
-                          list[3].price, resultData.coin!.ethereum! * 77),
-                    ),
-                    const Gap(10),
-                    Expanded(
-                      child: AllCoin(
-                        coinsList: list,
-                        currencyList: currencyList,
-                        tickerList: tickerList,
-                        wishlistCoinsList: wishlistCoinsList,
-                        showWishlistAtFirst: false,
-                        currencyTabSelectedItemColor: Colors.red,
-                        currencyTabBackgroundColor: Colors.transparent,
-                        currencyTabHeight: 100,
-                        showHeading: true,
-                        inrRate: 77.0,
-                        onWishlistError: Center(
-                          child: Text(
-                            'Wishlist not found!!',
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 20,
-                            ),
+        child: FutureBuilder(
+          future: WalletDataManager.getWallet(user.uid),
+          builder: (BuildContext context, snapshot) {
+            if (snapshot.hasData) {
+              final resultData = snapshot.data;
+              return Column(
+                children: [
+                  _container(
+                    list[0].name,
+                    formatAmount(resultData!.coin!.bitcoin!),
+                    list[0].image,
+                    formatNumber(list[0].price, resultData.coin!.bitcoin!),
+                    formatNumber(list[1].price, resultData.coin!.bitcoin! * 77),
+                  ),
+                  const Gap(10),
+                  _container(
+                    list[2].name,
+                    formatAmount(resultData!.coin!.ethereum!),
+                    list[2].image,
+                    formatNumber(list[2].price, resultData.coin!.ethereum!),
+                    formatNumber(
+                        list[3].price, resultData.coin!.ethereum! * 77),
+                  ),
+                  const Gap(10),
+                  Expanded(
+                    child: AllCoin(
+                      coinsList: list,
+                      currencyList: currencyList,
+                      tickerList: tickerList,
+                      wishlistCoinsList: wishlistCoinsList,
+                      showWishlistAtFirst: false,
+                      currencyTabSelectedItemColor: Colors.red,
+                      currencyTabBackgroundColor: Colors.transparent,
+                      currencyTabHeight: 100,
+                      showHeading: true,
+                      inrRate: 77.0,
+                      onWishlistError: Center(
+                        child: Text(
+                          'Wishlist not found!!',
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontSize: 20,
                           ),
                         ),
-                        onCoinTap: (ctx, coin) {},
                       ),
+                      onCoinTap: (ctx, coin) {},
                     ),
-                  ],
-                );
-              } else {
-                debugPrint(snapshot.error.toString());
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: ColorsData.selectiveYellow,
                   ),
-                );
-              }
-            },
-          ),
+                ],
+              );
+            } else {
+              debugPrint(snapshot.error.toString());
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              );
+            }
+          },
         ),
       ),
     );

@@ -6,7 +6,6 @@ import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/model/wallet_model.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -87,7 +86,7 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
                         alignment: Alignment.bottomCenter,
                         child: MaterialButton(
                           minWidth: 300,
-                          color: ColorsData.selectiveYellow,
+                          color: Colors.blue,
                           onPressed: () async {
                             final wallet =
                                 await WalletDataManager.existWallet();

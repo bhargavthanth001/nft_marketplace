@@ -1,4 +1,5 @@
-import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
+import
+'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:gap/gap.dart';
@@ -7,7 +8,6 @@ import 'package:nft_marketplace/profile_page_details/collected_nfts_page.dart';
 
 import 'data manager/database_handler.dart';
 import 'model/user_model.dart';
-import 'utils/colors.dart';
 
 class ProfilePage extends StatelessWidget {
   final String userId;
@@ -34,7 +34,6 @@ class ProfilePage extends StatelessWidget {
         title: const Text(
           "Profile",
         ),
-        forceMaterialTransparency: true,
       ),
       body: FutureBuilder<UserModel>(
         future: DataBase.getUser(userId),
@@ -92,8 +91,8 @@ class ProfilePage extends StatelessWidget {
                           tabBarProperties: const TabBarProperties(
                             height: 40,
                             width: double.infinity,
-                            indicatorColor: ColorsData.black,
-                            labelColor: ColorsData.black,
+                            indicatorColor: Colors.black,
+                            labelColor: Colors.black,
                             padding: EdgeInsets.zero,
                           ),
                           tabs: [

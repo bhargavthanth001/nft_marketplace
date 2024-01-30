@@ -2,7 +2,6 @@ import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 import 'package:nft_marketplace/wallet/ui/wallet_home_page.dart';
 
 import '../../data manager/session_manager.dart';
@@ -36,7 +35,7 @@ class _AuthenticationState extends State<Authentication> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorsData.selectiveYellow,
+                      backgroundColor: Colors.blue,
                     ),
                     onPressed: () async {
                       final model = WalletModel(
@@ -139,7 +138,7 @@ class _AuthenticationState extends State<Authentication> {
                 ),
                 const Gap(12),
                 MaterialButton(
-                  color: ColorsData.selectiveYellow,
+                  color: Colors.blue,
                   onPressed: () {
                     debugPrint(
                         "OTP Text=> ${auth.verifyOTP(otp: _otpController.text)}");

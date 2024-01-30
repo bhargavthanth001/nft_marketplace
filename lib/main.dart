@@ -38,19 +38,28 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CollectionProvider()),
         ChangeNotifierProvider(create: (context) => DropDownProvider()),
         ChangeNotifierProvider(create: (context) => MetaMaskProvider()),
-        ChangeNotifierProvider(create: (context) => RefreshScreenProvider()),
+        ChangeNotifierProvider(create: (context) => RefreshProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(
-                centerTitle: true,
-                titleTextStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                )),
+              scrolledUnderElevation: 0,
+              backgroundColor: Colors.blue,
+              centerTitle: true,
+              titleTextStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+              iconTheme: IconThemeData(
+                color: Colors.white,
+              ),
+            ),
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Colors.blue,
+            ),
           ),
           home: const SplashScreen()),
     );

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/utils/bottmsheet.dart';
 
 import '../Createpage/collection_pages/view_nft.dart';
 import '../data manager/database_handler.dart';
@@ -103,10 +102,10 @@ class CollectedNFTsPageWidget extends StatelessWidget {
                                               ),
                                               child: IconButton(
                                                 onPressed: () {
-                                                  showBottomSheetMethod(
-                                                    context,
-                                                    resultData[index],
-                                                  );
+                                                  // showBottomSheetMethod(
+                                                  //   context,
+                                                  //   resultData[index],
+                                                  // );
                                                 },
                                                 icon: Image.asset(
                                                   "assets/images/auction.png",

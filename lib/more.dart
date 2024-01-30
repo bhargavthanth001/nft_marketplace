@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nft_marketplace/chat%20bot/chat_home_page.dart';
 import 'package:nft_marketplace/privecy_policy/about_us_page.dart';
 import 'package:nft_marketplace/privecy_policy/privecy_policy_page.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
@@ -26,7 +27,6 @@ class _MorePageState extends State<MorePage> {
         title: const Text(
           "More",
         ),
-        forceMaterialTransparency: true,
       ),
       body: Column(
         children: [
@@ -82,11 +82,9 @@ class _MorePageState extends State<MorePage> {
           ),
           GestureDetector(
             onTap: () {
-              handelSignOut().then(
-                (value) => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const PrivacyPolicyPageWidget(),
-                  ),
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const PrivacyPolicyPageWidget(),
                 ),
               );
             },
@@ -104,11 +102,9 @@ class _MorePageState extends State<MorePage> {
           ),
           GestureDetector(
             onTap: () {
-              handelSignOut().then(
-                (value) => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const AboutUsPageWidget(),
-                  ),
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AboutUsPageWidget(),
                 ),
               );
             },
@@ -127,11 +123,9 @@ class _MorePageState extends State<MorePage> {
           ),
           GestureDetector(
             onTap: () {
-              handelSignOut().then(
-                (value) => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const AboutUsPageWidget(),
-                  ),
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ChatHomePage(),
                 ),
               );
             },

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/view_nft.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 
 import '../../data manager/database_handler.dart';
 
@@ -22,13 +21,13 @@ class _SingleNftTabState extends State<SingleNftTab> {
         children: [
           Icon(
             Icons.collections_sharp,
-            color: ColorsData.cardinal,
+            color: Colors.black,
           ),
           Gap(5),
           Text(
             "No nft found",
             style: TextStyle(
-              color: ColorsData.cardinal,
+              color: Colors.black,
             ),
           ),
         ],

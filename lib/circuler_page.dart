@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 
 class CircularPageIndicator extends StatefulWidget {
   const CircularPageIndicator({super.key});
@@ -26,7 +25,7 @@ class _CircularPageIndicatorState extends State<CircularPageIndicator> {
         height: 50,
         width: 50,
         child: CircularProgressIndicator(
-          color: ColorsData.selectiveYellow,
+          color: Colors.blue,
         ),
       ),
     );

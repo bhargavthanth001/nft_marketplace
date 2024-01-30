@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/collection_details_page.dart';
-import 'package:nft_marketplace/utils/colors.dart';
 
 import '../../data manager/database_handler.dart';
 
@@ -16,13 +15,13 @@ class CollectionTab extends StatelessWidget {
         children: [
           Icon(
             Icons.collections_sharp,
-            color: ColorsData.cardinal,
+            color: Colors.black,
           ),
           Gap(5),
           Text(
             "No collection found",
             style: TextStyle(
-              color: ColorsData.cardinal,
+              color: Colors.black,
             ),
           ),
         ],
