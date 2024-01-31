@@ -1,21 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../Createpage/collection_pages/view_nft.dart';
 import '../data manager/database_handler.dart';
 import '../data_variables.dart';
+import '../model/nft_model.dart';
 
-class CollectedNFTsPageWidget extends StatelessWidget {
+class CollectedNFTsPageWidget extends StatefulWidget {
   final String id;
 
   const CollectedNFTsPageWidget({super.key, required this.id});
 
   @override
+  State<CollectedNFTsPageWidget> createState() =>
+      _CollectedNFTsPageWidgetState();
+}
+
+class _CollectedNFTsPageWidgetState extends State<CollectedNFTsPageWidget> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: DataBase.getCollectedNft(id),
+        stream: DataBase.getCollectedNft(widget.id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final resultData = snapshot.data;
@@ -31,7 +39,7 @@ class CollectedNFTsPageWidget extends StatelessWidget {
                   return GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
+                    crossAxisCount: 3,
                     childAspectRatio: 1,
                     padding: const EdgeInsets.only(top: 10, right: 8),
                     children: List.generate(
@@ -102,10 +110,8 @@ class CollectedNFTsPageWidget extends StatelessWidget {
                                               ),
                                               child: IconButton(
                                                 onPressed: () {
-                                                  // showBottomSheetMethod(
-                                                  //   context,
-                                                  //   resultData[index],
-                                                  // );
+                                                  showBottomSheetMethod(
+                                                      resultData[index]);
                                                 },
                                                 icon: Image.asset(
                                                   "assets/images/auction.png",
@@ -150,6 +156,122 @@ class CollectedNFTsPageWidget extends StatelessWidget {
           }
         },
       ),
+    );
+  }
+
+  showBottomSheetMethod(NftModel nftModel) {
+    final rate = TextEditingController();
+    final buttonController = RoundedLoadingButtonController();
+    var formKey = GlobalKey<FormState>();
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (builder) {
+        return SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: SizedBox(
+              height: 250,
+              width: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Gap(10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/auction.png",
+                        height: 35,
+                        width: 35,
+                      ),
+                      const Gap(8),
+                      const Text(
+                        "Ready to sell",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(20),
+                  Row(
+                    children: [
+                      const Gap(20),
+                      Image.asset(
+                        nftModel.chain == "Ethereum"
+                            ? "assets/images/ethereum.png"
+                            : "assets/images/bitcoin.png",
+                        height: 50,
+                        width: 50,
+                      ),
+                      const Gap(10),
+                      SizedBox(
+                        width: 260,
+                        child: Form(
+                          key: formKey,
+                          child: TextFormField(
+                            controller: rate,
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "amount must be needed";
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: const InputDecoration(
+                                enabledBorder: OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(),
+                                border: OutlineInputBorder(),
+                                hintText: "Enter the amount",
+                                contentPadding: EdgeInsets.all(10)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(20),
+                  RoundedLoadingButton(
+                    width: 320,
+                    controller: buttonController,
+                    color: Colors.blue,
+                    successColor: Colors.blue,
+                    onPressed: () {
+                      final valid = formKey.currentState!.validate();
+                      if (valid) {
+                        Future.delayed(const Duration(seconds: 3))
+                            .then((value) {
+                          buttonController.success();
+                        }).then((value) {
+                          nftModel.rate = rate.text;
+                          DataBase.setToSell(nftModel);
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        buttonController.reset();
+                        formKey.currentState!.validate();
+                      }
+                    },
+                    child: const Text(
+                      "Mint Now",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

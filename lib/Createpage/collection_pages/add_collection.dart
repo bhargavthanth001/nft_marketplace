@@ -49,7 +49,6 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
           "Make Collection",
           style: TextStyle(),
         ),
-        forceMaterialTransparency: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),

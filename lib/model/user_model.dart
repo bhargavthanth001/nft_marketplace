@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final userModel = userModelFromJson(jsonString);
-
 import 'dart:convert';
 
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
@@ -14,6 +10,9 @@ class UserModel {
   String? username;
   String? email;
   String? imageUrl;
+  List<String>? collected;
+  List<String>? followers;
+  List<String>? following;
   String? createdAt;
   String? updatedAt;
 
@@ -23,6 +22,9 @@ class UserModel {
     this.username,
     this.email,
     this.imageUrl,
+    this.collected,
+    this.followers,
+    this.following,
     this.createdAt,
     this.updatedAt,
   });
@@ -33,6 +35,9 @@ class UserModel {
         username: json["username"],
         email: json["email"],
         imageUrl: json["imageUrl"],
+        collected: List<String>.from(json["collected"].map((x) => x)),
+        followers: List<String>.from(json["followers"].map((x) => x)),
+        following: List<String>.from(json["following"].map((x) => x)),
         createdAt: json["createdAt"],
         updatedAt: json["updatedAt"],
       );
@@ -43,6 +48,9 @@ class UserModel {
         "username": username,
         "email": email,
         "imageUrl": imageUrl,
+        "collected": List<String>.from(collected!.map((x) => x)),
+        "followers": List<String>.from(followers!.map((x) => x)),
+        "following": List<String>.from(following!.map((x) => x)),
         "createdAt": createdAt,
         "updatedAt": updatedAt,
       };

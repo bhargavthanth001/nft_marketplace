@@ -17,14 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  animated_notch_bottom_bar:
-    dependency: "direct dev"
-    description:
-      name: animated_notch_bottom_bar
-      sha256: a07b40061d46fa84df38c613797c59e535f043188cae753c8c3482bad9805af7
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   args:
     dependency: transitive
     description:
@@ -453,6 +445,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.17"
+  flutter_progress_hud:
+    dependency: "direct dev"
+    description:
+      name: flutter_progress_hud
+      sha256: "19a4889460b7482c5026a936b768996dade4daad8570e8c0493e292d57121dbb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   flutter_svg:
     dependency: "direct dev"
     description:
@@ -919,14 +919,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  searchable_listview:
-    dependency: "direct dev"
-    description:
-      name: searchable_listview
-      sha256: fad781a412d1fec251c7a66e4aca49e49ab8b7104bda733b476d4b5c81891bea
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.10.1"
   shared_preferences:
     dependency: "direct dev"
     description:
@@ -1060,6 +1052,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  toast:
+    dependency: "direct dev"
+    description:
+      name: toast
+      sha256: "12433091e3e5a25b3a25f670126e42547c9ade135de30ad9ace45d1ddccd57c9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   typed_data:
     dependency: transitive
     description:
@@ -1213,5 +1213,5 @@ packages:
     source: hosted
     version: "6.5.0"
 sdks:
-  dart: ">=3.2.1 <4.0.0"
+  dart: ">=3.2.0 <4.0.0"
   flutter: ">=3.16.0"

@@ -58,6 +58,9 @@ class DataBase {
       username: username[0].toLowerCase(),
       email: user.email.toString(),
       imageUrl: user.photoURL!,
+      collected: [],
+      followers: [],
+      following: [],
       createdAt: date,
       updatedAt: date,
     );
@@ -177,13 +180,8 @@ class DataBase {
     );
     WalletDataManager.makeTransaction(transaction);
 
-    firestore
-        .collection("users")
-        .doc(user.uid)
-        .collection("collected")
-        .doc(nftModel.id)
-        .set({
-      "NftId": nftModel.id,
+    firestore.collection("users").doc(user.uid).update({
+      "collected": FieldValue.arrayUnion([nftModel.id])
     });
   }
 

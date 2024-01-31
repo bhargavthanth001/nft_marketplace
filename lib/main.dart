@@ -7,6 +7,7 @@ import 'package:nft_marketplace/provider/internet_provider.dart';
 import 'package:nft_marketplace/provider/meta_mask_provider.dart';
 import 'package:nft_marketplace/provider/more_page_provider.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
+import 'package:nft_marketplace/provider/search_provider.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
 import 'package:nft_marketplace/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -39,29 +40,31 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DropDownProvider()),
         ChangeNotifierProvider(create: (context) => MetaMaskProvider()),
         ChangeNotifierProvider(create: (context) => RefreshProvider()),
+        ChangeNotifierProvider(create: (context) => SearchProvider()),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white,
-            appBarTheme: const AppBarTheme(
-              scrolledUnderElevation: 0,
-              backgroundColor: Colors.blue,
-              centerTitle: true,
-              titleTextStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-              iconTheme: IconThemeData(
-                color: Colors.white,
-              ),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: const AppBarTheme(
+            scrolledUnderElevation: 0,
+            backgroundColor: Colors.blue,
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
-            floatingActionButtonTheme: const FloatingActionButtonThemeData(
-              backgroundColor: Colors.blue,
+            iconTheme: IconThemeData(
+              color: Colors.white,
             ),
           ),
-          home: const SplashScreen()),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: Colors.blue,
+          ),
+        ),
+        home: const SplashScreen(),
+      ),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:nft_marketplace/model/wallet_model.dart';
 import 'package:nft_marketplace/wallet/net/wallet_data_manager.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../profile.dart';
 import '../../utils/snack_bar.dart';
 
 class ViewNftPageWidget extends StatefulWidget {
@@ -25,7 +26,7 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        forceMaterialTransparency: true,
+        title: Text(widget.nftModel.title!),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -34,6 +35,7 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
           children: [
             SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: double.infinity,
@@ -48,29 +50,182 @@ class _ViewNftPageWidgetState extends State<ViewNftPageWidget> {
                       ),
                     ),
                   ),
-                  Text(widget.nftModel.title!),
-                  Text(
-                    "by ${widget.nftModel.createdBy}",
-                    style: const TextStyle(fontSize: 11),
+                  Container(
+                    margin: const EdgeInsets.only(left: 5, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(
+                              top: 2, bottom: 2, left: 10, right: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.black,
+                            boxShadow: const [
+                              BoxShadow(
+                                offset: Offset(0, 0),
+                                color: Colors.black12,
+                                blurRadius: 5,
+                              )
+                            ],
+                          ),
+                          child: Text(
+                            "# ${widget.nftModel.title!}",
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        const Gap(6),
+                        Row(
+                          children: [
+                            const Text(
+                              "Current Owner ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 15),
+                            ),
+                            const Gap(5),
+                            FutureBuilder(
+                                future: DataBase.getUser(
+                                    widget.nftModel.currentOwner!),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    final result = snapshot.data;
+                                    if (result != null) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ProfilePage(
+                                                userId: result.id!,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          snapshot.data!.username!,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.blueAccent,
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  } else {
+                                    return const SizedBox();
+                                  }
+                                })
+                          ],
+                        ),
+                        const Gap(6),
+                        Text(
+                          widget.nftModel.description!,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        Text(widget.nftModel.rate == null ? "" : "On Sell"),
+                      ],
+                    ),
                   ),
-                  Text(widget.nftModel.description!),
-                  Text(widget.nftModel.rate == null ? "" : "On Sell"),
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: widget.nftModel.blockchain!.length,
+                    reverse: true,
                     itemBuilder: (context, index) {
+                      debugPrint(
+                          widget.nftModel.blockchain![index].amount.toString());
                       final data = widget.nftModel.blockchain!;
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                              "--------------------------------------------"),
-                          Text("From : ${data[index].from}"),
-                          Text("Amount : ${data[index].amount}"),
-                          Text("To : ${data[index].to}"),
-                          const Text(
-                              "--------------------------------------------\n\n"),
-                        ],
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                              offset: Offset(0, 0),
+                              color: Colors.black12,
+                              blurRadius: 5,
+                            )
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Gap(2),
+                                  Text(
+                                    data[index].to,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                  const Gap(3),
+                                  const Text(
+                                    "From",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const Gap(3),
+                                  Text(
+                                    data[index].from,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.red),
+                                  ),
+                                  const Gap(2)
+                                ],
+                              ),
+                              const Spacer(),
+                              Container(
+                                height: 70,
+                                width: 70,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    bottomRight: Radius.circular(8),
+                                  ),
+                                  color: index == 0
+                                      ? Colors.blue
+                                      : double.parse(data[index].amount) >
+                                              (double.parse(
+                                                  data[index - 1].amount))
+                                          ? Colors.green
+                                          : Colors.red,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      data[index].amount,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    const Gap(5),
+                                    Text(
+                                      widget.nftModel.chain == "Ethereum"
+                                          ? "ETH"
+                                          : "BTC",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   )
