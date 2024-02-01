@@ -17,38 +17,6 @@ class DataBase {
     return (await firestore.collection("users").doc(user.uid).get()).exists;
   }
 
-  static Future<String> addImageToFirebaseStorage(
-      String imagePath,
-      ImageType type,
-      CollectionModel? collectionModel,
-      NftModel? nftModel) async {
-    final ext = imagePath.split('.').last;
-    Reference ref;
-
-    if (type == ImageType.THUMBNAIL) {
-      ref = storage.ref().child(
-          'thumbnails/${collectionModel!.name}/${DateTime.now().toString()}.$ext');
-    } else if (type == ImageType.NFTs) {
-      ref = storage.ref().child(
-          "NFTs/${user.uid}/${nftModel!.title}/${DateTime.now().toString()}.$ext'");
-    } else if (type == ImageType.BACKGROUND_IMAGE) {
-      ref = storage.ref().child(
-          'background_image/${collectionModel!.name}/${DateTime.now().toString()}.$ext');
-    } else {
-      ref = storage
-          .ref()
-          .child("images/${user.uid}/${DateTime.now().toString()}.$ext'");
-    }
-    await ref
-        .putFile(File(imagePath), SettableMetadata(contentType: 'image/$ext'))
-        .then((p0) {
-      debugPrint('Data Transferred: ${p0.bytesTransferred / 1000} kb');
-    });
-
-    final imageUrl = await ref.getDownloadURL();
-    return imageUrl;
-  }
-
   static Future<void> createUser() async {
     final date = DateTime.now().toString();
     final username = user.displayName!.split(" ");
@@ -79,6 +47,38 @@ class DataBase {
     } else {
       throw Exception('user not found');
     }
+  }
+
+  static Future<String> addImageToFirebaseStorage(
+      String imagePath,
+      ImageType type,
+      CollectionModel? collectionModel,
+      NftModel? nftModel) async {
+    final ext = imagePath.split('.').last;
+    Reference ref;
+
+    if (type == ImageType.THUMBNAIL) {
+      ref = storage.ref().child(
+          'thumbnails/${collectionModel!.name}/${DateTime.now().toString()}.$ext');
+    } else if (type == ImageType.NFTs) {
+      ref = storage.ref().child(
+          "NFTs/${user.uid}/${nftModel!.title}/${DateTime.now().toString()}.$ext'");
+    } else if (type == ImageType.BACKGROUND_IMAGE) {
+      ref = storage.ref().child(
+          'background_image/${collectionModel!.name}/${DateTime.now().toString()}.$ext');
+    } else {
+      ref = storage
+          .ref()
+          .child("images/${user.uid}/${DateTime.now().toString()}.$ext'");
+    }
+    await ref
+        .putFile(File(imagePath), SettableMetadata(contentType: 'image/$ext'))
+        .then((p0) {
+      debugPrint('Data Transferred: ${p0.bytesTransferred / 1000} kb');
+    });
+
+    final imageUrl = await ref.getDownloadURL();
+    return imageUrl;
   }
 
   static Future<void> createCollection(CollectionModel collectionModel) async {
@@ -231,8 +231,18 @@ class DataBase {
       String name = doc.get('name');
       names.add(name);
     }
-
     return names;
+  }
+
+  static Stream<List<CollectionModel>> getCategorizedCollections(
+      String category) {
+    return firestore
+        .collection("collections")
+        .where("category", isEqualTo: category)
+        .snapshots()
+        .map((event) => event.docs
+            .map((doc) => CollectionModel.fromJson(doc.data()))
+            .toList());
   }
 }
 

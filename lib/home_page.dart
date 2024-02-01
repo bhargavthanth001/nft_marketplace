@@ -1,9 +1,15 @@
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:nft_marketplace/HomePage/art_collection.dart';
+import 'package:nft_marketplace/HomePage/category_page.dart';
+import 'package:nft_marketplace/HomePage/drawing_collection.dart';
+import 'package:nft_marketplace/HomePage/music_collection.dart';
+import 'package:nft_marketplace/HomePage/photography_collection.dart';
 import 'package:nft_marketplace/HomePage/promotions.dart';
 import 'package:nft_marketplace/HomePage/top.dart';
 import 'package:nft_marketplace/HomePage/trending.dart';
+import 'package:nft_marketplace/utils/get_greetings.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -18,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // getData();
+    debugPrint(getGreetings());
   }
 
   @override
@@ -35,7 +41,18 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Text(
+                    getGreetings(),
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1),
+                  ),
+                ),
                 const Gap(10),
                 PromotionWidget(),
                 const Gap(10),
@@ -80,6 +97,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 trend ? const TrendingWidget() : const TopWidget(),
+                const Gap(15),
+                CategoryWidget(),
+                const DrawingCollectionWidget(),
+                const MusicCollectionWidget(),
+                const PhotographyCollectionWidget(),
+                const ArtCollectionWidget(),
+                const Gap(15),
               ],
             ),
           ),

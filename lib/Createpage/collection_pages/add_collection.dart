@@ -258,8 +258,7 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                           }
                           return null;
                         },
-                        onChanged: (value) {},
-                        onSaved: (value) =>
+                        onChanged: (value) =>
                             dropDownProvider.selectCatagory(value),
                         buttonStyleData: const ButtonStyleData(
                           padding: EdgeInsets.only(right: 8),
@@ -311,8 +310,8 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                           }
                           return null;
                         },
-                        onChanged: (value) {},
-                        onSaved: (value) => dropDownProvider.selectChain(value),
+                        onChanged: (value) =>
+                            dropDownProvider.selectChain(value),
                         buttonStyleData: const ButtonStyleData(
                           padding: EdgeInsets.only(right: 8),
                         ),
@@ -340,6 +339,9 @@ class _AddCollectionPageWidgetState extends State<AddCollectionPageWidget> {
                           if (valid) {
                             if (provider.images.isNotEmpty) {
                               if (await WalletDataManager.existWallet()) {
+                                debugPrint(
+                                    "selected Catagory is => ${dropDownProvider.selectedCategory}");
+
                                 final model = CollectionModel(
                                   name: title.text,
                                   description: description.text,

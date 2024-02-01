@@ -22,8 +22,9 @@ class DropDownProvider extends ChangeNotifier {
 
   String get selectedChain => _selectedChain;
 
-  void selectCatagory(value) {
+  void selectCatagory(value) async {
     _selectedCategory = value;
+    debugPrint("CategorySelection => $_selectedCategory");
     notifyListeners();
   }
 

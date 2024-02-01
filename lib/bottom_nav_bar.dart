@@ -6,7 +6,7 @@ import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/profile.dart';
 import 'package:nft_marketplace/search.dart';
 
-import 'HomePage/home_page.dart';
+import 'home_page.dart';
 import 'more.dart';
 
 class BottomNavBar extends StatefulWidget {
