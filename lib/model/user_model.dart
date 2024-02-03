@@ -11,8 +11,6 @@ class UserModel {
   String? email;
   String? imageUrl;
   List<String>? collected;
-  List<String>? followers;
-  List<String>? following;
   String? createdAt;
   String? updatedAt;
 
@@ -23,8 +21,6 @@ class UserModel {
     this.email,
     this.imageUrl,
     this.collected,
-    this.followers,
-    this.following,
     this.createdAt,
     this.updatedAt,
   });
@@ -36,8 +32,6 @@ class UserModel {
         email: json["email"],
         imageUrl: json["imageUrl"],
         collected: List<String>.from(json["collected"].map((x) => x)),
-        followers: List<String>.from(json["followers"].map((x) => x)),
-        following: List<String>.from(json["following"].map((x) => x)),
         createdAt: json["createdAt"],
         updatedAt: json["updatedAt"],
       );
@@ -49,8 +43,6 @@ class UserModel {
         "email": email,
         "imageUrl": imageUrl,
         "collected": List<String>.from(collected!.map((x) => x)),
-        "followers": List<String>.from(followers!.map((x) => x)),
-        "following": List<String>.from(following!.map((x) => x)),
         "createdAt": createdAt,
         "updatedAt": updatedAt,
       };

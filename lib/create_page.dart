@@ -87,10 +87,12 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
             );
           } else {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        const AddCollectionPageWidget(isSingleNft: true)));
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    const AddCollectionPageWidget(isSingleNft: true),
+              ),
+            );
           }
         },
         child: const Icon(

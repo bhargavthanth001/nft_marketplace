@@ -1,39 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/Createpage/collection_pages/collection_details_page.dart';
+import 'package:nft_marketplace/data%20manager/database_handler.dart';
 
-import '../../data manager/database_handler.dart';
+import '../../Createpage/collection_pages/collection_details_page.dart';
 
-class CollectionTab extends StatelessWidget {
-  const CollectionTab({super.key});
+class InsideCategoryView extends StatelessWidget {
+  final String category;
 
-  _widget() {
-    return const Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.collections_sharp,
-            color: Colors.black,
-          ),
-          Gap(5),
-          Text(
-            "No collection found",
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  const InsideCategoryView({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(category),
+      ),
       body: StreamBuilder(
-        stream: DataBase.getCollections(),
+        stream: DataBase.getCategorizedCollections(category),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final result = snapshot.data;
@@ -46,7 +30,7 @@ class CollectionTab extends StatelessWidget {
               if (result!.isNotEmpty) {
                 return GridView.count(
                   crossAxisCount: 2,
-                  padding: const EdgeInsets.only(top: 10, right: 8),
+                  padding: const EdgeInsets.only(right: 8),
                   childAspectRatio: 1,
                   children: List.generate(
                     result.length,
@@ -86,12 +70,9 @@ class CollectionTab extends StatelessWidget {
                                 ),
                                 Positioned(
                                   left: 5,
-                                  right: 2,
                                   bottom: 15,
                                   child: Text(
                                     result[index].name,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
@@ -108,7 +89,25 @@ class CollectionTab extends StatelessWidget {
                   ),
                 );
               } else {
-                return _widget();
+                return const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.collections_sharp,
+                        color: Colors.black,
+                      ),
+                      Gap(5),
+                      Text(
+                        "No collection found",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+                ;
               }
             }
           } else {

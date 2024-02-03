@@ -8,10 +8,17 @@ import 'package:nft_marketplace/profile_page_details/collected_nfts_page.dart';
 import 'data manager/database_handler.dart';
 import 'model/user_model.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   final String userId;
 
   ProfilePage({Key? key, required this.userId}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool isFollowing = false;
 
   _container(String count, String title) {
     return Column(
@@ -41,12 +48,12 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final myTabs = <Widget>[
-      CollectedNFTsPageWidget(id: userId),
+      CollectedNFTsPageWidget(id: widget.userId),
       const Center(
         child: Text("Created"),
       ),
     ];
-    debugPrint("User id => $userId");
+    debugPrint("User id => ${widget.userId}");
     debugPrint("current user => ${user.uid}");
     return Scaffold(
       appBar: AppBar(
@@ -55,7 +62,7 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<UserModel>(
-        future: DataBase.getUser(userId),
+        future: DataBase.getUser(widget.userId),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             debugPrint(snapshot.error.toString());
@@ -80,52 +87,45 @@ class ProfilePage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Gap(70),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 20, right: 20),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  "assets/images/profile.png",
-                                  height: 70,
-                                  width: 70,
-                                ),
-                                Text(
-                                  resultData.username!,
-                                  style: const TextStyle(
-                                    // fontWeight: FontWeight.w600,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
+                    Container(
+                      margin: const EdgeInsets.only(left: 20, right: 20),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/profile.png",
+                            height: 120,
+                            width: 120,
+                          ),
+                          Text(
+                            resultData.username!,
+                            style: const TextStyle(
+                              // fontWeight: FontWeight.w600,
+                              fontSize: 15,
                             ),
-                            const Gap(20),
-                            SizedBox(
-                              width: 230,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  userId == user.uid
-                                      ? _container(
-                                          "${resultData.collected!.length}",
-                                          "collected")
-                                      : const SizedBox(),
-                                  _container("0", "followers"),
-                                  _container("0", "following")
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const Gap(12),
+                          SizedBox(
+                            width: 230,
+                            child: widget.userId == user.uid
+                                ? _container(
+                                    "${resultData.collected!.length}",
+                                    "collected",
+                                  )
+                                : const SizedBox(),
+                          ),
+                        ],
                       ),
                     ),
                     const Gap(5),
-                    userId == user.uid
-                        ? Expanded(child: CollectedNFTsPageWidget(id: userId))
+                    widget.userId == user.uid
+                        ? Expanded(
+                            child: CollectedNFTsPageWidget(id: widget.userId),
+                          )
+                        // ? Container(
+                        //     height: 100,
+                        //     width: 150,
+                        //     color: Colors.red,
+                        //   )
                         : Expanded(
                             child: Container(
                               margin:

@@ -24,10 +24,10 @@ class MusicCollectionWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 8,
             ),
             SizedBox(
-              height: 160,
+              height: 138,
               child: StreamBuilder(
                 stream: DataBase.getCategorizedCollections("Music"),
                 builder: (context, snapshot) {

@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/collection_details_page.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 
-class DrawingCollectionWidget extends StatelessWidget {
-  const DrawingCollectionWidget({super.key});
+class GameCollectionWidget extends StatelessWidget {
+  const GameCollectionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class DrawingCollectionWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Drawing",
+              "Game",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -28,7 +28,7 @@ class DrawingCollectionWidget extends StatelessWidget {
             SizedBox(
               height: 138,
               child: StreamBuilder(
-                stream: DataBase.getCategorizedCollections("Drawing"),
+                stream: DataBase.getCategorizedCollections("Game"),
                 builder: (context, snapshot) {
                   final resultData = snapshot.data;
                   if (snapshot.hasData) {
@@ -55,8 +55,8 @@ class DrawingCollectionWidget extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
+                                    ClipOval(
+                                      // borderRadius: BorderRadius.circular(10),
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
                                         imageUrl: resultData[index].thumbnail,
@@ -79,6 +79,7 @@ class DrawingCollectionWidget extends StatelessWidget {
                                       child: Text(
                                         resultData[index].name,
                                         maxLines: 1,
+                                        textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                           fontSize: 12,

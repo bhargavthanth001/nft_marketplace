@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
+import 'package:gap/gap.dart';
 
 class PromotionWidget extends StatelessWidget {
   PromotionWidget({Key? key}) : super(key: key);
@@ -30,64 +30,44 @@ class PromotionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: Swiper(
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.only(left: 10, right: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              image: DecorationImage(
-                image: NetworkImage(images[index]),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                height: 65,
-                width: double.infinity,
-                padding: const EdgeInsets.only(left: 15, top: 3),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      titles[index].toString(),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                    ),
-                    // const SizedBox(
-                    //   height: 5,
-                    // ),
-                    Text(
-                      "\$ ${prices[index]}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                  ],
+    return LayoutBuilder(
+      builder: (context, constrain) {
+        final width = constrain.maxWidth;
+        return Row(
+          children: [
+            Column(
+              children: [
+                Container(
+                  height: width / 2,
+                  width: (width - 4) / 2,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.network(
+                      "https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg"),
                 ),
-              ),
+                const Text("Promotion 1...")
+              ],
             ),
-          );
-        },
-        duration: 1200,
-        viewportFraction: 1,
-        autoplay: true,
-        transformer: ScaleAndFadeTransformer(
-          fade: 1,
-        ),
-      ),
+            const Gap(4),
+            Column(
+              children: [
+                Container(
+                  // height: width / 2,
+                  width: (width - 4) / 2,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.network(
+                    "https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg",
+                  ),
+                ),
+                const Text("Promotion 2...")
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

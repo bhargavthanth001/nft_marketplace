@@ -27,8 +27,6 @@ class DataBase {
       email: user.email.toString(),
       imageUrl: user.photoURL!,
       collected: [],
-      followers: [],
-      following: [],
       createdAt: date,
       updatedAt: date,
     );
@@ -120,11 +118,13 @@ class DataBase {
     nftModel.imageUrl = imageUrl;
     collection.set(nftModel.toJson());
     if (nftModel.collectionId != null) {
-      firestore.collection("collections").doc(nftModel.collectionId).update({
-        "items": FieldValue.arrayUnion(
-          [nftModel.id],
-        )
-      });
+      firestore.collection("collections").doc(nftModel.collectionId).update(
+        {
+          "items": FieldValue.arrayUnion(
+            [nftModel.id],
+          )
+        },
+      );
     }
   }
 
@@ -183,6 +183,12 @@ class DataBase {
     firestore.collection("users").doc(user.uid).update({
       "collected": FieldValue.arrayUnion([nftModel.id])
     });
+    // firestore
+    //     .collection("users")
+    //     .doc(user.uid)
+    //     .collection("collected")
+    //     .doc()
+    //     .set({"id": nftModel.id});
   }
 
   static Future<void> setToSell(NftModel nftModel) async {
@@ -199,8 +205,10 @@ class DataBase {
         .collection("NFTs")
         .where("currentOwner", isEqualTo: id)
         .limit(1000)
-        .where("createdBy", isNotEqualTo: id)
-        .limit(1000)
+        // .where("createdBy", isNotEqualTo: id)
+        // .limit(1000)
+        // .where("blockchain", isEqualTo: [])
+        // .limit(1000)
         .snapshots()
         .map(
           (event) => event.docs
@@ -214,7 +222,6 @@ class DataBase {
   }
 
   static Future<List<String>> getSearchList() async {
-    // Reference to the collection
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     CollectionReference collections =
         FirebaseFirestore.instance.collection('collections');
@@ -243,6 +250,28 @@ class DataBase {
         .map((event) => event.docs
             .map((doc) => CollectionModel.fromJson(doc.data()))
             .toList());
+  }
+
+  static Future<void> follow(String userId) async {
+    firestore.collection("users").doc(user.uid).update(
+      {
+        "following": FieldValue.arrayUnion([userId])
+      },
+    );
+    firestore.collection("users").doc(userId).update(
+      {
+        "followers": FieldValue.arrayUnion([user.uid])
+      },
+    );
+  }
+
+  static Stream<List<NftModel>> getOnSellNFTs() {
+    return firestore
+        .collection("NFTs")
+        .where("rate", isNotEqualTo: null)
+        .snapshots()
+        .map((event) =>
+            event.docs.map((e) => NftModel.fromJson(e.data())).toList());
   }
 }
 

@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:nft_marketplace/Createpage/collection_pages/collection_details_page.dart';
 import 'package:nft_marketplace/data%20manager/database_handler.dart';
 
-class DrawingCollectionWidget extends StatelessWidget {
-  const DrawingCollectionWidget({super.key});
+class EntertainmentCollectionWidget extends StatelessWidget {
+  const EntertainmentCollectionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class DrawingCollectionWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Drawing",
+              "Entertainment",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -28,7 +28,7 @@ class DrawingCollectionWidget extends StatelessWidget {
             SizedBox(
               height: 138,
               child: StreamBuilder(
-                stream: DataBase.getCategorizedCollections("Drawing"),
+                stream: DataBase.getCategorizedCollections("Entertainment"),
                 builder: (context, snapshot) {
                   final resultData = snapshot.data;
                   if (snapshot.hasData) {

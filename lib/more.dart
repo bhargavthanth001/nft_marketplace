@@ -131,7 +131,7 @@ class _MorePageState extends State<MorePage> {
             },
             child: ListTile(
               title: const Text(
-                "Chat with Aral",
+                "Chat with Gracia",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),

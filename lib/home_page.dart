@@ -1,15 +1,13 @@
-import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/HomePage/art_collection.dart';
-import 'package:nft_marketplace/HomePage/category_page.dart';
+import 'package:nft_marketplace/HomePage/category_side/category_page.dart';
 import 'package:nft_marketplace/HomePage/drawing_collection.dart';
+import 'package:nft_marketplace/HomePage/entertainment_colection.dart';
+import 'package:nft_marketplace/HomePage/game_collection.dart';
 import 'package:nft_marketplace/HomePage/music_collection.dart';
 import 'package:nft_marketplace/HomePage/photography_collection.dart';
 import 'package:nft_marketplace/HomePage/promotions.dart';
-import 'package:nft_marketplace/HomePage/top.dart';
-import 'package:nft_marketplace/HomePage/trending.dart';
-import 'package:nft_marketplace/utils/get_greetings.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -22,12 +20,6 @@ class _HomePageState extends State<HomePage> {
   bool trend = true;
 
   @override
-  void initState() {
-    super.initState();
-    debugPrint(getGreetings());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -38,71 +30,27 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 8, right: 8),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Text(
-                    getGreetings(),
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1),
-                  ),
-                ),
                 const Gap(10),
                 PromotionWidget(),
                 const Gap(10),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                    height: 50,
-                    width: 200,
-                    margin: const EdgeInsets.only(left: 20),
-                    padding: const EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.grey.shade200,
-                    ),
-                    child: AnimatedButtonBar(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.grey.shade200,
-                      radius: 12,
-                      children: [
-                        ButtonBarEntry(
-                          onTap: () {
-                            trend = true;
-                            setState(() {});
-                          },
-                          child: const Text(
-                            'Trending',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        ButtonBarEntry(
-                          onTap: () {
-                            trend = false;
-                            setState(() {});
-                          },
-                          child: const Text(
-                            'Top',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                trend ? const TrendingWidget() : const TopWidget(),
-                const Gap(15),
                 CategoryWidget(),
-                const DrawingCollectionWidget(),
-                const MusicCollectionWidget(),
-                const PhotographyCollectionWidget(),
+                const Gap(10),
+                const GameCollectionWidget(),
+                const Gap(10),
+                const EntertainmentCollectionWidget(),
+                const Gap(10),
                 const ArtCollectionWidget(),
+                const Gap(10),
+                const MusicCollectionWidget(),
+                const Gap(10),
+                const DrawingCollectionWidget(),
+                const Gap(10),
+                const PhotographyCollectionWidget(),
                 const Gap(15),
               ],
             ),
