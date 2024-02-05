@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:nft_marketplace/provider/collection_provider.dart';
 import 'package:nft_marketplace/provider/dropdown_provider.dart';
 import 'package:nft_marketplace/provider/internet_provider.dart';
-import 'package:nft_marketplace/provider/meta_mask_provider.dart';
 import 'package:nft_marketplace/provider/more_page_provider.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
 import 'package:nft_marketplace/provider/search_provider.dart';
@@ -38,7 +37,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => MorePageProvider()),
         ChangeNotifierProvider(create: (context) => CollectionProvider()),
         ChangeNotifierProvider(create: (context) => DropDownProvider()),
-        ChangeNotifierProvider(create: (context) => MetaMaskProvider()),
         ChangeNotifierProvider(create: (context) => RefreshProvider()),
         ChangeNotifierProvider(create: (context) => SearchProvider()),
       ],

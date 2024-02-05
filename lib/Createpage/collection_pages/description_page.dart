@@ -157,8 +157,7 @@ class NftDescriptionPageWidget extends StatelessWidget {
                     }
                     return null;
                   },
-                  onChanged: (value) {},
-                  onSaved: (value) => dropDownProvider.selectChain(value),
+                  onChanged: (value) => dropDownProvider.selectChain(value),
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(right: 8),
                   ),
@@ -196,6 +195,7 @@ class NftDescriptionPageWidget extends StatelessWidget {
                             currentOwner: user.uid,
                             category: dropDownProvider.selectedCategory,
                             chain: dropDownProvider.selectedChain,
+                            blockchain: [],
                             owners: [
                               user.uid,
                             ],
