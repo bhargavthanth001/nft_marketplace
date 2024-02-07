@@ -5,10 +5,10 @@ import 'package:gap/gap.dart';
 import '../Createpage/collection_pages/view_nft.dart';
 import '../data manager/database_handler.dart';
 
-class SearchCategoryDetailPageWidget extends StatelessWidget {
+class LiveCategoryDetailPageWidget extends StatelessWidget {
   final String category;
 
-  const SearchCategoryDetailPageWidget({super.key, required this.category});
+  const LiveCategoryDetailPageWidget({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,7 @@ class SearchCategoryDetailPageWidget extends StatelessWidget {
                                         fit: BoxFit.cover,
                                         placeholder: (context, text) =>
                                             Image.asset(
-                                          "assets/images/logo.jpg",
+                                          "assets/images/app_logo.png",
                                           height: 140,
                                         ),
                                       ),

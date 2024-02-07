@@ -7,7 +7,6 @@ import 'package:nft_marketplace/HomePage/entertainment_colection.dart';
 import 'package:nft_marketplace/HomePage/game_collection.dart';
 import 'package:nft_marketplace/HomePage/music_collection.dart';
 import 'package:nft_marketplace/HomePage/photography_collection.dart';
-import 'package:nft_marketplace/HomePage/promotions.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -35,8 +34,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Gap(10),
-                PromotionWidget(),
+                // const Gap(10),
+                // PromotionWidget(),
                 const Gap(10),
                 CategoryWidget(),
                 const Gap(10),

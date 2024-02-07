@@ -79,7 +79,7 @@ class _SingleNftTabState extends State<SingleNftTab> {
                                   imageUrl: result[index].imageUrl!,
                                   fit: BoxFit.cover,
                                   placeholder: (context, text) =>
-                                      Image.asset("assets/images/logo.jpg"),
+                                      Image.asset("assets/images/app_logo.png"),
                                 ),
                                 Positioned(
                                   bottom: -50,

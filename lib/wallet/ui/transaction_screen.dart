@@ -16,7 +16,6 @@ class TransactionScreenWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Transaction"),
-        forceMaterialTransparency: true,
       ),
       body: FutureBuilder(
         future: WalletDataManager.getWallet(user.uid),
@@ -25,7 +24,6 @@ class TransactionScreenWidget extends StatelessWidget {
             final resultData = snapshot.data!.transactions;
             return ListView.builder(
               itemCount: resultData!.length,
-              reverse: true,
               itemBuilder: (context, index) {
                 return Container(
                   height: 60,

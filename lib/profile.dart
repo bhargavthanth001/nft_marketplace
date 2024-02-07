@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nft_marketplace/data_variables.dart';
 import 'package:nft_marketplace/profile_page_details/collected_nfts_page.dart';
+import 'package:nft_marketplace/profile_page_details/created_nft_page.dart';
 
 import 'data manager/database_handler.dart';
 import 'model/user_model.dart';
@@ -49,8 +50,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final myTabs = <Widget>[
       CollectedNFTsPageWidget(id: widget.userId),
-      const Center(
-        child: Text("Created"),
+      CreatedPageWidget(
+        id: widget.userId,
       ),
     ];
     debugPrint("User id => ${widget.userId}");
@@ -121,11 +122,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         ? Expanded(
                             child: CollectedNFTsPageWidget(id: widget.userId),
                           )
-                        // ? Container(
-                        //     height: 100,
-                        //     width: 150,
-                        //     color: Colors.red,
-                        //   )
                         : Expanded(
                             child: Container(
                               margin:

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nft_marketplace/chat%20bot/chat_home_page.dart';
 import 'package:nft_marketplace/privecy_policy/about_us_page.dart';
 import 'package:nft_marketplace/privecy_policy/privecy_policy_page.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
@@ -123,11 +122,11 @@ class _MorePageState extends State<MorePage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const ChatHomePage(),
-                ),
-              );
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => const ChatHomePage(),
+              //   ),
+              // );
             },
             child: ListTile(
               title: const Text(
@@ -137,7 +136,7 @@ class _MorePageState extends State<MorePage> {
                 ),
               ),
               leading: Image.asset(
-                "assets/images/aral.png",
+                "assets/images/gracia.png",
                 height: 25,
                 width: 25,
                 fit: BoxFit.cover,

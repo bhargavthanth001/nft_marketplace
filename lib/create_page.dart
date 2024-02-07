@@ -1,4 +1,3 @@
-import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -53,47 +52,15 @@ class _CreatePageWidgetState extends State<CreatePageWidget>
           ],
         ),
       ),
-      body: ContainedTabBarView(
-        tabBarProperties: TabBarProperties(
-          height: 40,
-          background: Container(
-            color: Colors.blue,
-          ),
-          indicatorColor: Colors.white,
-          labelColor: Colors.white,
-          indicatorSize: TabBarIndicatorSize.tab,
-          padding: EdgeInsets.zero,
-          unselectedLabelColor: Colors.white.withOpacity(0.85),
-        ),
-        tabs: const [
-          Text('Collections'),
-          Text('Single NFTs'),
-        ],
-        views: myTabs,
-        onChange: (index) => {
-          isCollection = !isCollection,
-        },
-      ),
+      body: const CollectionTab(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (isCollection) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AddCollectionPageWidget(
-                  isSingleNft: false,
-                ),
-              ),
-            );
-          } else {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    const AddCollectionPageWidget(isSingleNft: true),
-              ),
-            );
-          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddCollectionPageWidget(),
+            ),
+          );
         },
         child: const Icon(
           Icons.add,

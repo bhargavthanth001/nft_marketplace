@@ -65,7 +65,7 @@ class MusicCollectionWidget extends StatelessWidget {
                                         width: cellWidth,
                                         placeholder: (context, url) =>
                                             Image.asset(
-                                          "assets/images/logo.jpg",
+                                          "assets/images/app_logo.png",
                                           height: cellWidth,
                                         ),
                                         errorWidget: (context, url, error) =>

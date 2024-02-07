@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nft_marketplace/search%20page%20details/category_detail_page.dart';
+import 'package:nft_marketplace/live_page_details/category_detail_page.dart';
 
 class SearchCategoryWidget extends StatelessWidget {
   const SearchCategoryWidget({super.key});
@@ -14,7 +14,7 @@ class SearchCategoryWidget extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SearchCategoryDetailPageWidget(
+              builder: (context) => LiveCategoryDetailPageWidget(
                 category: title,
               ),
             ),

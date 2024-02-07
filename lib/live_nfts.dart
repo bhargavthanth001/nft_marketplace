@@ -5,29 +5,12 @@ import 'package:nft_marketplace/data%20manager/database_handler.dart';
 
 import 'Createpage/collection_pages/view_nft.dart';
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+class LivePageWidget extends StatelessWidget {
+  const LivePageWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width - 34;
-    // container(Color color, String title) {
-    //   return Container(
-    //     height: 70,
-    //     width: width / 2,
-    //     decoration: BoxDecoration(
-    //       borderRadius: BorderRadius.circular(5),
-    //       color: color,
-    //     ),
-    //     child: Center(
-    //       child: Text(
-    //         title,
-    //         style: const TextStyle(
-    //             color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
-    //       ),
-    //     ),
-    //   );
-    // }
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -38,44 +21,6 @@ class SearchPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 4, right: 4, top: 8),
           child: Column(
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [
-              //     Column(
-              //       children: [
-              //         GestureDetector(
-              //           onTap: () {
-              //             Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                 builder: (context) =>
-              //                     const SearchCategoryDetailPageWidget(
-              //                   category: "Art",
-              //                 ),
-              //               ),
-              //             );
-              //           },
-              //           child: container(Colors.green, "Art"),
-              //         ),
-              //         const Gap(10),
-              //         container(Colors.brown, "Photography"),
-              //         const Gap(10),
-              //         container(Colors.red, "Game")
-              //       ],
-              //     ),
-              //     const Gap(10),
-              //     Column(
-              //       children: [
-              //         container(Colors.deepPurple, "Music"),
-              //         const Gap(10),
-              //         container(Colors.blue, "Drawing"),
-              //         const Gap(10),
-              //         container(Colors.lime, "Entertainment")
-              //       ],
-              //     ),
-              //   ],
-              // ),
-              // const Gap(10),
               StreamBuilder(
                 stream: DataBase.getOnSellNFTs(),
                 builder: (context, snapshot) {
@@ -95,7 +40,8 @@ class SearchPage extends StatelessWidget {
                             physics: const NeverScrollableScrollPhysics(),
                             crossAxisCount: 2,
                             childAspectRatio: 0.65,
-                            padding: const EdgeInsets.only(right: 8),
+                            padding:
+                                const EdgeInsets.only(right: 8, bottom: 28),
                             children: List.generate(
                               resultData.length,
                               (index) {
@@ -144,7 +90,7 @@ class SearchPage extends StatelessWidget {
                                                 fit: BoxFit.cover,
                                                 placeholder: (context, text) =>
                                                     Image.asset(
-                                                  "assets/images/logo.jpg",
+                                                  "assets/images/app_logo.png",
                                                   height: 140,
                                                 ),
                                               ),

@@ -63,7 +63,7 @@ class PhotographyCollectionWidget extends StatelessWidget {
                                           imageUrl: resultData[index].thumbnail,
                                           placeholder: (context, url) =>
                                               Image.asset(
-                                            "assets/images/logo.jpg",
+                                            "assets/images/app_logo.png",
                                             height: cellWidth,
                                           ),
                                           errorWidget: (context, url, error) =>
@@ -90,7 +90,7 @@ class PhotographyCollectionWidget extends StatelessWidget {
                                                   fit: BoxFit.cover,
                                                   placeholder: (context, url) =>
                                                       Image.asset(
-                                                    "assets/images/logo.jpg",
+                                                    "assets/images/app_logo.png",
                                                     height: cellWidth,
                                                   ),
                                                   errorWidget: (context, url,

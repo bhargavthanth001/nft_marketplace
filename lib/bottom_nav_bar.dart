@@ -3,8 +3,8 @@ import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
 import 'package:nft_marketplace/create_page.dart';
 import 'package:nft_marketplace/data_variables.dart';
+import 'package:nft_marketplace/live_nfts.dart';
 import 'package:nft_marketplace/profile.dart';
-import 'package:nft_marketplace/search.dart';
 
 import 'home_page.dart';
 import 'more.dart';
@@ -21,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   int selectedIndex = 0;
   List<Widget> widgets = [
     HomePage(),
-    SearchPage(),
+    LivePageWidget(),
     const CreatePageWidget(),
     ProfilePage(
       userId: user.uid,
@@ -56,11 +56,11 @@ class _BottomNavBarState extends State<BottomNavBar>
         controller: _motionTabBarController,
         initialSelectedTab: "Home",
         useSafeArea: true,
-        labels: const ["Home", "Search", "Create", "Profile", "More"],
+        labels: const ["Home", "Live", "Create", "Profile", "More"],
         textStyle: const TextStyle(fontWeight: FontWeight.bold),
         icons: const [
           Icons.home,
-          Icons.search,
+          Icons.online_prediction,
           Icons.add,
           Icons.person,
           Icons.settings

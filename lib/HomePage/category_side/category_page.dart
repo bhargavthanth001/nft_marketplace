@@ -13,12 +13,6 @@ class CategoryWidget extends StatelessWidget {
     "assets/vectors/music.jpg",
     "assets/vectors/drawing.jpg",
     "assets/vectors/entertainment.jpg",
-    // "Art",
-    // "Photography",
-    // "Game",
-    // "Music",
-    // "Drawing",
-    // "Entertainment",
   ];
 
   final List<MaterialColor> colors = [

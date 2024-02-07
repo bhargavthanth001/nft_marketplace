@@ -61,26 +61,26 @@ class _AuthenticationState extends State<Authentication> {
                       );
                       WalletDataManager.createWallet(model);
                       SessionManager.setWalletSession();
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => WalletHomePage(),
-                        ),
-                      );
-                      // debugPrint(data!.email);
-                      // EmailOTP myAuth = EmailOTP();
-                      // myAuth.setConfig(
-                      //   appEmail: "nft_marketplace@gmail.com",
-                      //   appName: " NFT Marketplace",
-                      //   userEmail: data.email,
-                      //   otpLength: 4,
-                      //   otpType: OTPType.digitsOnly,
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => WalletHomePage(),
+                      //   ),
                       // );
-                      // bool otpSent = await myAuth.sendOTP();
-                      // debugPrint("OTP is => $otpSent");
-                      // if (otpSent) {
-                      //   _showDialog(myAuth, data.email!);
-                      // } else {}
+                      debugPrint(data!.email);
+                      EmailOTP myAuth = EmailOTP();
+                      myAuth.setConfig(
+                        appEmail: "nft_marketplace@gmail.com",
+                        appName: " NFT Marketplace",
+                        userEmail: data.email,
+                        otpLength: 4,
+                        otpType: OTPType.digitsOnly,
+                      );
+                      bool otpSent = await myAuth.sendOTP();
+                      debugPrint("OTP is => $otpSent");
+                      if (otpSent) {
+                        _showDialog(myAuth, data.email!);
+                      }
                     },
                     child: const Text(
                       "Create wallet",

@@ -58,7 +58,7 @@ class InsideCategoryView extends StatelessWidget {
                                   imageUrl: result[index].thumbnail,
                                   fit: BoxFit.cover,
                                   placeholder: (context, text) =>
-                                      Image.asset("assets/images/logo.jpg"),
+                                      Image.asset("assets/images/app_logo.png"),
                                 ),
                                 Positioned(
                                   bottom: -50,

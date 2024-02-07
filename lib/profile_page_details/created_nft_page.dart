@@ -1,28 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:nft_marketplace/Createpage/collection_pages/view_nft.dart';
 
-import '../Createpage/collection_pages/view_nft.dart';
 import '../data manager/database_handler.dart';
-import '../data_variables.dart';
-import '../utils/sell_dialog_box.dart';
 
-class CollectedNFTsPageWidget extends StatefulWidget {
-  final String id;
+class CreatedPageWidget extends StatelessWidget {
+  final id;
 
-  const CollectedNFTsPageWidget({super.key, required this.id});
+  const CreatedPageWidget({super.key, required this.id});
 
-  @override
-  State<CollectedNFTsPageWidget> createState() =>
-      _CollectedNFTsPageWidgetState();
-}
-
-class _CollectedNFTsPageWidgetState extends State<CollectedNFTsPageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: DataBase.getCollectedNft(widget.id),
+        stream: DataBase.getCreatedNFTs(id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final resultData = snapshot.data;
@@ -37,10 +29,11 @@ class _CollectedNFTsPageWidgetState extends State<CollectedNFTsPageWidget> {
                 if (resultData != null && resultData.isNotEmpty) {
                   return GridView.count(
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+                    // physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: 3,
                     childAspectRatio: 1,
-                    padding: const EdgeInsets.only(top: 10, right: 8),
+                    padding:
+                        const EdgeInsets.only(top: 10, right: 8, bottom: 15),
                     children: List.generate(
                       resultData.length,
                       (index) {
@@ -93,35 +86,7 @@ class _CollectedNFTsPageWidgetState extends State<CollectedNFTsPageWidget> {
                                           width: 18,
                                         ),
                                       )
-                                    : resultData[index].currentOwner == user.uid
-                                        ? Positioned(
-                                            top: 4,
-                                            right: 4,
-                                            child: Container(
-                                              height: 28,
-                                              width: 28,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                  100,
-                                                ),
-                                                color: Colors.white,
-                                              ),
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  showDialogBox(
-                                                      resultData[index],
-                                                      context);
-                                                  // showBottomSheetMethod(
-                                                  //     resultData[index]);
-                                                },
-                                                icon: Image.asset(
-                                                  "assets/images/auction.png",
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        : const SizedBox(),
+                                    : const SizedBox()
                               ],
                             ),
                           ),

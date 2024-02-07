@@ -56,20 +56,23 @@ class ArtCollectionWidget extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: CachedNetworkImage(
-                                      imageUrl: resultData[index].thumbnail,
-                                      height: 300,
-                                      width: cellWidth * 2.1,
-                                      placeholder: (context, url) =>
-                                          Image.asset(
-                                        "assets/images/logo.jpg",
-                                        height: cellWidth,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: CachedNetworkImage(
+                                        imageUrl: resultData[index].thumbnail,
+                                        height: 300,
+                                        width: cellWidth * 2.1,
+                                        placeholder: (context, url) =>
+                                            Image.asset(
+                                          "assets/images/app_logo.png",
+                                          height: cellWidth,
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                        fit: BoxFit.cover,
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
-                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                   const Gap(5),
@@ -87,7 +90,7 @@ class ArtCollectionWidget extends StatelessWidget {
                                           imageUrl: resultData[index].thumbnail,
                                           placeholder: (context, url) =>
                                               Image.asset(
-                                            "assets/images/logo.jpg",
+                                            "assets/images/app_logo.png",
                                             height: cellWidth,
                                           ),
                                           errorWidget: (context, url, error) =>

@@ -5,6 +5,7 @@ import 'package:nft_marketplace/provider/collection_provider.dart';
 import 'package:nft_marketplace/provider/dropdown_provider.dart';
 import 'package:nft_marketplace/provider/internet_provider.dart';
 import 'package:nft_marketplace/provider/more_page_provider.dart';
+import 'package:nft_marketplace/provider/nft_page_provider.dart';
 import 'package:nft_marketplace/provider/refresh_screen_provider.dart';
 import 'package:nft_marketplace/provider/search_provider.dart';
 import 'package:nft_marketplace/provider/sign_in_provider.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DropDownProvider()),
         ChangeNotifierProvider(create: (context) => RefreshProvider()),
         ChangeNotifierProvider(create: (context) => SearchProvider()),
+        ChangeNotifierProvider(create: (context) => NFTPageProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

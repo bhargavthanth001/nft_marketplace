@@ -110,6 +110,27 @@ class DataBase {
         event.docs.map((doc) => CollectionModel.fromJson(doc.data())).toList());
   }
 
+  static Future<CollectionModel> getNamedCollection(String id) async {
+    DocumentSnapshot snapshot =
+        await firestore.collection("collections").doc(id).get();
+    if (snapshot.exists) {
+      return CollectionModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    } else {
+      throw Exception("Collection not found");
+    }
+  }
+
+  static Stream<List<NftModel>> getMoreInCollection(
+      String collectionId, String nftId) {
+    return firestore
+        .collection("NFTs")
+        .where("collectionId", isEqualTo: collectionId)
+        .where("id", isNotEqualTo: nftId)
+        .snapshots()
+        .map((event) =>
+            event.docs.map((doc) => NftModel.fromJson(doc.data())).toList());
+  }
+
   static Future<void> addNft(NftModel nftModel) async {
     final imageUrl = await addImageToFirebaseStorage(
         nftModel.imageUrl!, ImageType.NFTs, null, nftModel);
@@ -136,6 +157,22 @@ class DataBase {
         .snapshots()
         .map((event) =>
             event.docs.map((doc) => NftModel.fromJson(doc.data())).toList());
+  }
+
+  static Stream<List<NftModel>> getCreatedNFTs(String id) {
+    return firestore
+        .collection("NFTs")
+        .where("createdBy", isEqualTo: id)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map(
+                (doc) => NftModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .toList(),
+        );
   }
 
   static Future<void> deleteNft(NftModel nftModel) async {
@@ -180,15 +217,12 @@ class DataBase {
     );
     WalletDataManager.makeTransaction(transaction);
 
+    firestore.collection("users").doc(nftModel.currentOwner).update({
+      "collected": FieldValue.arrayRemove([nftModel.id])
+    });
     firestore.collection("users").doc(user.uid).update({
       "collected": FieldValue.arrayUnion([nftModel.id])
     });
-    // firestore
-    //     .collection("users")
-    //     .doc(user.uid)
-    //     .collection("collected")
-    //     .doc()
-    //     .set({"id": nftModel.id});
   }
 
   static Future<void> setToSell(NftModel nftModel) async {
@@ -205,13 +239,13 @@ class DataBase {
         .collection("NFTs")
         .where("currentOwner", isEqualTo: id)
         .limit(1000)
-        // .where("createdBy", isNotEqualTo: id)
-        // .limit(1000)
-        // .where("blockchain", isEqualTo: [])
-        // .limit(1000)
         .snapshots()
         .map(
           (event) => event.docs
+              .where((doc) =>
+                  doc["createdBy"] != id ||
+                  doc["blockchain"] != null &&
+                      (doc["blockchain"] as List).isNotEmpty)
               .map(
                 (doc) => NftModel.fromJson(
                   doc.data(),

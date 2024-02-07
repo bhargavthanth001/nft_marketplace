@@ -8,8 +8,8 @@ import 'package:nft_marketplace/data%20manager/database_handler.dart';
 import 'package:nft_marketplace/model/collection_model.dart';
 import 'package:nft_marketplace/model/nft_model.dart';
 import 'package:nft_marketplace/profile.dart';
+import 'package:nft_marketplace/utils/sell_dialog_box.dart';
 import 'package:provider/provider.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../data_variables.dart';
 import '../../provider/collection_provider.dart';
@@ -98,8 +98,8 @@ class _CollectionDetailsPageWidgetState
                                   child: CachedNetworkImage(
                                     imageUrl: widget.collectionModel.thumbnail,
                                     fit: BoxFit.cover,
-                                    placeholder: (context, text) =>
-                                        Image.asset("assets/images/logo.jpg"),
+                                    placeholder: (context, text) => Image.asset(
+                                        "assets/images/app_log.png"),
                                   ),
                                 ),
                               ),
@@ -268,8 +268,7 @@ class _CollectionDetailsPageWidgetState
                                                     placeholder:
                                                         (context, text) =>
                                                             Image.asset(
-                                                      "assets/images/logo.jpg",
-                                                      height: 140,
+                                                      "assets/images/app_logo.png",
                                                     ),
                                                   ),
                                                 ),
@@ -304,10 +303,10 @@ class _CollectionDetailsPageWidgetState
                                                               ),
                                                               child: IconButton(
                                                                 onPressed: () {
-                                                                  showBottomSheetMethod(
-                                                                    resultData[
-                                                                        index],
-                                                                  );
+                                                                  showDialogBox(
+                                                                      resultData[
+                                                                          index],
+                                                                      context);
                                                                 },
                                                                 icon:
                                                                     Image.asset(
@@ -484,128 +483,6 @@ class _CollectionDetailsPageWidgetState
               ),
             )
           : Container(),
-    );
-  }
-
-  showBottomSheetMethod(NftModel nftModel) {
-    final rate = TextEditingController();
-    final buttonController = RoundedLoadingButtonController();
-    var formKey = GlobalKey<FormState>();
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (builder) {
-        return SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: SizedBox(
-              height: 250,
-              width: double.infinity,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Gap(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/auction.png",
-                        height: 35,
-                        width: 35,
-                      ),
-                      const Gap(8),
-                      const Text(
-                        "Ready to sell",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Gap(20),
-                  Row(
-                    children: [
-                      const Gap(20),
-                      Image.asset(
-                        nftModel.chain == "Ethereum"
-                            ? "assets/images/ethereum.png"
-                            : "assets/images/bitcoin.png",
-                        height: 50,
-                        width: 50,
-                      ),
-                      const Gap(10),
-                      SizedBox(
-                        width: 260,
-                        child: Form(
-                          key: formKey,
-                          child: TextFormField(
-                            controller: rate,
-                            keyboardType: TextInputType.number,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "amount must be needed";
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: const InputDecoration(
-                                enabledBorder: OutlineInputBorder(),
-                                focusedBorder: OutlineInputBorder(),
-                                border: OutlineInputBorder(),
-                                hintText: "Enter the amount",
-                                contentPadding: EdgeInsets.all(10)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Gap(20),
-                  RoundedLoadingButton(
-                    width: 320,
-                    controller: buttonController,
-                    color: Colors.blue,
-                    successColor: Colors.blue,
-                    onPressed: () {
-                      final valid = formKey.currentState!.validate();
-                      if (valid) {
-                        Future.delayed(const Duration(seconds: 3))
-                            .then((value) {
-                          buttonController.success();
-                        }).then((value) {
-                          nftModel.rate = rate.text;
-                          DataBase.setToSell(nftModel);
-                          Navigator.pop(context);
-                        }).then((value) {
-                          _isLoading = true;
-                          Future.delayed(const Duration(seconds: 2), () {
-                            _isLoading = false;
-                            setState(() {});
-                          });
-                        });
-                      } else {
-                        buttonController.reset();
-                        formKey.currentState!.validate();
-                      }
-                    },
-                    child: const Text(
-                      "Mint Now",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }
